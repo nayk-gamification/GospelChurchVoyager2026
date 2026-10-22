@@ -6259,5 +6259,16 @@
     window.addEventListener('offline', () => updateSyncStatus(false, 'Offline'));
     window.addEventListener('online', () => updateSyncStatus(true, 'Live'));
   </script>
+    
+<script>
+  // Put announcements above team scores on the Dashboard
+  const announcementsCard =
+    document.getElementById('dashboardNoticesContainer').parentElement;
+
+  const scoresCard =
+    document.getElementById('dashboardTeamScoresContainer').parentElement;
+
+  scoresCard.before(announcementsCard);
+</script>
 </body>
 </html>
