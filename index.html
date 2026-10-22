@@ -6270,5 +6270,65 @@
 
   scoresCard.before(announcementsCard);
 </script>
+    <!-- Voyager 2026: live countdown to next event in the synced Schedule -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nextLabel = document.getElementById('dashboardNextEvent');
+    if (!nextLabel) return;
+
+    const countdown = document.createElement('div');
+    countdown.id = 'dashboardCountdown';
+    countdown.className = 'mt-1 font-mono font-extrabold text-xl text-amber-300 tracking-wide';
+    countdown.setAttribute('role', 'timer');
+    countdown.textContent = 'Loading countdown...';
+    nextLabel.insertAdjacentElement('afterend', countdown);
+
+    function eventStartIST(item) {
+      const day = Number(item.day);
+      if (![1, 2, 3].includes(day)) return null;
+
+      const timeText = String(item.time || '');
+      const startText = timeText.split(/[–—-]/)[0];
+      const meridiems = timeText.match(/\b(am|pm)\b/gi) || [];
+      const fallbackMeridiem = meridiems[meridiems.length - 1] || '';
+      const minutes = parseSingleTimeMin(startText, fallbackMeridiem);
+      if (minutes === null) return null;
+
+      // Arrival marked "Before 7:00 pm" has a 7:00 pm deadline.
+      return Date.UTC(2026, 9, 22 + day, 0, minutes) - 330 * 60000;
+    }
+
+    function updateNextEventCountdown() {
+      const now = Date.now();
+      const upcoming = retreatData.schedule
+        .map(item => ({ item, startsAt: eventStartIST(item) }))
+        .filter(event => event.startsAt !== null && event.startsAt > now)
+        .sort((a, b) => a.startsAt - b.startsAt);
+
+      if (upcoming.length === 0) {
+        nextLabel.textContent = 'No more scheduled events';
+        countdown.textContent = 'Schedule complete';
+        return;
+      }
+
+      const { item, startsAt } = upcoming[0];
+      nextLabel.textContent = `${getDayLabel(Number(item.day))} • ${item.time} — ${item.activity}`;
+
+      const remaining = Math.ceil((startsAt - now) / 1000);
+      const days = Math.floor(remaining / 86400);
+      const hours = Math.floor((remaining % 86400) / 3600);
+      const minutes = Math.floor((remaining % 3600) / 60);
+      const seconds = remaining % 60;
+      const pad = value => String(value).padStart(2, '0');
+
+      countdown.textContent = days > 0
+        ? `${days}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`
+        : `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+    }
+
+    updateNextEventCountdown();
+    setInterval(updateNextEventCountdown, 1000);
+  });
+</script>
 </body>
 </html>
