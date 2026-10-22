@@ -1627,10 +1627,10 @@
 
       // Optional: if you ever want to point a specific section to a separate sheet or tab URL (#gid=...), paste it here:
       directTabUrls: {
-        schedule: '',
-        scores: '',
-        notices: '',
-        groups: ''
+      schedule: '',
+      scores: '',
+      notices: 'https://docs.google.com/spreadsheets/d/1Xhbnwb_sHP58H8IiVXOFHA36sCkmfsuDPj1ntCxzgYE/export?format=csv&gid=735217388',
+      groups: ''
       },
 
       // Connected to your live Google Apps Script Web App URL for automatic game score write-back:
@@ -1831,7 +1831,7 @@
         { id: 'p_43', group: 'Group 5: Legacy', name: 'Rathna', role: 'Youth' }
       ]
     };
-    retreatData.notices = [...retreatData.defaultNotices];
+    retreatData.notices = [];
 
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"']/g, c => ({
@@ -2198,20 +2198,24 @@
     }
 
     async function syncAllFromMasterSheet(silent = true) {
-      const results = await Promise.all([
-        fetchScheduleFromSheet(),
-        fetchScoresFromSheet(),
-        fetchNoticesFromSheet(true),
-        fetchParticipantsFromSheet()
-      ]);
-      if (!silent) {
-        if (results.some(Boolean)) {
-          showToast('Master Sheet synced (Schedule, Scores, Notices & Groups)!', '✅');
-        } else {
-          showToast('Showing current retreat data', 'ℹ️');
-        }
-      }
+  const results = await Promise.all([
+    fetchScheduleFromSheet(),
+    fetchScoresFromSheet(),
+    fetchNoticesFromSheet(true),
+    fetchParticipantsFromSheet()
+  ]);
+
+  if (!silent) {
+    const names = ['Schedule', 'Scores', 'Notices', 'Groups'];
+    const failed = names.filter((_, i) => !results[i]);
+
+    if (failed.length === 0) {
+      showToast('All four sheets synced!', '✅');
+    } else {
+      showToast('Failed to sync: ' + failed.join(', '), '⚠️');
     }
+  }
+}
 
     // --- DOM Elements ---
     const scheduleContainer = document.getElementById('scheduleContainer');
