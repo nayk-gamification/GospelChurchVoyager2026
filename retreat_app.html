@@ -204,10 +204,6 @@
               </span>
               <span id="dashboardLiveBadgeText" class="font-orbitron font-black text-emerald-400 uppercase tracking-widest text-xs">HAPPENING NOW</span>
             </div>
-            <div class="text-right">
-              <div id="dashboardIstClock" class="text-xs font-mono font-bold text-cyan-300">IST --:--:--</div>
-              <div id="dashboardIstDate" class="text-[10px] text-indigo-300 font-semibold">India Standard Time</div>
-            </div>
           </div>
 
           <div class="space-y-1">
@@ -450,7 +446,7 @@
             <div class="text-2xl shrink-0">🏆</div>
             <div class="space-y-1">
               <h2 class="font-bold text-indigo-950 text-base sm:text-lg">Team Games &amp; Leaderboards</h2>
-              <p class="text-indigo-900 text-xs leading-relaxed">Select your Team from the dropdown when playing! Each game ranks Teams 1st, 2nd, and 3rd towards the Final Maturity Score.</p>
+              <p class="text-indigo-900 text-xs leading-relaxed">Choose Just For Fun to practise without saving a score. Select your team before starting a competitive game. Only team results count towards the rankings.</p>
             </div>
           </div>
           <div class="flex flex-col gap-1.5 shrink-0">
@@ -500,7 +496,7 @@
 
           <div class="flex items-center gap-2 pt-1">
             <button id="tabGamesLaunchBtn" type="button" class="flex-1 bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition cursor-pointer select-none">
-              Play for Your Team
+              Play the Game
             </button>
             <button id="tabGamesViewRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
               Team Ranks
@@ -531,7 +527,7 @@
 
           <div class="flex items-center gap-2 pt-1">
             <button id="tabGamesLaunchWordBtn" type="button" class="flex-1 bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition cursor-pointer select-none">
-              Play for Your Team
+              Play the Game
             </button>
             <button id="tabGamesViewWordRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
               Team Ranks
@@ -562,7 +558,7 @@
 
           <div class="flex items-center gap-2 pt-1">
             <button id="tabGamesLaunchVineBtn" type="button" class="flex-1 bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition cursor-pointer select-none">
-              Play for Your Team
+              Play the Game
             </button>
             <button id="tabGamesViewVineRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
               Team Ranks
@@ -815,13 +811,14 @@
               Select Your Team (Group):
             </label>
             <select id="pilotNameInput" class="team-dropdown-select w-full bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 font-sans cursor-pointer">
-              <option value="Roots">Roots</option>
-              <option value="Transformers">Transformers</option>
-              <option value="Thrive">Thrive</option>
-              <option value="Endurance">Endurance</option>
-              <option value="Legacy">Legacy</option>
-            </select>
-            <p class="text-[10px] text-slate-400">All game scores are recorded for your Team (no individual names).</p>
+                <option value="Just For Fun" selected>Just For Fun</option>
+                <option value="Roots">Roots</option>
+                <option value="Transformers">Transformers</option>
+                <option value="Thrive">Thrive</option>
+                <option value="Endurance">Endurance</option>
+                <option value="Legacy">Legacy</option>
+              </select>
+            <p id="spaceModeNotice" class="text-[11px] font-semibold text-amber-300">Just For Fun: Your score will not be saved, recorded or added to any team.</p>
           </div>
 
           <!-- Launch Button & Quick Controls Guide -->
@@ -890,11 +887,14 @@
 
           <!-- Confirm Team for Leaderboard Entry -->
           <div class="bg-slate-900/90 border border-indigo-800/80 rounded-2xl p-3.5 space-y-2 text-left">
-            <label for="gameOverPilotNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
-              Select Team to Record Score:
+            <p id="spacePracticeResultNotice" class="hidden text-[11px] font-semibold text-amber-300">Just For Fun: Your result is for practice only. No score is saved or recorded.</p>
+              <div id="spaceResultSaveControls">
+              <label for="gameOverPilotNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
+              Team represented in this game:
             </label>
             <div class="flex items-center space-x-2">
-              <select id="gameOverPilotNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-indigo-600/80 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 font-sans cursor-pointer">
+              <select id="gameOverPilotNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-indigo-600/80 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 font-sans cursor-pointer" disabled>
+                <option value="Just For Fun" selected>Just For Fun</option>
                 <option value="Roots">Roots</option>
                 <option value="Transformers">Transformers</option>
                 <option value="Thrive">Thrive</option>
@@ -905,8 +905,9 @@
                 Save Team Score
               </button>
             </div>
+              </div>
             <div class="text-[11px] text-slate-400 flex items-center justify-between">
-              <span>Team Standing:</span>
+              <span id="spaceRankLabel">Team Standing:</span>
               <span id="rankPositionNotice" class="font-bold text-amber-300">Calculating...</span>
             </div>
           </div>
@@ -921,6 +922,7 @@
               🏆 View Rankings
             </button>
           </div>
+            <button id="spaceChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Choose a Team / Change Mode</button>
 
         </div>
       </div>
@@ -1098,12 +1100,14 @@
                 Select Your Team (Group):
               </label>
               <select id="wordPilotNameInput" class="team-dropdown-select w-full bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400 font-sans cursor-pointer">
+                <option value="Just For Fun" selected>Just For Fun</option>
                 <option value="Roots">Roots</option>
                 <option value="Transformers">Transformers</option>
                 <option value="Thrive">Thrive</option>
                 <option value="Endurance">Endurance</option>
                 <option value="Legacy">Legacy</option>
               </select>
+              <p id="wordModeNotice" class="text-[11px] font-semibold text-amber-300">Just For Fun: Your time will not be saved, recorded or added to any team.</p>
             </div>
 
             <button id="startWordStreamBtn" type="button" class="w-full bg-gradient-to-r from-amber-400 via-amber-500 to-cyan-400 hover:from-amber-300 hover:to-cyan-300 active:scale-98 text-slate-950 font-black font-orbitron text-sm sm:text-base py-3.5 rounded-2xl shadow-xl transition cursor-pointer flex items-center justify-center space-x-2">
@@ -1156,22 +1160,27 @@
 
             <!-- Save Team for Fastest Time Leaderboard -->
             <div class="bg-slate-900/90 border border-indigo-800/80 rounded-2xl p-3.5 space-y-2 text-left">
+              <p id="wordPracticeResultNotice" class="hidden text-[11px] font-semibold text-amber-300">Just For Fun: Your result is for practice only. No score is saved or recorded.</p>
+              <div id="wordResultSaveControls">
               <label for="wordVictoryNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
-                Select Team to Record Time:
+                Team represented in this game:
               </label>
               <div class="flex items-center space-x-2">
-                <select id="wordVictoryNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-amber-500/70 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400 font-sans cursor-pointer">
-                  <option value="Group 1">Group 1</option>
-                  <option value="Group 2">Group 2</option>
-                  <option value="Group 3">Group 3</option>
-                  <option value="Group 4">Group 4</option>
-                </select>
+                <select id="wordVictoryNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-amber-500/70 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400 font-sans cursor-pointer" disabled>
+                <option value="Just For Fun" selected>Just For Fun</option>
+                <option value="Roots">Roots</option>
+                <option value="Transformers">Transformers</option>
+                <option value="Thrive">Thrive</option>
+                <option value="Endurance">Endurance</option>
+                <option value="Legacy">Legacy</option>
+              </select>
                 <button id="wordUpdateNameBtn" type="button" class="bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer">
                   Save Team Time
                 </button>
               </div>
+              </div>
               <div class="text-[11px] text-slate-400 flex items-center justify-between">
-                <span>Team Standing:</span>
+                <span id="wordRankLabel">Team Standing:</span>
                 <span id="wordRankPositionNotice" class="font-bold text-amber-300">Rank #1</span>
               </div>
             </div>
@@ -1186,6 +1195,7 @@
                 ⏱️ Fastest Times
               </button>
             </div>
+            <button id="wordChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Choose a Team / Change Mode</button>
           </div>
         </div>
 
@@ -1315,12 +1325,14 @@
                 Select Your Team (Group):
               </label>
               <select id="vinePilotNameInput" class="team-dropdown-select w-full bg-slate-950 border border-emerald-600/70 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 font-sans cursor-pointer">
+                <option value="Just For Fun" selected>Just For Fun</option>
                 <option value="Roots">Roots</option>
                 <option value="Transformers">Transformers</option>
                 <option value="Thrive">Thrive</option>
                 <option value="Endurance">Endurance</option>
                 <option value="Legacy">Legacy</option>
               </select>
+              <p id="vineModeNotice" class="text-[11px] font-semibold text-amber-300">Just For Fun: Your time will not be saved, recorded or added to any team.</p>
             </div>
 
             <button id="startVinePuzzleBtn" type="button" class="w-full bg-gradient-to-r from-emerald-400 via-teal-400 to-amber-400 hover:from-emerald-300 hover:to-amber-300 active:scale-98 text-slate-950 font-black font-orbitron text-sm sm:text-base py-3.5 rounded-2xl shadow-xl transition cursor-pointer flex items-center justify-center space-x-2">
@@ -1373,22 +1385,27 @@
 
             <!-- Save Team for Fastest Time Leaderboard -->
             <div class="bg-slate-900/90 border border-emerald-800/80 rounded-2xl p-3.5 space-y-2 text-left">
+              <p id="vinePracticeResultNotice" class="hidden text-[11px] font-semibold text-amber-300">Just For Fun: Your result is for practice only. No score is saved or recorded.</p>
+              <div id="vineResultSaveControls">
               <label for="vineVictoryNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
-                Select Team to Record Time:
+                Team represented in this game:
               </label>
               <div class="flex items-center space-x-2">
-                <select id="vineVictoryNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-emerald-500/70 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 font-sans cursor-pointer">
-                  <option value="Group 1">Group 1</option>
-                  <option value="Group 2">Group 2</option>
-                  <option value="Group 3">Group 3</option>
-                  <option value="Group 4">Group 4</option>
-                </select>
+                <select id="vineVictoryNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-emerald-500/70 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 font-sans cursor-pointer" disabled>
+                <option value="Just For Fun" selected>Just For Fun</option>
+                <option value="Roots">Roots</option>
+                <option value="Transformers">Transformers</option>
+                <option value="Thrive">Thrive</option>
+                <option value="Endurance">Endurance</option>
+                <option value="Legacy">Legacy</option>
+              </select>
                 <button id="vineUpdateNameBtn" type="button" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer">
                   Save Team Time
                 </button>
               </div>
+              </div>
               <div class="text-[11px] text-slate-400 flex items-center justify-between">
-                <span>Team Standing:</span>
+                <span id="vineRankLabel">Team Standing:</span>
                 <span id="vineRankPositionNotice" class="font-bold text-emerald-300">Rank #1</span>
               </div>
             </div>
@@ -1403,6 +1420,7 @@
                 ⏱️ Fastest Times
               </button>
             </div>
+            <button id="vineChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Choose a Team / Change Mode</button>
           </div>
         </div>
 
@@ -1631,15 +1649,21 @@
 
       // Optional: if you ever want to point a specific section to a separate sheet or tab URL (#gid=...), paste it here:
       directTabUrls: {
-        schedule: '',
-        scores: '',
-        notices: '',
-        groups: ''
+      schedule: '',
+      scores: '',
+      notices: 'https://docs.google.com/spreadsheets/d/1Xhbnwb_sHP58H8IiVXOFHA36sCkmfsuDPj1ntCxzgYE/export?format=csv&gid=735217388',
+      groups: ''
       },
 
       // Connected to your live Google Apps Script Web App URL for automatic game score write-back:
       leaderboardSheetScriptUrl: 'https://script.google.com/macros/s/AKfycbwWxXjsPQojUP3db0RuFJc3-i7jqib3hX-rEFQ-RB_qeHtXPcnZqktAgjbaqbbQJ3XW/exec'
     };
+
+    // Practice is intentionally not a team, and has no recorded results.
+    const PRACTICE_TEAM = 'Just For Fun';
+    function isPracticeTeam(name) {
+      return String(name || '').trim().toLowerCase() === PRACTICE_TEAM.toLowerCase();
+    }
 
     // Canonical 5 Retreat Team Names
     const CANONICAL_TEAMS = [
@@ -1660,6 +1684,7 @@
     }
 
     function toGameTeamName(rawName) {
+      if (isPracticeTeam(rawName)) return PRACTICE_TEAM;
       const matched = matchCanonicalTeam(rawName);
       return matched ? matched.gameName : (String(rawName || '').trim() || 'Roots');
     }
@@ -1843,48 +1868,61 @@
       }[c]));
     }
 
-    // Returns the 5 game team names for the game dropdowns (Roots, Transformers, Thrive, Endurance, Legacy)
+    // The five official groups are always present; practice stays separate.
     function getAvailableTeamNames() {
-      const names = [];
-      if (Array.isArray(retreatData.teamScores)) {
-        retreatData.teamScores.forEach(t => {
-          const gName = toGameTeamName(t.team);
-          if (gName && !names.includes(gName)) names.push(gName);
-        });
-      }
-      if (Array.isArray(retreatData.participants)) {
-        retreatData.participants.forEach(p => {
-          const gName = toGameTeamName(p.group);
-          if (gName && !names.includes(gName)) names.push(gName);
-        });
-      }
-      if (names.length === 0) {
-        return ['Roots', 'Transformers', 'Thrive', 'Endurance', 'Legacy'];
-      }
-      return names;
+      return CANONICAL_TEAMS.map(team => team.gameName);
     }
 
     function cleanPlayerName(raw) {
-      return toGameTeamName(raw);
+      const team = matchCanonicalTeam(raw);
+      return team ? team.gameName : PRACTICE_TEAM;
     }
 
     function populateTeamDropdowns() {
-      const teams = getAvailableTeamNames();
-      pilotName = toGameTeamName(pilotName);
-      if (!teams.includes(pilotName)) {
-        pilotName = teams[0] || 'Roots';
-      }
+      const teams = [PRACTICE_TEAM, ...getAvailableTeamNames()];
       document.querySelectorAll('.team-dropdown-select').forEach(sel => {
-        const prev = toGameTeamName(sel.value || pilotName);
+        const previous = sel.value;
         sel.innerHTML = teams.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
-        if (teams.includes(prev)) {
-          sel.value = prev;
+        sel.value = teams.includes(previous) ? previous : PRACTICE_TEAM;
+      });
+      updateGameModeNotices();
+    }
+
+    // Each game has its own selection. The choice is locked when that run starts.
+    function selectedGameTeam(selectId) {
+      const sel = document.getElementById(selectId);
+      return cleanPlayerName(sel ? sel.value : PRACTICE_TEAM);
+    }
+
+    function updateGameModeNotices() {
+      [
+        ['pilotNameInput', 'spaceModeNotice', 'score'],
+        ['wordPilotNameInput', 'wordModeNotice', 'time'],
+        ['vinePilotNameInput', 'vineModeNotice', 'time']
+      ].forEach(([selectorId, noticeId, measure]) => {
+        const notice = document.getElementById(noticeId);
+        if (!notice) return;
+        const team = selectedGameTeam(selectorId);
+        if (isPracticeTeam(team)) {
+          notice.textContent = `Just For Fun: Your ${measure} will not be saved, recorded or added to any team.`;
+          notice.className = 'text-[11px] font-semibold text-amber-300';
         } else {
-          sel.value = pilotName;
+          notice.textContent = `Playing for ${team}. You can save this game's ${measure} for your team when you finish.`;
+          notice.className = 'text-[11px] font-semibold text-emerald-300';
         }
       });
-      const hPilot = document.getElementById('headerPilotName');
-      if (hPilot) hPilot.textContent = pilotName;
+    }
+
+    function displayRunResultMode(game, team, resultSelectorId) {
+      const practice = isPracticeTeam(team);
+      const controls = document.getElementById(game + 'ResultSaveControls');
+      const note = document.getElementById(game + 'PracticeResultNotice');
+      const label = document.getElementById(game + 'RankLabel');
+      const selector = document.getElementById(resultSelectorId);
+      if (controls) controls.classList.toggle('hidden', practice);
+      if (note) note.classList.toggle('hidden', !practice);
+      if (label) label.textContent = practice ? 'Recording:' : 'Team Standing:';
+      if (selector) { selector.value = team; selector.disabled = true; }
     }
 
     // =========================================================================
@@ -2202,20 +2240,24 @@
     }
 
     async function syncAllFromMasterSheet(silent = true) {
-      const results = await Promise.all([
-        fetchScheduleFromSheet(),
-        fetchScoresFromSheet(),
-        fetchNoticesFromSheet(true),
-        fetchParticipantsFromSheet()
-      ]);
-      if (!silent) {
-        if (results.some(Boolean)) {
-          showToast('Master Sheet synced (Schedule, Scores, Notices & Groups)!', '✅');
-        } else {
-          showToast('Showing current retreat data', 'ℹ️');
-        }
-      }
+  const results = await Promise.all([
+    fetchScheduleFromSheet(),
+    fetchScoresFromSheet(),
+    fetchNoticesFromSheet(true),
+    fetchParticipantsFromSheet()
+  ]);
+
+  if (!silent) {
+    const names = ['Schedule', 'Scores', 'Notices', 'Groups'];
+    const failed = names.filter((_, i) => !results[i]);
+
+    if (failed.length === 0) {
+      showToast('All four sheets synced!', '✅');
+    } else {
+      showToast('Failed to sync: ' + failed.join(', '), '⚠️');
     }
+  }
+}
 
     // --- DOM Elements ---
     const scheduleContainer = document.getElementById('scheduleContainer');
@@ -2459,12 +2501,6 @@
 
       const headerClock = document.getElementById('headerIstClock');
       if (headerClock) headerClock.textContent = `${timeStr} IST`;
-
-      const dashClock = document.getElementById('dashboardIstClock');
-      if (dashClock) dashClock.textContent = `${timeStr} IST`;
-
-      const dashDate = document.getElementById('dashboardIstDate');
-      if (dashDate) dashDate.textContent = `${dateStr} • India Standard Time`;
     }
 
     function updateLiveNowTicker() {
@@ -2485,7 +2521,7 @@
       const dashSub = document.getElementById('dashboardNowSubtext');
       if (dashSub) dashSub.textContent = active.subtext;
       const dashNext = document.getElementById('dashboardNextEvent');
-      if (dashNext) dashNext.textContent = active.nextText;
+      if (dashNext && !document.getElementById('dashboardCountdown')) dashNext.textContent = active.nextText;
     }
 
     // --- RENDER TEAM MATURITY SCORES (DASHBOARD & GAMES TAB) ---
@@ -3105,6 +3141,7 @@
     }
 
     function postSheetLeaderboardEntry(gameKey, entry) {
+      if (!entry || !matchCanonicalTeam(entry.name)) return;
       if (!SHEET_CONFIG.leaderboardSheetScriptUrl) return;
       try {
         fetch(SHEET_CONFIG.leaderboardSheetScriptUrl, {
@@ -3186,6 +3223,7 @@
       }
 
       addRecord(name, score, distance, coinsCount, runId = null) {
+        if (!matchCanonicalTeam(name)) return { entry: null, rank: 0, skipped: true };
         if (runId && this.records.some(r => r.runId === runId)) {
           const existingRank = this.records.findIndex(r => r.runId === runId) + 1;
           return { entry: this.records[existingRank - 1], rank: existingRank, alreadySaved: true };
@@ -3253,12 +3291,9 @@
     let canvasH = 500;
     let lastTime = 0;
 
-    // Pilot settings
-    let pilotName = "Roots";
-    try {
-      const savedName = localStorage.getItem('voyager_pilot_callsign');
-      if (savedName) pilotName = savedName;
-    } catch (e) {}
+    // Launch menus default to practice on every page load.
+    let pilotName = PRACTICE_TEAM;
+    let currentSpaceTeam = PRACTICE_TEAM;
 
     // Score & survival metrics
     let score = 0;
@@ -3514,7 +3549,8 @@
       if (gameType === 'space') {
         const list = (typeof leaderboard !== 'undefined' && leaderboard.records) ? leaderboard.records : [];
         list.forEach(r => {
-          const tName = toGameTeamName(r.name || 'Roots');
+          if (!matchCanonicalTeam(r.name)) return;
+          const tName = toGameTeamName(r.name);
           const sc = Number(r.score || 0);
           const dist = Number(r.distance || 0);
           const coins = Number(r.coins || 0);
@@ -3538,7 +3574,8 @@
       if (gameType === 'word') {
         const list = (typeof wordLeaderboard !== 'undefined' && wordLeaderboard.records) ? wordLeaderboard.records : [];
         list.forEach(r => {
-          const tName = toGameTeamName(r.name || 'Roots');
+          if (!matchCanonicalTeam(r.name)) return;
+          const tName = toGameTeamName(r.name);
           const tm = Number(r.time || 999);
           if (!teamMap.has(tName)) {
             teamMap.set(tName, { team: tName, fastestTime: tm, runs: 1, date: r.date || 'Recent' });
@@ -3557,7 +3594,8 @@
       if (gameType === 'vine') {
         const list = (typeof vineLeaderboard !== 'undefined' && vineLeaderboard.records) ? vineLeaderboard.records : [];
         list.forEach(r => {
-          const tName = toGameTeamName(r.name || 'Roots');
+          if (!matchCanonicalTeam(r.name)) return;
+          const tName = toGameTeamName(r.name);
           const tm = Number(r.time || 9999);
           const mv = Number(r.moves || 0);
           if (!teamMap.has(tName)) {
@@ -3677,13 +3715,13 @@
       lines.push('');
       lines.push('ALL RECORDED TEAM RUNS LOG');
       lines.push('Game,Team Name,Score or Time,Extra Info,Date');
-      leaderboard.records.forEach(r => {
+      leaderboard.records.filter(r => matchCanonicalTeam(r.name)).forEach(r => {
         lines.push(`"Spaceman Cosmic Ascent","${r.name}","${r.score} pts","${r.distance || 0} km / ${r.coins || 0} coins","${r.date || ''}"`);
       });
-      wordLeaderboard.records.forEach(r => {
+      wordLeaderboard.records.filter(r => matchCanonicalTeam(r.name)).forEach(r => {
         lines.push(`"Solid Food Word Stream","${r.name}","${Number(r.time).toFixed(2)}s","${r.words || 19} words","${r.date || ''}"`);
       });
-      vineLeaderboard.records.forEach(r => {
+      vineLeaderboard.records.filter(r => matchCanonicalTeam(r.name)).forEach(r => {
         lines.push(`"The True Vine Puzzle","${r.name}","${Number(r.time).toFixed(2)}s","${r.moves || 0} moves","${r.date || ''}"`);
       });
 
@@ -3788,7 +3826,7 @@
       spawnParticles(player.x, player.y, 35, '#38bdf8', 190);
       spawnParticles(player.x, player.y, 25, '#fbbf24', 160);
 
-      const isNewBest = score > highScore;
+      const isNewBest = !isPracticeTeam(currentSpaceTeam) && score > highScore;
       if (isNewBest) {
         highScore = Math.round(score);
         try {
@@ -3804,11 +3842,13 @@
       document.getElementById('finalDistanceDisplay').textContent = `${Math.round(distance)} km`;
       document.getElementById('finalCoinsDisplay').textContent = collectedCoinsCount;
       document.getElementById('finalGraceCount').textContent = graceCount;
-      document.getElementById('gameOverPilotNameInput').value = pilotName;
+      displayRunResultMode('space', currentSpaceTeam, 'gameOverPilotNameInput');
       document.getElementById('gameOverReasonText').textContent = reason;
 
       const rank = leaderboard.getRank(score);
-      document.getElementById('rankPositionNotice').textContent = `Projected Rank #${rank} (Click Save to record)`;
+      document.getElementById('rankPositionNotice').textContent = isPracticeTeam(currentSpaceTeam)
+        ? 'Just For Fun. Not recorded.'
+        : `Projected Rank #${rank} (Click Save to record)`;
       updateMainAppGameStats();
 
       setTimeout(() => {
@@ -4609,6 +4649,7 @@
       }
 
       addRecord(name, timeSeconds, wordsCount, modeLabel, runId = null) {
+        if (!matchCanonicalTeam(name)) return { entry: null, rank: 0, skipped: true };
         if (runId && this.records.some(r => r.runId === runId)) {
           const existingRank = this.records.findIndex(r => r.runId === runId) + 1;
           return { entry: this.records[existingRank - 1], rank: existingRank, alreadySaved: true };
@@ -4669,6 +4710,7 @@
 
     let isWordGameModalOpen = false;
     let wordGameActive = false;
+    let currentWordTeam = PRACTICE_TEAM;
     let currentVerseKey = 'heb514';
     let currentVerseWords = HEBREWS_VERSES.heb514.words;
     let currentWordIndex = 0;
@@ -4859,15 +4901,10 @@
       const refLbl = document.getElementById('wordHudVerseRefLabel');
       if (refLbl) refLbl.textContent = '📖 ' + HEBREWS_VERSES.heb514.label.toUpperCase();
 
-      const nameIn = document.getElementById('wordPilotNameInput');
-      if (nameIn && nameIn.value.trim()) {
-        pilotName = cleanPlayerName(nameIn.value);
-        try {
-          localStorage.setItem('voyager_pilot_callsign', pilotName);
-        } catch (e) {}
-        const hPilot = document.getElementById('headerPilotName');
-        if (hPilot) hPilot.textContent = pilotName;
-      }
+      currentWordTeam = selectedGameTeam('wordPilotNameInput');
+      pilotName = currentWordTeam;
+      const hPilot = document.getElementById('headerPilotName');
+      if (hPilot) hPilot.textContent = pilotName;
 
       currentWordIndex = 0;
       wordPenaltySeconds = 0;
@@ -4893,7 +4930,7 @@
 
       sound.playHighScoreFanfare();
 
-      const isNewBest = (bestWordTime === null || wordFinalElapsedSeconds < bestWordTime);
+      const isNewBest = !isPracticeTeam(currentWordTeam) && (bestWordTime === null || wordFinalElapsedSeconds < bestWordTime);
       if (isNewBest) {
         bestWordTime = wordFinalElapsedSeconds;
         try {
@@ -4909,10 +4946,12 @@
       document.getElementById('wordFinalTimeDisplay').textContent = `${wordFinalElapsedSeconds.toFixed(2)}s`;
       document.getElementById('wordFinalWordsCount').textContent = `${currentVerseWords.length}/${currentVerseWords.length}`;
       document.getElementById('wordFinalPenaltiesDisplay').textContent = wordPenaltiesCount === 0 ? '0 (Clean!)' : `${wordPenaltiesCount} (+${wordPenaltySeconds.toFixed(1)}s)`;
-      document.getElementById('wordVictoryNameInput').value = pilotName;
+      displayRunResultMode('word', currentWordTeam, 'wordVictoryNameInput');
 
       const projectedRank = wordLeaderboard.getRank(wordFinalElapsedSeconds);
-      document.getElementById('wordRankPositionNotice').textContent = `Projected Rank #${projectedRank} (Click Save to record)`;
+      document.getElementById('wordRankPositionNotice').textContent = isPracticeTeam(currentWordTeam)
+        ? 'Just For Fun. Not recorded.'
+        : `Projected Rank #${projectedRank} (Click Save to record)`;
 
       updateMainAppGameStats();
 
@@ -4973,9 +5012,6 @@
       if (!modal) return;
       modal.classList.remove('hidden');
       isWordGameModalOpen = true;
-
-      const nameIn = document.getElementById('wordPilotNameInput');
-      if (nameIn) nameIn.value = pilotName;
 
       const sIcon = document.getElementById('wordGameSoundIcon');
       if (sIcon) sIcon.textContent = sound.muted ? '🔇' : '🔊';
@@ -5077,6 +5113,7 @@
       }
 
       addRecord(name, timeSeconds, movesCount, runId = null) {
+        if (!matchCanonicalTeam(name)) return { entry: null, rank: 0, skipped: true };
         if (runId && this.records.some(r => r.runId === runId)) {
           const existingRank = this.records.findIndex(r => r.runId === runId) + 1;
           return { entry: this.records[existingRank - 1], rank: existingRank, alreadySaved: true };
@@ -5135,6 +5172,7 @@
 
     let isVineGameModalOpen = false;
     let vineGameActive = false;
+    let currentVineTeam = PRACTICE_TEAM;
     let vineBoard = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0];
     let vineMovesCount = 0;
     let vineStartTimeMs = 0;
@@ -5360,15 +5398,10 @@
       }
       if (vNameInp) vNameInp.disabled = false;
 
-      const nameIn = document.getElementById('vinePilotNameInput');
-      if (nameIn && nameIn.value.trim()) {
-        pilotName = cleanPlayerName(nameIn.value);
-        try {
-          localStorage.setItem('voyager_pilot_callsign', pilotName);
-        } catch (e) {}
-        const hPilot = document.getElementById('headerPilotName');
-        if (hPilot) hPilot.textContent = pilotName;
-      }
+      currentVineTeam = selectedGameTeam('vinePilotNameInput');
+      pilotName = currentVineTeam;
+      const hPilot = document.getElementById('headerPilotName');
+      if (hPilot) hPilot.textContent = pilotName;
 
       vineBoard = scrambleVineBoard();
       vineMovesCount = 0;
@@ -5390,7 +5423,7 @@
 
       sound.playHighScoreFanfare();
 
-      const isNewBest = (bestVineTime === null || vineFinalElapsedSeconds < bestVineTime);
+      const isNewBest = !isPracticeTeam(currentVineTeam) && (bestVineTime === null || vineFinalElapsedSeconds < bestVineTime);
       if (isNewBest) {
         bestVineTime = vineFinalElapsedSeconds;
         try {
@@ -5403,10 +5436,12 @@
 
       document.getElementById('vineFinalTimeDisplay').textContent = `${vineFinalElapsedSeconds.toFixed(2)}s`;
       document.getElementById('vineFinalMovesDisplay').textContent = String(vineMovesCount);
-      document.getElementById('vineVictoryNameInput').value = pilotName;
+      displayRunResultMode('vine', currentVineTeam, 'vineVictoryNameInput');
 
       const projectedRank = vineLeaderboard.getRank(vineFinalElapsedSeconds);
-      document.getElementById('vineRankPositionNotice').textContent = `Projected Rank #${projectedRank} (Click Save to record)`;
+      document.getElementById('vineRankPositionNotice').textContent = isPracticeTeam(currentVineTeam)
+        ? 'Just For Fun. Not recorded.'
+        : `Projected Rank #${projectedRank} (Click Save to record)`;
 
       updateMainAppGameStats();
 
@@ -5440,9 +5475,6 @@
       if (!modal) return;
       modal.classList.remove('hidden');
       isVineGameModalOpen = true;
-
-      const nameIn = document.getElementById('vinePilotNameInput');
-      if (nameIn) nameIn.value = pilotName;
 
       const sIcon = document.getElementById('vineGameSoundIcon');
       if (sIcon) sIcon.textContent = sound.muted ? '🔇' : '🔊';
@@ -5609,7 +5641,7 @@
 
       // MODE B: ALL RECORDED TEAM RUNS LOG
       if (activeLeaderboardGame === 'vine') {
-        const list = [...vineLeaderboard.records].sort((a, b) => a.time - b.time);
+        const list = vineLeaderboard.records.filter(r => matchCanonicalTeam(r.name)).sort((a, b) => a.time - b.time);
         if (list.length === 0) {
           container.innerHTML = '<div class="text-slate-500 text-center py-6">No puzzle times recorded yet.</div>';
           return;
@@ -5633,7 +5665,7 @@
       }
 
       if (activeLeaderboardGame === 'word') {
-        const list = [...wordLeaderboard.records].sort((a, b) => a.time - b.time);
+        const list = wordLeaderboard.records.filter(r => matchCanonicalTeam(r.name)).sort((a, b) => a.time - b.time);
         if (list.length === 0) {
           container.innerHTML = '<div class="text-slate-500 text-center py-6">No word stream times recorded yet.</div>';
           return;
@@ -5656,7 +5688,7 @@
         return;
       }
 
-      const list = [...leaderboard.records].sort((a, b) => b.score - a.score);
+      const list = leaderboard.records.filter(r => matchCanonicalTeam(r.name)).sort((a, b) => b.score - a.score);
       if (list.length === 0) {
         container.innerHTML = '<div class="text-slate-500 text-center py-6">No flights recorded yet.</div>';
         return;
@@ -5689,18 +5721,11 @@
     }
 
     function startNewFlight() {
-      const nameInput = document.getElementById('pilotNameInput').value.trim();
-      if (nameInput) {
-        pilotName = cleanPlayerName(nameInput);
-        try {
-          localStorage.setItem('voyager_pilot_callsign', pilotName);
-        } catch (e) {}
-        document.getElementById('headerPilotName').textContent = pilotName;
-      }
+      currentSpaceTeam = selectedGameTeam('pilotNameInput');
+      pilotName = currentSpaceTeam;
+      document.getElementById('headerPilotName').textContent = pilotName;
       resetGame();
     }
-
-    
 
     // --- SPACE GAME MODAL OPEN & CLOSE LOGIC ---
     let isGameModalOpen = false;
@@ -5742,6 +5767,10 @@
       if (gameState === STATE.PLAYING) {
         gameState = STATE.PAUSED;
         document.getElementById('pauseOverlay').classList.remove('hidden');
+      } else if (gameState === STATE.GAMEOVER) {
+        gameState = STATE.MENU;
+        document.getElementById('gameOverOverlay').classList.add('hidden');
+        document.getElementById('startScreenOverlay').classList.remove('hidden');
       }
 
       updateMainAppGameStats();
@@ -5879,13 +5908,7 @@
       // ================= SPACE GAME DOM LISTENERS =================
       populateTeamDropdowns();
       document.querySelectorAll('.team-dropdown-select').forEach(sel => {
-        sel.addEventListener('change', (e) => {
-          pilotName = cleanPlayerName(e.currentTarget.value);
-          try {
-            localStorage.setItem('voyager_pilot_callsign', pilotName);
-          } catch (err) {}
-          populateTeamDropdowns();
-        });
+        sel.addEventListener('change', () => updateGameModeNotices());
       });
 
       const gamesExportBtn = document.getElementById('gamesTabExportCsvBtn');
@@ -5903,16 +5926,15 @@
       if (launchBtn) launchBtn.addEventListener('click', () => { startNewFlight(); });
 
       const restartBtn = document.getElementById('restartGameBtn');
-      if (restartBtn) restartBtn.addEventListener('click', () => {
-        const nameVal = document.getElementById('gameOverPilotNameInput').value.trim();
-        if (nameVal) {
-          pilotName = cleanPlayerName(nameVal);
-          try {
-            localStorage.setItem('voyager_pilot_callsign', pilotName);
-          } catch (e) {}
-          if (hPilot) hPilot.textContent = pilotName;
-        }
-        resetGame();
+      if (restartBtn) restartBtn.addEventListener('click', startNewFlight);
+
+      const spaceChangeModeBtn = document.getElementById('spaceChangeModeBtn');
+      if (spaceChangeModeBtn) spaceChangeModeBtn.addEventListener('click', () => {
+        gameState = STATE.MENU;
+        document.getElementById('gameOverOverlay').classList.add('hidden');
+        document.getElementById('gameHud').classList.add('hidden');
+        document.getElementById('startScreenOverlay').classList.remove('hidden');
+        updateGameModeNotices();
       });
 
       const updateNameBtn = document.getElementById('updateNameLeaderboardBtn');
@@ -5921,17 +5943,13 @@
           showToast('Score already saved for this flight! Play again to submit a new score.', 'ℹ️');
           return;
         }
-        const nameInp = document.getElementById('gameOverPilotNameInput');
-        const newName = nameInp ? nameInp.value.trim() : '';
-        if (newName) {
-          pilotName = cleanPlayerName(newName);
-          try {
-            localStorage.setItem('voyager_pilot_callsign', pilotName);
-          } catch (e) {}
-          if (hPilot) hPilot.textContent = pilotName;
-          const pInputStart = document.getElementById('pilotNameInput');
-          if (pInputStart) pInputStart.value = pilotName;
+        // A completed practice run can never be converted into a team score.
+        if (isPracticeTeam(currentSpaceTeam)) {
+          showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
+          return;
         }
+        pilotName = currentSpaceTeam;
+        const nameInp = document.getElementById('gameOverPilotNameInput');
 
         hasSavedCurrentSpaceScore = true;
         updateNameBtn.disabled = true;
@@ -5939,7 +5957,7 @@
         updateNameBtn.className = "bg-slate-700 text-emerald-400 text-xs font-black font-orbitron px-3 py-2 rounded-xl shrink-0 cursor-not-allowed";
         if (nameInp) nameInp.disabled = true;
 
-        const res = leaderboard.addRecord(pilotName, score, distance, collectedCoinsCount, currentSpaceRunId);
+        const res = leaderboard.addRecord(currentSpaceTeam, score, distance, collectedCoinsCount, currentSpaceRunId);
         const rNotice = document.getElementById('rankPositionNotice');
         if (rNotice) rNotice.textContent = `Saved! Rank #${res.rank}`;
         updateMainAppGameStats();
@@ -5957,8 +5975,12 @@
 
       const hEditBtn = document.getElementById('headerEditPilotBtn');
       if (hEditBtn) hEditBtn.addEventListener('click', () => {
+        gameState = STATE.MENU;
+        document.getElementById('gameHud').classList.add('hidden');
+        document.getElementById('pauseOverlay').classList.add('hidden');
         document.getElementById('startScreenOverlay').classList.remove('hidden');
         document.getElementById('gameOverOverlay').classList.add('hidden');
+        updateGameModeNotices();
         const pi = document.getElementById('pilotNameInput');
         if (pi) pi.focus();
       });
@@ -6103,24 +6125,27 @@
         document.getElementById('leaderboardModal').classList.remove('hidden');
       });
 
+      const wordChangeModeBtn = document.getElementById('wordChangeModeBtn');
+      if (wordChangeModeBtn) wordChangeModeBtn.addEventListener('click', () => {
+        wordGameActive = false;
+        document.getElementById('wordVictoryOverlay').classList.add('hidden');
+        document.getElementById('wordStartOverlay').classList.remove('hidden');
+        updateGameModeNotices();
+      });
+
       const wordUpdateNameBtn = document.getElementById('wordUpdateNameBtn');
       if (wordUpdateNameBtn) wordUpdateNameBtn.addEventListener('click', () => {
         if (hasSavedCurrentWordScore) {
           showToast('Time already saved for this round! Play again to submit a new time.', 'ℹ️');
           return;
         }
-        const nameInp = document.getElementById('wordVictoryNameInput');
-        const newName = nameInp ? nameInp.value.trim() : '';
-        if (newName) {
-          pilotName = cleanPlayerName(newName);
-          try {
-            localStorage.setItem('voyager_pilot_callsign', pilotName);
-          } catch (e) {}
-          const hPilot = document.getElementById('headerPilotName');
-          if (hPilot) hPilot.textContent = pilotName;
-          const wStartName = document.getElementById('wordPilotNameInput');
-          if (wStartName) wStartName.value = pilotName;
+        // A completed practice run can never be converted into a team score.
+        if (isPracticeTeam(currentWordTeam)) {
+          showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
+          return;
         }
+        pilotName = currentWordTeam;
+        const nameInp = document.getElementById('wordVictoryNameInput');
 
         hasSavedCurrentWordScore = true;
         wordUpdateNameBtn.disabled = true;
@@ -6129,7 +6154,7 @@
         if (nameInp) nameInp.disabled = true;
 
         const verseObj = HEBREWS_VERSES.heb514;
-        const res = wordLeaderboard.addRecord(pilotName, wordFinalElapsedSeconds, currentVerseWords.length, verseObj.label, currentWordRunId);
+        const res = wordLeaderboard.addRecord(currentWordTeam, wordFinalElapsedSeconds, currentVerseWords.length, verseObj.label, currentWordRunId);
         document.getElementById('wordRankPositionNotice').textContent = `Saved! Rank #${res.rank}`;
         updateMainAppGameStats();
         showToast(`Time ${wordFinalElapsedSeconds.toFixed(2)}s saved (Rank #${res.rank})!`, '⏱️');
@@ -6207,24 +6232,27 @@
         document.getElementById('leaderboardModal').classList.remove('hidden');
       });
 
+      const vineChangeModeBtn = document.getElementById('vineChangeModeBtn');
+      if (vineChangeModeBtn) vineChangeModeBtn.addEventListener('click', () => {
+        vineGameActive = false;
+        document.getElementById('vineVictoryOverlay').classList.add('hidden');
+        document.getElementById('vineStartOverlay').classList.remove('hidden');
+        updateGameModeNotices();
+      });
+
       const vineUpdateNameBtn = document.getElementById('vineUpdateNameBtn');
       if (vineUpdateNameBtn) vineUpdateNameBtn.addEventListener('click', () => {
         if (hasSavedCurrentVineScore) {
           showToast('Time already saved for this puzzle! Play again to submit a new time.', 'ℹ️');
           return;
         }
-        const nameInp = document.getElementById('vineVictoryNameInput');
-        const newName = nameInp ? nameInp.value.trim() : '';
-        if (newName) {
-          pilotName = cleanPlayerName(newName);
-          try {
-            localStorage.setItem('voyager_pilot_callsign', pilotName);
-          } catch (e) {}
-          const hPilot = document.getElementById('headerPilotName');
-          if (hPilot) hPilot.textContent = pilotName;
-          const vStartName = document.getElementById('vinePilotNameInput');
-          if (vStartName) vStartName.value = pilotName;
+        // A completed practice run can never be converted into a team score.
+        if (isPracticeTeam(currentVineTeam)) {
+          showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
+          return;
         }
+        pilotName = currentVineTeam;
+        const nameInp = document.getElementById('vineVictoryNameInput');
 
         hasSavedCurrentVineScore = true;
         vineUpdateNameBtn.disabled = true;
@@ -6232,7 +6260,7 @@
         vineUpdateNameBtn.className = "bg-slate-700 text-emerald-400 text-xs font-black font-orbitron px-3 py-2 rounded-xl shrink-0 cursor-not-allowed";
         if (nameInp) nameInp.disabled = true;
 
-        const res = vineLeaderboard.addRecord(pilotName, vineFinalElapsedSeconds, vineMovesCount, currentVineRunId);
+        const res = vineLeaderboard.addRecord(currentVineTeam, vineFinalElapsedSeconds, vineMovesCount, currentVineRunId);
         document.getElementById('vineRankPositionNotice').textContent = `Saved! Rank #${res.rank}`;
         updateMainAppGameStats();
         showToast(`Time ${vineFinalElapsedSeconds.toFixed(2)}s saved (Rank #${res.rank})!`, '⏱️');
@@ -6259,5 +6287,76 @@
     window.addEventListener('offline', () => updateSyncStatus(false, 'Offline'));
     window.addEventListener('online', () => updateSyncStatus(true, 'Live'));
   </script>
+    
+<script>
+  // Put announcements above team scores on the Dashboard
+  const announcementsCard =
+    document.getElementById('dashboardNoticesContainer').parentElement;
+
+  const scoresCard =
+    document.getElementById('dashboardTeamScoresContainer').parentElement;
+
+  scoresCard.before(announcementsCard);
+</script>
+    <!-- Voyager 2026: live countdown to next event in the synced Schedule -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nextLabel = document.getElementById('dashboardNextEvent');
+    if (!nextLabel) return;
+
+    const countdown = document.createElement('div');
+    countdown.id = 'dashboardCountdown';
+    countdown.className = 'mt-1 font-mono font-extrabold text-xl text-amber-300 tracking-wide';
+    countdown.setAttribute('role', 'timer');
+    countdown.textContent = 'Loading countdown...';
+    nextLabel.insertAdjacentElement('afterend', countdown);
+
+    function eventStartIST(item) {
+      const day = Number(item.day);
+      if (![1, 2, 3].includes(day)) return null;
+
+      const timeText = String(item.time || '');
+      const startText = timeText.split(/[–—-]/)[0];
+      const meridiems = timeText.match(/\b(am|pm)\b/gi) || [];
+      const fallbackMeridiem = meridiems[meridiems.length - 1] || '';
+      const minutes = parseSingleTimeMin(startText, fallbackMeridiem);
+      if (minutes === null) return null;
+
+      // Arrival marked "Before 7:00 pm" has a 7:00 pm deadline.
+      return Date.UTC(2026, 9, 22 + day, 0, minutes) - 330 * 60000;
+    }
+
+    function updateNextEventCountdown() {
+      const now = Date.now();
+      const upcoming = retreatData.schedule
+        .map(item => ({ item, startsAt: eventStartIST(item) }))
+        .filter(event => event.startsAt !== null && event.startsAt > now)
+        .sort((a, b) => a.startsAt - b.startsAt);
+
+      if (upcoming.length === 0) {
+        nextLabel.textContent = 'No more scheduled events';
+        countdown.textContent = 'Schedule complete';
+        return;
+      }
+
+      const { item, startsAt } = upcoming[0];
+      nextLabel.textContent = `${getDayLabel(Number(item.day))} • ${item.time} — ${item.activity}`;
+
+      const remaining = Math.ceil((startsAt - now) / 1000);
+      const days = Math.floor(remaining / 86400);
+      const hours = Math.floor((remaining % 86400) / 3600);
+      const minutes = Math.floor((remaining % 3600) / 60);
+      const seconds = remaining % 60;
+      const pad = value => String(value).padStart(2, '0');
+
+      countdown.textContent = days > 0
+        ? `${days}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`
+        : `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
+    }
+
+    updateNextEventCountdown();
+    setInterval(updateNextEventCountdown, 1000);
+  });
+</script>
 </body>
 </html>
