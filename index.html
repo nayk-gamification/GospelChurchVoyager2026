@@ -3403,7 +3403,7 @@
       const item = CHALLENGE_WORDS[Math.floor(Math.random() * CHALLENGE_WORDS.length)];
       const radius = 24;
       const x = Math.random() * (canvasW - radius * 2 - 40) + radius + 20;
-      const fallSpeed = (160 + Math.min(distance * 0.08, 200)) * speedMultiplier;
+      const fallSpeed = (160 + Math.min(Math.max(0, survivalSeconds - 25) * 1.2, 110)) * speedMultiplier;
 
       obstacles.push({
         word: item.word,
@@ -3860,7 +3860,7 @@
       survivalSeconds += dt;
       distance += (60 * speedMultiplier) * dt;
       score += (20 * speedMultiplier) * dt;
-      speedMultiplier = 1.0 + Math.min(distance * 0.0003, 1.25);
+      speedMultiplier = 1.0 + Math.min(Math.max(0, survivalSeconds - 25) * 0.008, 0.9);
 
       document.getElementById('hudScore').textContent = Math.round(score);
       document.getElementById('hudDistance').textContent = `${Math.round(distance)} km`;
@@ -3963,7 +3963,7 @@
       nextObstacleTimer -= dt;
       if (nextObstacleTimer <= 0) {
         spawnChallenge();
-        nextObstacleTimer = Math.max(0.65, (1.6 - Math.min(distance * 0.0003, 0.75)) / speedMultiplier);
+        nextObstacleTimer = Math.max(0.85, (1.8 - Math.min(Math.max(0, survivalSeconds - 25) * 0.007, 0.6)) / speedMultiplier);
       }
 
       nextRewardTimer -= dt;
