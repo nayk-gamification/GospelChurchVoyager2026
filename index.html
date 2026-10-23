@@ -11,9 +11,6 @@
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icon-192.png">
-  <!-- Firebase SDKs (v10 compat) -->
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Orbitron:wght@600;700;800;900&display=swap" rel="stylesheet">
@@ -485,7 +482,7 @@
           </p>
 
           <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <span>Device Best: <strong id="tabGamesPlayerBestScoreDisplay" class="text-slate-800">0</strong></span>
+            <span>Best Team Result: <strong id="tabGamesPlayerBestScoreDisplay" class="text-slate-800">0</strong></span>
             <span>Leading Team Score: <strong id="tabGamesTopRecordDisplay" class="text-indigo-700">--</strong></span>
           </div>
 
@@ -496,7 +493,7 @@
 
           <div class="flex items-center gap-2 pt-1">
             <button id="tabGamesLaunchBtn" type="button" class="flex-1 bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition cursor-pointer select-none">
-              Play the Game
+              Play for Your Team
             </button>
             <button id="tabGamesViewRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
               Team Ranks
@@ -516,7 +513,7 @@
           </p>
 
           <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <span>Device Best: <strong id="tabGamesWordBestTimeDisplay" class="text-slate-800">--</strong></span>
+            <span>Best Team Result: <strong id="tabGamesWordBestTimeDisplay" class="text-slate-800">--</strong></span>
             <span>Leading Team Time: <strong id="tabGamesWordTopRecordDisplay" class="text-emerald-700">--</strong></span>
           </div>
 
@@ -527,7 +524,7 @@
 
           <div class="flex items-center gap-2 pt-1">
             <button id="tabGamesLaunchWordBtn" type="button" class="flex-1 bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition cursor-pointer select-none">
-              Play the Game
+              Play for Your Team
             </button>
             <button id="tabGamesViewWordRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
               Team Ranks
@@ -547,7 +544,7 @@
           </p>
 
           <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <span>Device Best: <strong id="tabGamesVineBestTimeDisplay" class="text-slate-800">--</strong></span>
+            <span>Best Team Result: <strong id="tabGamesVineBestTimeDisplay" class="text-slate-800">--</strong></span>
             <span>Leading Team Time: <strong id="tabGamesVineTopRecordDisplay" class="text-emerald-700">--</strong></span>
           </div>
 
@@ -558,7 +555,7 @@
 
           <div class="flex items-center gap-2 pt-1">
             <button id="tabGamesLaunchVineBtn" type="button" class="flex-1 bg-indigo-600 hover:bg-indigo-700 active:scale-98 text-white font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition cursor-pointer select-none">
-              Play the Game
+              Play for Your Team
             </button>
             <button id="tabGamesViewVineRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
               Team Ranks
@@ -1133,7 +1130,7 @@
 
             <!-- New Best Time Notice -->
             <div id="wordNewBestNotice" class="hidden bg-gradient-to-r from-amber-400 to-emerald-400 text-slate-950 font-orbitron font-black text-xs sm:text-sm py-1.5 px-4 rounded-xl shadow-lg">
-              ⚡ NEW PERSONAL FASTEST TIME! ⚡
+              ⚡ NEW BEST RECORDED TIME! ⚡
             </div>
 
             <!-- Completed Verse Quote Box -->
@@ -1358,7 +1355,7 @@
 
             <!-- New Best Time Notice -->
             <div id="vineNewBestNotice" class="hidden bg-gradient-to-r from-emerald-400 to-amber-400 text-slate-950 font-orbitron font-black text-xs sm:text-sm py-1.5 px-4 rounded-xl shadow-lg">
-              ⚡ NEW PERSONAL FASTEST TIME! ⚡
+              ⚡ NEW BEST RECORDED TIME! ⚡
             </div>
 
             <!-- Completed Verse Quote Box -->
@@ -1484,9 +1481,6 @@
             <button id="exportLeaderboardCsvBtn" type="button" class="bg-emerald-950 hover:bg-emerald-900 text-emerald-300 font-bold px-3 py-1.5 rounded-xl border border-emerald-700 transition cursor-pointer text-[11px]">
               📥 Export Scoresheet CSV
             </button>
-            <button id="clearMyScoresBtn" type="button" class="text-slate-500 hover:text-rose-400 transition underline text-[11px] cursor-pointer">
-              Reset Local
-            </button>
           </div>
           <button id="closeLeaderboardBottomBtn" type="button" class="bg-indigo-700 hover:bg-indigo-600 active:scale-95 text-white font-bold font-orbitron px-4 py-2 rounded-xl transition cursor-pointer">
             Close
@@ -1606,32 +1600,7 @@
     </div>
 
   <script>
-    // --- Firebase Initialization ---
-    const firebaseConfig = {
-      apiKey: "AIzaSyCR6VDtJe_K-nNvGzHc98hfiz35L3xcpPg",
-      authDomain: "gospel-church-voyager-2026.firebaseapp.com",
-      projectId: "gospel-church-voyager-2026",
-      storageBucket: "gospel-church-voyager-2026.firebasestorage.app",
-      messagingSenderId: "973819920701",
-      appId: "1:973819920701:web:b1b6d54d310b387ec28554"
-    };
-
-    let db = null;
-    let isCloudLive = false;
-
-    try {
-      if (typeof firebase !== 'undefined' && firebase.initializeApp) {
-        firebase.initializeApp(firebaseConfig);
-        db = firebase.firestore();
-        try {
-          db.enablePersistence({ synchronizeTabs: true }).catch(() => {});
-        } catch (e) {}
-        isCloudLive = true;
-      }
-    } catch (err) {
-      console.warn('Firebase notice:', err);
-    }
-
+    // Game scores use Google Sheets only. No Firebase or local leaderboard storage.
     // =========================================================================
     // MASTER GOOGLE SHEET CONFIGURATION (ONE SHEET SHAPES THE ENTIRE APP)
     // =========================================================================
@@ -1860,7 +1829,7 @@
         { id: 'p_43', group: 'Group 5: Legacy', name: 'Rathna', role: 'Youth' }
       ]
     };
-    retreatData.notices = [...retreatData.defaultNotices];
+    retreatData.notices = [];
 
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"']/g, c => ({
@@ -1907,7 +1876,7 @@
           notice.textContent = `Just For Fun: Your ${measure} will not be saved, recorded or added to any team.`;
           notice.className = 'text-[11px] font-semibold text-amber-300';
         } else {
-          notice.textContent = `Playing for ${team}. You can save this game's ${measure} for your team when you finish.`;
+          notice.textContent = `Playing for ${team}. Your ${measure} will be recorded automatically when you finish.`;
           notice.className = 'text-[11px] font-semibold text-emerald-300';
         }
       });
@@ -2501,6 +2470,12 @@
 
       const headerClock = document.getElementById('headerIstClock');
       if (headerClock) headerClock.textContent = `${timeStr} IST`;
+
+      const dashClock = document.getElementById('dashboardIstClock');
+      if (dashClock) dashClock.textContent = `${timeStr} IST`;
+
+      const dashDate = document.getElementById('dashboardIstDate');
+      if (dashDate) dashDate.textContent = `${dateStr} • India Standard Time`;
     }
 
     function updateLiveNowTicker() {
@@ -2521,7 +2496,7 @@
       const dashSub = document.getElementById('dashboardNowSubtext');
       if (dashSub) dashSub.textContent = active.subtext;
       const dashNext = document.getElementById('dashboardNextEvent');
-      if (dashNext && !document.getElementById('dashboardCountdown')) dashNext.textContent = active.nextText;
+      if (dashNext) dashNext.textContent = active.nextText;
     }
 
     // --- RENDER TEAM MATURITY SCORES (DASHBOARD & GAMES TAB) ---
@@ -3126,32 +3101,149 @@
 
     const sound = new SoundManager();
 
-    // --- OPTIONAL GOOGLE SHEET LEADERBOARD SYNC (VIA APPS SCRIPT WEB APP URL) ---
-    async function fetchSheetLeaderboard(gameKey) {
-      if (!SHEET_CONFIG.leaderboardSheetScriptUrl) return null;
-      try {
-        const url = `${SHEET_CONFIG.leaderboardSheetScriptUrl}?game=${encodeURIComponent(gameKey)}&_t=${Date.now()}`;
-        const res = await fetch(url, { cache: 'no-store' });
-        if (!res.ok) return null;
-        const data = await res.json();
-        return Array.isArray(data) ? data : null;
-      } catch (e) {
-        return null;
+    // --- CENTRAL MINI-GAME SCORE SERVICE ---
+    // Google Sheet is authoritative. Nothing here writes game scores to localStorage or Firebase.
+    let scoreServiceReady = false;
+    let scoreSyncInFlight = null;
+    const pendingGameSubmissions = new Map(); // Temporary only until the page closes.
+    const SCORE_REFRESH_MS = 45000;
+
+    async function refreshAllGameScores() {
+      if (scoreSyncInFlight) return scoreSyncInFlight;
+      scoreSyncInFlight = (async () => {
+        try {
+          const url = `${SHEET_CONFIG.leaderboardSheetScriptUrl}?action=all&_t=${Date.now()}`;
+          const res = await fetch(url, { cache: 'no-store' });
+          if (!res.ok) throw new Error('Score service unavailable');
+          const data = await res.json();
+          if (!data || data.ok !== true || !['space', 'word', 'vine'].every(k => Array.isArray(data[k]))) {
+            throw new Error('The new Google Apps Script must be deployed first');
+          }
+          leaderboard.records = data.space.filter(r => matchCanonicalTeam(r.name));
+          wordLeaderboard.records = data.word.filter(r => matchCanonicalTeam(r.name));
+          vineLeaderboard.records = data.vine.filter(r => matchCanonicalTeam(r.name));
+          // Historical bests come from the Sheet, never from local device storage.
+          highScore = leaderboard.records.reduce((max, r) => Math.max(max, Number(r.score) || 0), 0);
+          bestWordTime = wordLeaderboard.records.length ? Math.min(...wordLeaderboard.records.map(r => Number(r.time) || Infinity)) : null;
+          bestVineTime = vineLeaderboard.records.length ? Math.min(...vineLeaderboard.records.map(r => Number(r.time) || Infinity)) : null;
+          scoreServiceReady = true;
+          if (document.getElementById('leaderboardListContainer')) renderLeaderboardTable();
+          updateMainAppGameStats();
+          return true;
+        } catch (error) {
+          scoreServiceReady = false;
+          console.warn('Google Sheets game score refresh:', error);
+          return false;
+        } finally {
+          scoreSyncInFlight = null;
+        }
+      })();
+      return scoreSyncInFlight;
+    }
+
+    function hasUnconfirmedGameRuns() {
+      return [...pendingGameSubmissions.values()].some(item => item.status !== 'saved');
+    }
+
+    // Keep score attempts in memory only. Warn before an unsaved run is lost.
+    window.addEventListener('beforeunload', event => {
+      if (hasUnconfirmedGameRuns()) {
+        event.preventDefault();
+        event.returnValue = '';
+      }
+    });
+
+    function makeGameEntry(game, team, runId, value, extra = {}) {
+      return {
+        game, name: team, runId,
+        ...(game === 'space' ? { score: Math.round(value) } : { time: Number(value.toFixed(2)) }),
+        ...extra,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+        timestamp: Date.now()
+      };
+    }
+
+    function gameSubmissionUi(game, runId, state, message) {
+      const config = {
+        space: ['updateNameLeaderboardBtn', 'rankPositionNotice', currentSpaceRunId],
+        word: ['wordUpdateNameBtn', 'wordRankPositionNotice', currentWordRunId],
+        vine: ['vineUpdateNameBtn', 'vineRankPositionNotice', currentVineRunId]
+      }[game];
+      if (!config || config[2] !== runId) return;
+      const btn = document.getElementById(config[0]);
+      const note = document.getElementById(config[1]);
+      if (note) note.textContent = message;
+      if (btn) {
+        btn.disabled = state === 'saving' || state === 'saved';
+        btn.textContent = state === 'saving' ? 'Recording...' : state === 'saved' ? 'Saved in Sheet ✓' : 'Retry Save';
+      }
+      if (state === 'saved') {
+        if (game === 'space') hasSavedCurrentSpaceScore = true;
+        if (game === 'word') hasSavedCurrentWordScore = true;
+        if (game === 'vine') hasSavedCurrentVineScore = true;
       }
     }
 
-    function postSheetLeaderboardEntry(gameKey, entry) {
-      if (!entry || !matchCanonicalTeam(entry.name)) return;
-      if (!SHEET_CONFIG.leaderboardSheetScriptUrl) return;
+    async function submitGameToSheet(entry) {
+      if (!entry || !matchCanonicalTeam(entry.name) || isPracticeTeam(entry.name)) return false;
+      const id = entry.runId;
+      const existing = pendingGameSubmissions.get(id);
+      if (existing && (existing.status === 'saved' || existing.status === 'saving')) return existing.status === 'saved';
+      pendingGameSubmissions.set(id, { status: 'saving', entry });
+      gameSubmissionUi(entry.game, id, 'saving', 'Recording your attempt in Google Sheets...');
       try {
-        fetch(SHEET_CONFIG.leaderboardSheetScriptUrl, {
-          method: 'POST',
-          mode: 'no-cors',
+        // Apps Script accepts text/plain without a CORS preflight. The POST result
+        // is opaque: verify with a separate GET instead of claiming it is saved.
+        await fetch(SHEET_CONFIG.leaderboardSheetScriptUrl, {
+          method: 'POST', mode: 'no-cors',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ game: gameKey, ...entry })
-        }).catch(() => {});
-      } catch (e) {}
+          body: JSON.stringify(entry)
+        });
+        let saved = false;
+        for (let i = 0; i < 9; i++) {
+          await new Promise(resolve => setTimeout(resolve, i < 3 ? 1200 : 2300));
+          try {
+            const verifyUrl = `${SHEET_CONFIG.leaderboardSheetScriptUrl}?action=status&game=${encodeURIComponent(entry.game)}&runId=${encodeURIComponent(id)}&_t=${Date.now()}`;
+            const response = await fetch(verifyUrl, { cache: 'no-store' });
+            if (!response.ok) continue;
+            const status = await response.json();
+            if (status.ok === true && status.saved === true && status.runId === id) { saved = true; break; }
+          } catch (err) { console.warn('Score verification retry:', err); }
+        }
+        if (!saved) throw new Error('Not confirmed by the Sheet');
+        pendingGameSubmissions.set(id, { status: 'saved', entry });
+        gameSubmissionUi(entry.game, id, 'saved', 'Confirmed: this attempt is saved in the Master Google Sheet.');
+        await refreshAllGameScores();
+        showToast('Team attempt confirmed in Master Google Sheet', '✅');
+        return true;
+      } catch (error) {
+        pendingGameSubmissions.set(id, { status: 'retry', entry });
+        gameSubmissionUi(entry.game, id, 'retry', 'Recording not confirmed. Check connection and press Retry Save.');
+        showToast('Score not confirmed. Please retry before leaving this page.', '⚠️');
+        console.warn('Score recording failed:', error);
+        return false;
+      }
     }
+
+    function submitSpaceScore() {
+      return submitGameToSheet(makeGameEntry('space', currentSpaceTeam, currentSpaceRunId,
+        score, { distance: Math.round(distance), coins: collectedCoinsCount }));
+    }
+    function submitWordScore() {
+      return submitGameToSheet(makeGameEntry('word', currentWordTeam, currentWordRunId,
+        wordFinalElapsedSeconds, { words: currentVerseWords.length, mode: HEBREWS_VERSES.heb514.label }));
+    }
+    function submitVineScore() {
+      return submitGameToSheet(makeGameEntry('vine', currentVineTeam, currentVineRunId,
+        vineFinalElapsedSeconds, { moves: vineMovesCount }));
+    }
+
+    // Existing saved scores are intentionally removed from this browser.
+    ['voyager_scroller_leaderboard_v2','voyager_scroller_highscore',
+      'voyager_hebrews_word_leaderboard_v2','voyager_hebrews_best_time_v2',
+      'voyager_vine_puzzle_leaderboard_v2','voyager_vine_best_time_v2'].forEach(key => {
+        try { localStorage.removeItem(key); } catch (e) {}
+      });
 
     // --- LEADERBOARD MANAGER ---
     const DEFAULT_LEADERBOARD = [];
@@ -3163,116 +3255,9 @@
     ];
 
     class LeaderboardManager {
-      constructor() {
-        this.records = [];
-        this.loadLocal();
-        this.loadCloud();
-      }
-
-      loadLocal() {
-        try {
-          const stored = localStorage.getItem('voyager_scroller_leaderboard_v2');
-          if (stored) {
-            this.records = JSON.parse(stored);
-          } else {
-            this.records = [...DEFAULT_LEADERBOARD];
-            this.saveLocal();
-          }
-        } catch (e) {
-          this.records = [...DEFAULT_LEADERBOARD];
-        }
-      }
-
-      saveLocal() {
-        try {
-          localStorage.setItem('voyager_scroller_leaderboard_v2', JSON.stringify(this.records));
-        } catch (e) {}
-      }
-
-      loadCloud() {
-        if (SHEET_CONFIG.leaderboardSheetScriptUrl) {
-          fetchSheetLeaderboard('space').then(rows => {
-            if (rows) {
-              this.records = rows;
-              this.saveLocal();
-              renderLeaderboardTable();
-              updateMainAppGameStats();
-            }
-          });
-        }
-        if (!db) return;
-        try {
-          db.collection('spaceman_leaderboard')
-            .orderBy('score', 'desc')
-            .limit(25)
-            .onSnapshot((snapshot) => {
-              if (snapshot) {
-                const cloudList = [];
-                snapshot.forEach(doc => {
-                  cloudList.push({ ...doc.data(), docId: doc.id });
-                });
-                this.records = cloudList;
-                this.saveLocal();
-                renderLeaderboardTable();
-                updateMainAppGameStats();
-              }
-            }, (err) => {
-              console.warn("Firestore notice:", err.message);
-            });
-        } catch (e) {}
-      }
-
-      addRecord(name, score, distance, coinsCount, runId = null) {
-        if (!matchCanonicalTeam(name)) return { entry: null, rank: 0, skipped: true };
-        if (runId && this.records.some(r => r.runId === runId)) {
-          const existingRank = this.records.findIndex(r => r.runId === runId) + 1;
-          return { entry: this.records[existingRank - 1], rank: existingRank, alreadySaved: true };
-        }
-        const cleanName = cleanPlayerName(name);
-        const entry = {
-          name: cleanName,
-          score: Math.round(score),
-          distance: Math.round(distance),
-          coins: coinsCount,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-          timestamp: Date.now(),
-          runId: runId || ('space_run_' + Date.now())
-        };
-
-        this.records.push(entry);
-        this.records.sort((a, b) => b.score - a.score);
-        if (this.records.length > 50) this.records = this.records.slice(0, 50);
-        this.saveLocal();
-
-        postSheetLeaderboardEntry('space', entry);
-        if (db) {
-          db.collection('spaceman_leaderboard').add({
-            name: entry.name,
-            score: entry.score,
-            distance: entry.distance,
-            coins: entry.coins,
-            date: entry.date,
-            timestamp: entry.timestamp,
-            runId: entry.runId
-          }).catch(() => {});
-        }
-
-        const rank = this.records.findIndex(r => r.timestamp === entry.timestamp) + 1;
-        return { entry, rank };
-      }
-
-      getRank(score) {
-        const index = this.records.findIndex(r => r.score <= score);
-        if (index === -1) return this.records.length + 1;
-        return index + 1;
-      }
-
-      resetLocal() {
-        this.records = [...DEFAULT_LEADERBOARD];
-        this.saveLocal();
-      }
+      constructor() { this.records = []; }
+      getRank(value) { return this.records.filter(r => Number(r.score) > value).length + 1; }
     }
-
     const leaderboard = new LeaderboardManager();
 
     // --- GAME ENGINE CONSTANTS & STATE ---
@@ -3303,10 +3288,6 @@
     let collectedCoinsCount = 0;
     let graceCount = 0;
     let highScore = 0;
-    try {
-      const savedHigh = localStorage.getItem('voyager_scroller_highscore');
-      if (savedHigh) highScore = parseInt(savedHigh, 10) || 0;
-    } catch (e) {}
 
     // Lives & Grace Mechanic
     // Default = 1 Life ("Only 1 Life"). Grace allows an extra life without earning points!
@@ -3829,9 +3810,7 @@
       const isNewBest = !isPracticeTeam(currentSpaceTeam) && score > highScore;
       if (isNewBest) {
         highScore = Math.round(score);
-        try {
-          localStorage.setItem('voyager_scroller_highscore', highScore);
-        } catch (e) {}
+
         sound.playHighScoreFanfare();
         document.getElementById('newHighScoreNotice').classList.remove('hidden');
       } else {
@@ -3848,8 +3827,9 @@
       const rank = leaderboard.getRank(score);
       document.getElementById('rankPositionNotice').textContent = isPracticeTeam(currentSpaceTeam)
         ? 'Just For Fun. Not recorded.'
-        : `Projected Rank #${rank} (Click Save to record)`;
+        : `Projected Rank #${rank} (Automatically recording in Sheet)`;
       updateMainAppGameStats();
+      if (!isPracticeTeam(currentSpaceTeam)) submitSpaceScore();
 
       setTimeout(() => {
         document.getElementById('gameHud').classList.add('hidden');
@@ -4593,120 +4573,12 @@
     const DEFAULT_WORD_LEADERBOARD = [];
 
     class WordLeaderboardManager {
-      constructor() {
-        this.records = [];
-        this.loadLocal();
-        this.loadCloud();
-      }
-
-      loadLocal() {
-        try {
-          const stored = localStorage.getItem('voyager_hebrews_word_leaderboard_v2');
-          if (stored) {
-            this.records = JSON.parse(stored);
-          } else {
-            this.records = [...DEFAULT_WORD_LEADERBOARD];
-            this.saveLocal();
-          }
-        } catch (e) {
-          this.records = [...DEFAULT_WORD_LEADERBOARD];
-        }
-      }
-
-      saveLocal() {
-        try {
-          localStorage.setItem('voyager_hebrews_word_leaderboard_v2', JSON.stringify(this.records));
-        } catch (e) {}
-      }
-
-      loadCloud() {
-        if (SHEET_CONFIG.leaderboardSheetScriptUrl) {
-          fetchSheetLeaderboard('word').then(rows => {
-            if (rows) {
-              this.records = rows;
-              this.saveLocal();
-              if (activeLeaderboardGame === 'word') renderLeaderboardTable();
-              updateMainAppGameStats();
-            }
-          });
-        }
-        if (!db) return;
-        try {
-          db.collection('hebrews_word_leaderboard')
-            .orderBy('time', 'asc')
-            .limit(25)
-            .onSnapshot((snapshot) => {
-              if (snapshot) {
-                const cloudList = [];
-                snapshot.forEach(doc => cloudList.push({ ...doc.data(), docId: doc.id }));
-                this.records = cloudList;
-                this.saveLocal();
-                if (activeLeaderboardGame === 'word') renderLeaderboardTable();
-                updateMainAppGameStats();
-              }
-            }, () => {});
-        } catch (e) {}
-      }
-
-      addRecord(name, timeSeconds, wordsCount, modeLabel, runId = null) {
-        if (!matchCanonicalTeam(name)) return { entry: null, rank: 0, skipped: true };
-        if (runId && this.records.some(r => r.runId === runId)) {
-          const existingRank = this.records.findIndex(r => r.runId === runId) + 1;
-          return { entry: this.records[existingRank - 1], rank: existingRank, alreadySaved: true };
-        }
-        const cleanName = cleanPlayerName(name);
-        const numericTime = parseFloat(Number(timeSeconds).toFixed(2));
-        const entry = {
-          name: cleanName,
-          time: numericTime,
-          words: wordsCount,
-          mode: modeLabel || "Hebrews 5:14 (NIV)",
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-          timestamp: Date.now(),
-          runId: runId || ('word_run_' + Date.now())
-        };
-
-        this.records.push(entry);
-        this.records.sort((a, b) => a.time - b.time);
-        if (this.records.length > 50) this.records = this.records.slice(0, 50);
-        this.saveLocal();
-
-        postSheetLeaderboardEntry('word', entry);
-        if (db) {
-          db.collection('hebrews_word_leaderboard').add({
-            name: entry.name,
-            time: entry.time,
-            words: entry.words,
-            mode: entry.mode,
-            date: entry.date,
-            timestamp: entry.timestamp,
-            runId: entry.runId
-          }).catch(() => {});
-        }
-
-        const rank = this.records.findIndex(r => r.timestamp === entry.timestamp) + 1;
-        return { entry, rank };
-      }
-
-      getRank(timeSeconds) {
-        const index = this.records.findIndex(r => r.time >= timeSeconds);
-        if (index === -1) return this.records.length + 1;
-        return index + 1;
-      }
-
-      resetLocal() {
-        this.records = [...DEFAULT_WORD_LEADERBOARD];
-        this.saveLocal();
-      }
+      constructor() { this.records = []; }
+      getRank(value) { return this.records.filter(r => Number(r.time) < value).length + 1; }
     }
-
     const wordLeaderboard = new WordLeaderboardManager();
 
     let bestWordTime = null;
-    try {
-      const savedBestWord = localStorage.getItem('voyager_hebrews_best_time_v2');
-      if (savedBestWord) bestWordTime = parseFloat(savedBestWord);
-    } catch (e) {}
 
     let isWordGameModalOpen = false;
     let wordGameActive = false;
@@ -4883,6 +4755,15 @@
     let hasSavedCurrentWordScore = false;
 
     function startWordStreamGame() {
+      if (!isPracticeTeam(selectedGameTeam('wordPilotNameInput')) && hasUnconfirmedGameRuns()) {
+        showToast('A previous team score needs confirmation. Use Retry Save first.', '⚠️');
+        return;
+      }
+      if (!isPracticeTeam(selectedGameTeam('wordPilotNameInput')) && !scoreServiceReady) {
+        showToast('Google Sheets scores are offline. Retry Sync before playing for your team.', '⚠️');
+        refreshAllGameScores();
+        return;
+      }
       sound.init();
       currentWordRunId = 'word_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
       hasSavedCurrentWordScore = false;
@@ -4933,9 +4814,7 @@
       const isNewBest = !isPracticeTeam(currentWordTeam) && (bestWordTime === null || wordFinalElapsedSeconds < bestWordTime);
       if (isNewBest) {
         bestWordTime = wordFinalElapsedSeconds;
-        try {
-          localStorage.setItem('voyager_hebrews_best_time_v2', String(bestWordTime));
-        } catch (e) {}
+
         document.getElementById('wordNewBestNotice').classList.remove('hidden');
       } else {
         document.getElementById('wordNewBestNotice').classList.add('hidden');
@@ -4951,9 +4830,10 @@
       const projectedRank = wordLeaderboard.getRank(wordFinalElapsedSeconds);
       document.getElementById('wordRankPositionNotice').textContent = isPracticeTeam(currentWordTeam)
         ? 'Just For Fun. Not recorded.'
-        : `Projected Rank #${projectedRank} (Click Save to record)`;
+        : `Projected Rank #${projectedRank} (Automatically recording in Sheet)`;
 
       updateMainAppGameStats();
+      if (!isPracticeTeam(currentWordTeam)) submitWordScore();
 
       setTimeout(() => {
         document.getElementById('wordVictoryOverlay').classList.remove('hidden');
@@ -5057,118 +4937,12 @@
     const DEFAULT_VINE_LEADERBOARD = [];
 
     class VineLeaderboardManager {
-      constructor() {
-        this.records = [];
-        this.loadLocal();
-        this.loadCloud();
-      }
-
-      loadLocal() {
-        try {
-          const stored = localStorage.getItem('voyager_vine_puzzle_leaderboard_v2');
-          if (stored) {
-            this.records = JSON.parse(stored);
-          } else {
-            this.records = [...DEFAULT_VINE_LEADERBOARD];
-            this.saveLocal();
-          }
-        } catch (e) {
-          this.records = [...DEFAULT_VINE_LEADERBOARD];
-        }
-      }
-
-      saveLocal() {
-        try {
-          localStorage.setItem('voyager_vine_puzzle_leaderboard_v2', JSON.stringify(this.records));
-        } catch (e) {}
-      }
-
-      loadCloud() {
-        if (SHEET_CONFIG.leaderboardSheetScriptUrl) {
-          fetchSheetLeaderboard('vine').then(rows => {
-            if (rows) {
-              this.records = rows;
-              this.saveLocal();
-              if (activeLeaderboardGame === 'vine') renderLeaderboardTable();
-              updateMainAppGameStats();
-            }
-          });
-        }
-        if (!db) return;
-        try {
-          db.collection('vine_puzzle_leaderboard')
-            .orderBy('time', 'asc')
-            .limit(25)
-            .onSnapshot((snapshot) => {
-              if (snapshot) {
-                const cloudList = [];
-                snapshot.forEach(doc => cloudList.push({ ...doc.data(), docId: doc.id }));
-                this.records = cloudList;
-                this.saveLocal();
-                if (activeLeaderboardGame === 'vine') renderLeaderboardTable();
-                updateMainAppGameStats();
-              }
-            }, () => {});
-        } catch (e) {}
-      }
-
-      addRecord(name, timeSeconds, movesCount, runId = null) {
-        if (!matchCanonicalTeam(name)) return { entry: null, rank: 0, skipped: true };
-        if (runId && this.records.some(r => r.runId === runId)) {
-          const existingRank = this.records.findIndex(r => r.runId === runId) + 1;
-          return { entry: this.records[existingRank - 1], rank: existingRank, alreadySaved: true };
-        }
-        const cleanName = cleanPlayerName(name);
-        const numericTime = parseFloat(Number(timeSeconds).toFixed(2));
-        const entry = {
-          name: cleanName,
-          time: numericTime,
-          moves: movesCount || 0,
-          date: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric" }),
-          timestamp: Date.now(),
-          runId: runId || ('vine_run_' + Date.now())
-        };
-
-        this.records.push(entry);
-        this.records.sort((a, b) => a.time - b.time);
-        if (this.records.length > 50) this.records = this.records.slice(0, 50);
-        this.saveLocal();
-
-        postSheetLeaderboardEntry('vine', entry);
-        if (db) {
-          db.collection('vine_puzzle_leaderboard').add({
-            name: entry.name,
-            time: entry.time,
-            moves: entry.moves,
-            date: entry.date,
-            timestamp: entry.timestamp,
-            runId: entry.runId
-          }).catch(() => {});
-        }
-
-        const rank = this.records.findIndex(r => r.timestamp === entry.timestamp) + 1;
-        return { entry, rank };
-      }
-
-      getRank(timeSeconds) {
-        const index = this.records.findIndex(r => r.time >= timeSeconds);
-        if (index === -1) return this.records.length + 1;
-        return index + 1;
-      }
-
-      resetLocal() {
-        this.records = [...DEFAULT_VINE_LEADERBOARD];
-        this.saveLocal();
-      }
+      constructor() { this.records = []; }
+      getRank(value) { return this.records.filter(r => Number(r.time) < value).length + 1; }
     }
-
     const vineLeaderboard = new VineLeaderboardManager();
 
     let bestVineTime = null;
-    try {
-      const savedBestVine = localStorage.getItem('voyager_vine_best_time_v2');
-      if (savedBestVine) bestVineTime = parseFloat(savedBestVine);
-    } catch (e) {}
 
     let isVineGameModalOpen = false;
     let vineGameActive = false;
@@ -5385,6 +5159,15 @@
     }
 
     function startVinePuzzleGame() {
+      if (!isPracticeTeam(selectedGameTeam('vinePilotNameInput')) && hasUnconfirmedGameRuns()) {
+        showToast('A previous team score needs confirmation. Use Retry Save first.', '⚠️');
+        return;
+      }
+      if (!isPracticeTeam(selectedGameTeam('vinePilotNameInput')) && !scoreServiceReady) {
+        showToast('Google Sheets scores are offline. Retry Sync before playing for your team.', '⚠️');
+        refreshAllGameScores();
+        return;
+      }
       sound.init();
       currentVineRunId = 'vine_' + Date.now() + '_' + Math.random().toString(36).slice(2, 7);
       hasSavedCurrentVineScore = false;
@@ -5426,9 +5209,7 @@
       const isNewBest = !isPracticeTeam(currentVineTeam) && (bestVineTime === null || vineFinalElapsedSeconds < bestVineTime);
       if (isNewBest) {
         bestVineTime = vineFinalElapsedSeconds;
-        try {
-          localStorage.setItem('voyager_vine_best_time_v2', String(bestVineTime));
-        } catch (e) {}
+
         document.getElementById('vineNewBestNotice').classList.remove('hidden');
       } else {
         document.getElementById('vineNewBestNotice').classList.add('hidden');
@@ -5441,9 +5222,10 @@
       const projectedRank = vineLeaderboard.getRank(vineFinalElapsedSeconds);
       document.getElementById('vineRankPositionNotice').textContent = isPracticeTeam(currentVineTeam)
         ? 'Just For Fun. Not recorded.'
-        : `Projected Rank #${projectedRank} (Click Save to record)`;
+        : `Projected Rank #${projectedRank} (Automatically recording in Sheet)`;
 
       updateMainAppGameStats();
+      if (!isPracticeTeam(currentVineTeam)) submitVineScore();
 
       setTimeout(() => {
         document.getElementById('vineVictoryOverlay').classList.remove('hidden');
@@ -5641,7 +5423,7 @@
 
       // MODE B: ALL RECORDED TEAM RUNS LOG
       if (activeLeaderboardGame === 'vine') {
-        const list = vineLeaderboard.records.filter(r => matchCanonicalTeam(r.name)).sort((a, b) => a.time - b.time);
+        const list = [...vineLeaderboard.records].sort((a, b) => a.time - b.time);
         if (list.length === 0) {
           container.innerHTML = '<div class="text-slate-500 text-center py-6">No puzzle times recorded yet.</div>';
           return;
@@ -5665,7 +5447,7 @@
       }
 
       if (activeLeaderboardGame === 'word') {
-        const list = wordLeaderboard.records.filter(r => matchCanonicalTeam(r.name)).sort((a, b) => a.time - b.time);
+        const list = [...wordLeaderboard.records].sort((a, b) => a.time - b.time);
         if (list.length === 0) {
           container.innerHTML = '<div class="text-slate-500 text-center py-6">No word stream times recorded yet.</div>';
           return;
@@ -5688,7 +5470,7 @@
         return;
       }
 
-      const list = leaderboard.records.filter(r => matchCanonicalTeam(r.name)).sort((a, b) => b.score - a.score);
+      const list = [...leaderboard.records].sort((a, b) => b.score - a.score);
       if (list.length === 0) {
         container.innerHTML = '<div class="text-slate-500 text-center py-6">No flights recorded yet.</div>';
         return;
@@ -5721,6 +5503,15 @@
     }
 
     function startNewFlight() {
+      if (!isPracticeTeam(selectedGameTeam('pilotNameInput')) && hasUnconfirmedGameRuns()) {
+        showToast('A previous team score needs confirmation. Use Retry Save first.', '⚠️');
+        return;
+      }
+      if (!isPracticeTeam(selectedGameTeam('pilotNameInput')) && !scoreServiceReady) {
+        showToast('Google Sheets scores are offline. Retry Sync before playing for your team.', '⚠️');
+        refreshAllGameScores();
+        return;
+      }
       currentSpaceTeam = selectedGameTeam('pilotNameInput');
       pilotName = currentSpaceTeam;
       document.getElementById('headerPilotName').textContent = pilotName;
@@ -5907,10 +5698,22 @@
 
       // ================= SPACE GAME DOM LISTENERS =================
       populateTeamDropdowns();
+      refreshAllGameScores().then(ok => {
+        if (!ok) showToast('Mini-game scores unavailable. Deploy Google Apps Script first.', '⚠️');
+      });
+      setInterval(() => {
+        if (!document.hidden) refreshAllGameScores();
+      }, SCORE_REFRESH_MS);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) refreshAllGameScores();
+      });
       document.querySelectorAll('.team-dropdown-select').forEach(sel => {
         sel.addEventListener('change', () => updateGameModeNotices());
       });
 
+      document.querySelectorAll('#syncMasterSheetHeaderBtn, #dashboardRefreshScoresBtn, #gamesTabRefreshScoresBtn').forEach(btn => {
+        if (btn) btn.addEventListener('click', () => refreshAllGameScores());
+      });
       const gamesExportBtn = document.getElementById('gamesTabExportCsvBtn');
       if (gamesExportBtn) gamesExportBtn.addEventListener('click', exportAllGameStandingsToCSV);
       const lbExportBtn = document.getElementById('exportLeaderboardCsvBtn');
@@ -5948,39 +5751,15 @@
           showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
           return;
         }
-        pilotName = currentSpaceTeam;
-        const nameInp = document.getElementById('gameOverPilotNameInput');
-
-        hasSavedCurrentSpaceScore = true;
-        updateNameBtn.disabled = true;
-        updateNameBtn.textContent = 'Saved ✓';
-        updateNameBtn.className = "bg-slate-700 text-emerald-400 text-xs font-black font-orbitron px-3 py-2 rounded-xl shrink-0 cursor-not-allowed";
-        if (nameInp) nameInp.disabled = true;
-
-        const res = leaderboard.addRecord(currentSpaceTeam, score, distance, collectedCoinsCount, currentSpaceRunId);
-        const rNotice = document.getElementById('rankPositionNotice');
-        if (rNotice) rNotice.textContent = `Saved! Rank #${res.rank}`;
-        updateMainAppGameStats();
-        showToast(`Score saved under ${pilotName} (Rank #${res.rank})!`, '🏆');
-
-        gameState = STATE.MENU;
-        document.getElementById('gameOverOverlay').classList.add('hidden');
-        document.getElementById('gameHud').classList.add('hidden');
-        document.getElementById('startScreenOverlay').classList.remove('hidden');
-        setLeaderboardGameTab('space');
-        document.getElementById('leaderboardModal').classList.remove('hidden');
+        submitSpaceScore();
       });
 
 
 
       const hEditBtn = document.getElementById('headerEditPilotBtn');
       if (hEditBtn) hEditBtn.addEventListener('click', () => {
-        gameState = STATE.MENU;
-        document.getElementById('gameHud').classList.add('hidden');
-        document.getElementById('pauseOverlay').classList.add('hidden');
         document.getElementById('startScreenOverlay').classList.remove('hidden');
         document.getElementById('gameOverOverlay').classList.add('hidden');
-        updateGameModeNotices();
         const pi = document.getElementById('pilotNameInput');
         if (pi) pi.focus();
       });
@@ -6038,18 +5817,6 @@
         e.currentTarget.className = "px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer";
         const aBtn = document.getElementById('tabRankingsAllBtn');
         if (aBtn) aBtn.className = "px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition cursor-pointer";
-        renderLeaderboardTable();
-      });
-
-      const clearScoresBtn = document.getElementById('clearMyScoresBtn');
-      if (clearScoresBtn) clearScoresBtn.addEventListener('click', () => {
-        if (activeLeaderboardGame === 'word') {
-          wordLeaderboard.resetLocal();
-        } else if (activeLeaderboardGame === 'vine') {
-          vineLeaderboard.resetLocal();
-        } else {
-          leaderboard.resetLocal();
-        }
         renderLeaderboardTable();
       });
 
@@ -6144,25 +5911,7 @@
           showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
           return;
         }
-        pilotName = currentWordTeam;
-        const nameInp = document.getElementById('wordVictoryNameInput');
-
-        hasSavedCurrentWordScore = true;
-        wordUpdateNameBtn.disabled = true;
-        wordUpdateNameBtn.textContent = 'Saved ✓';
-        wordUpdateNameBtn.className = "bg-slate-700 text-emerald-400 text-xs font-black font-orbitron px-3 py-2 rounded-xl shrink-0 cursor-not-allowed";
-        if (nameInp) nameInp.disabled = true;
-
-        const verseObj = HEBREWS_VERSES.heb514;
-        const res = wordLeaderboard.addRecord(currentWordTeam, wordFinalElapsedSeconds, currentVerseWords.length, verseObj.label, currentWordRunId);
-        document.getElementById('wordRankPositionNotice').textContent = `Saved! Rank #${res.rank}`;
-        updateMainAppGameStats();
-        showToast(`Time ${wordFinalElapsedSeconds.toFixed(2)}s saved (Rank #${res.rank})!`, '⏱️');
-
-        document.getElementById('wordVictoryOverlay').classList.add('hidden');
-        document.getElementById('wordStartOverlay').classList.remove('hidden');
-        setLeaderboardGameTab('word');
-        document.getElementById('leaderboardModal').classList.remove('hidden');
+        submitWordScore();
       });
 
       const lbSwitchSpaceBtn = document.getElementById('lbSwitchSpaceGameBtn');
@@ -6251,24 +6000,7 @@
           showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
           return;
         }
-        pilotName = currentVineTeam;
-        const nameInp = document.getElementById('vineVictoryNameInput');
-
-        hasSavedCurrentVineScore = true;
-        vineUpdateNameBtn.disabled = true;
-        vineUpdateNameBtn.textContent = 'Saved ✓';
-        vineUpdateNameBtn.className = "bg-slate-700 text-emerald-400 text-xs font-black font-orbitron px-3 py-2 rounded-xl shrink-0 cursor-not-allowed";
-        if (nameInp) nameInp.disabled = true;
-
-        const res = vineLeaderboard.addRecord(currentVineTeam, vineFinalElapsedSeconds, vineMovesCount, currentVineRunId);
-        document.getElementById('vineRankPositionNotice').textContent = `Saved! Rank #${res.rank}`;
-        updateMainAppGameStats();
-        showToast(`Time ${vineFinalElapsedSeconds.toFixed(2)}s saved (Rank #${res.rank})!`, '⏱️');
-
-        document.getElementById('vineVictoryOverlay').classList.add('hidden');
-        document.getElementById('vineStartOverlay').classList.remove('hidden');
-        setLeaderboardGameTab('vine');
-        document.getElementById('leaderboardModal').classList.remove('hidden');
+        submitVineScore();
       });
 
       window.addEventListener('resize', () => {
