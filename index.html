@@ -1672,36 +1672,7 @@
       currentAnnouncementId: DEFAULT_ANNOUNCEMENT_ID,
       currentAnnouncementText: DEFAULT_ANNOUNCEMENT_TEXT,
 
-      schedule: [
-        { id: 1, day: 1, time: 'Before 7:00 pm', activity: 'Arrival and room allotments', details: 'YRC Campus Check-in', forceLive: false },
-        { id: 2, day: 1, time: '7:00–7:45 pm', activity: 'Dinner', details: 'Dining Hall', forceLive: false },
-        { id: 3, day: 1, time: '8:00–8:30 pm', activity: 'Welcome and praise', details: 'Main Hall', forceLive: false },
-        { id: 4, day: 1, time: '8:30–9:30 pm', activity: 'Session 1 (speaker)', details: 'Ephesians 4:13 Theme Introduction', forceLive: false },
-        { id: 5, day: 1, time: '9:30–10:00 pm', activity: 'Mentoring group reflection and prayer', details: 'Meet in assigned groups', forceLive: false },
-        { id: 6, day: 1, time: '10:00 pm', activity: 'Return to rooms', details: 'Lights out & rest', forceLive: false },
-
-        { id: 7, day: 2, time: '7:30–8:15 am', activity: 'Breakfast', details: 'Dining Hall', forceLive: false },
-        { id: 8, day: 2, time: '8:30–9:00 am', activity: 'Praise', details: 'Main Hall', forceLive: false },
-        { id: 9, day: 2, time: '9:00–10:30 am', activity: 'Session 2 (speaker)', details: 'Growing in Spiritual Maturity', forceLive: false },
-        { id: 10, day: 2, time: '10:30–11:00 am', activity: 'Break', details: 'Refreshments', forceLive: false },
-        { id: 11, day: 2, time: '11:00 am–1:00 pm', activity: 'Session 3 (speaker)', details: 'Solid Food vs. Milk (Hebrews 5:14)', forceLive: false },
-        { id: 12, day: 2, time: '1:00–2:00 pm', activity: 'Lunch', details: 'Dining Hall', forceLive: false },
-        { id: 13, day: 2, time: '2:00–3:30 pm', activity: 'Rest and free time', details: 'Campus grounds', forceLive: false },
-        { id: 14, day: 2, time: '3:30–4:00 pm', activity: 'Tea', details: 'Dining Hall', forceLive: false },
-        { id: 15, day: 2, time: '4:00–5:30 pm', activity: 'Space exploration (the Maturity Game)', details: 'Team Maturity Challenges', forceLive: false },
-        { id: 16, day: 2, time: '5:30–7:00 pm', activity: 'Session 4 (speaker challenge)', details: 'Main Hall', forceLive: false },
-        { id: 17, day: 2, time: '7:00–8:15 pm', activity: 'Dinner', details: 'Dining Hall', forceLive: false },
-        { id: 18, day: 2, time: '8:30–10:00 pm', activity: 'Campfire activities', details: 'Outdoor Campfire', forceLive: false },
-
-        { id: 19, day: 3, time: '7:30–8:15 am', activity: 'Breakfast', details: 'Dining Hall', forceLive: false },
-        { id: 20, day: 3, time: '8:30–9:00 am', activity: 'Praise', details: 'Main Hall', forceLive: false },
-        { id: 21, day: 3, time: '9:00–10:30 am', activity: 'Spiritual goals', details: 'Personal & group reflection', forceLive: false },
-        { id: 22, day: 3, time: '10:30–11:00 am', activity: 'Break', details: 'Refreshments', forceLive: false },
-        { id: 23, day: 3, time: '11:00 am–12:30 pm', activity: 'Work with mentors and team leaders on spiritual goals, followed by prayer and commitment', details: 'Mentoring Groups', forceLive: false },
-        { id: 24, day: 3, time: '12:30–1:00 pm', activity: 'Praise and final challenge', details: 'Final Maturity Prize Announcement', forceLive: false },
-        { id: 25, day: 3, time: '1:00–1:45 pm', activity: 'Lunch', details: 'Dining Hall', forceLive: false },
-        { id: 26, day: 3, time: '2:00 pm', activity: 'Departure from the retreat centre', details: 'Return to Bangalore', forceLive: false }
-      ],
+      schedule: [],
 
       teamScores: [
         { team: 'Group 1: Roots', score: 0, breakdown: [{ label: 'Session Points', points: 0 }, { label: 'Space Exploration', points: 0 }, { label: 'App Games', points: 0 }, { label: 'Maturity Bonus', points: 0 }], note: 'Ready for Day 1 challenges' },
@@ -1830,6 +1801,10 @@
       ]
     };
     retreatData.notices = [];
+    // Schedule data must come from the Google Sheet, never from the old bundled timetable.
+    let scheduleLoadState = 'loading';
+    let scheduleLoadError = '';
+    let scheduleRequestNumber = 0;
 
     function escapeHtml(value) {
       return String(value ?? '').replace(/[&<>"']/g, c => ({
@@ -1960,54 +1935,100 @@
       return rows;
     }
 
-    // 1. Fetch Schedule from Master Sheet
+    // 1. Fetch the COMPLETE Schedule from the Master Sheet.
+    // Never silently use a partial or bundled timetable.
+    function readRetreatDay(raw) {
+      const value = String(raw ?? '').trim().toLowerCase();
+      if (!value) return null;
+      const direct = value.match(/^(?:day\s*[-:#]?\s*)?([123])$/i);
+      if (direct) return Number(direct[1]);
+      const dayTag = value.match(/\bday\s*[-:#]?\s*([123])\b/);
+      if (dayTag) return Number(dayTag[1]);
+      const dmy = value.match(/(?:^|\D)(23|24|25)[\/.-]10(?:[\/.-]2026)?(?:$|\D)/);
+      if (dmy) return Number(dmy[1]) - 22;
+      const mdy = value.match(/(?:^|\D)10[\/.-](23|24|25)(?:[\/.-]2026)?(?:$|\D)/);
+      if (mdy) return Number(mdy[1]) - 22;
+      const iso = value.match(/2026[\/.-]10[\/.-](23|24|25)/);
+      if (iso) return Number(iso[1]) - 22;
+      if (/\b(sat|saturday)\b/.test(value) || /\b24\b/.test(value)) return 2;
+      if (/\b(sun|sunday)\b/.test(value) || /\b25\b/.test(value)) return 3;
+      if (/\b(fri|friday)\b/.test(value) || /\b23\b/.test(value)) return 1;
+      return null;
+    }
+
+    function reportScheduleFailure(message) {
+      scheduleLoadState = 'error';
+      scheduleLoadError = message;
+      // Do not keep displaying last-known events as though they were current.
+      retreatData.schedule = [];
+      console.warn('Voyager Schedule sync:', message);
+      updateSyncStatus(false, 'Schedule error');
+      renderSchedule();
+      updateLiveNowTicker();
+    }
+
     async function fetchScheduleFromSheet() {
-      const csvUrl = buildMasterTabCsvUrl('schedule');
-      if (!csvUrl) return false;
+      const requestNumber = ++scheduleRequestNumber;
+      const url = buildMasterTabCsvUrl('schedule');
+      if (!url) {
+        reportScheduleFailure('No Schedule sheet URL is configured.');
+        return false;
+      }
       try {
-        const res = await fetch(csvUrl, { cache: 'no-store' });
-        if (!res.ok) return false;
+        // Cache-busting also defeats intermediary CSV caches on mobile.
+        const fetchUrl = url + (url.includes('?') ? '&' : '?') + '_voyager=' + Date.now();
+        const res = await fetch(fetchUrl, { cache: 'no-store', redirect: 'follow' });
+        if (requestNumber !== scheduleRequestNumber) return true; // a newer sync won
+        if (!res.ok) throw new Error('Google Sheet HTTP ' + res.status);
         const text = await res.text();
-        if (text.trim().startsWith('<!DOCTYPE') || text.trim().startsWith('<html')) return false;
+        if (requestNumber !== scheduleRequestNumber) return Boolean(retreatData.schedule.length);
+        if (/^\s*</.test(text)) throw new Error('Google returned an HTML page, not Schedule CSV. Check sheet access.');
         const rows = parseCSV(text);
-        if (rows.length <= 1) return false;
-
-        const headers = rows[0].map(h => h.toLowerCase());
-        // Verify this looks like a Schedule sheet (has day/time/activity/event)
-        const hasSchedHeader = headers.some(h => h.includes('day') || h.includes('time') || h.includes('activity') || h.includes('event') || h.includes('session'));
-        if (!hasSchedHeader) return false;
-
+        if (rows.length <= 1) throw new Error('Schedule CSV is empty.');
+        const headers = rows[0].map(h => String(h).trim().toLowerCase());
+        const findHeader = names => headers.findIndex(h => names.some(n => h === n || h.startsWith(n + ' ') || h.startsWith(n + '/')));
+        const dayCol = findHeader(['day', 'date']);
+        const timeCol = findHeader(['time', 'timing', 'slot']);
+        const activityCol = findHeader(['activity', 'event', 'session', 'programme', 'program']);
+        const detailsCol = findHeader(['details', 'detail', 'notes', 'location', 'description']);
+        const forcedCol = findHeader(['forcelive', 'force live', 'live override']);
+        if (dayCol < 0 || timeCol < 0 || activityCol < 0) {
+          throw new Error('Schedule needs Day, Time, and Activity column headers. Found: ' + headers.join(', '));
+        }
+        let lastDay = null;
+        const invalid = [];
         const items = [];
         for (let i = 1; i < rows.length; i++) {
           const r = rows[i];
-          const rawDay = String(r[0] || '').trim().toLowerCase();
-          // Accept 1/2/3, Day 1/2/3, weekday names, and dates such as 24/10/2026 or 2026-10-24.
-          let dayNum = null;
-          const simpleDay = rawDay.match(/^(?:day\s*)?([123])$/);
-          if (simpleDay) dayNum = Number(simpleDay[1]);
-          else if (/\b(sat(?:urday)?)\b|2026-10-24|\b24\b/.test(rawDay)) dayNum = 2;
-          else if (/\b(sun(?:day)?)\b|2026-10-25|\b25\b/.test(rawDay)) dayNum = 3;
-          else if (/\b(fri(?:day)?)\b|2026-10-23|\b23\b/.test(rawDay)) dayNum = 1;
-          if (dayNum === null) {
-            console.warn('Skipping Schedule row with an unrecognised day:', rawDay);
+          const time = String(r[timeCol] || '').trim();
+          const activity = String(r[activityCol] || '').trim();
+          if (!time && !activity) continue;
+          const rawDay = String(r[dayCol] || '').trim();
+          const parsedDay = readRetreatDay(rawDay);
+          if (rawDay) lastDay = parsedDay; // blank day cells inherit the previous day's label
+          const dayNum = rawDay ? parsedDay : lastDay;
+          if (dayNum === null || !time || !activity || !parseScheduleTimeRange(time)) {
+            invalid.push(i + 1);
             continue;
           }
-          const time = (r[1] || '').trim();
-          const activity = (r[2] || '').trim();
-          const details = (r[3] || '').trim();
-          const forceLiveRaw = String(r[4] || '').trim().toLowerCase();
-          const forceLive = (forceLiveRaw === 'true' || forceLiveRaw === 'live' || forceLiveRaw === 'yes' || forceLiveRaw === 'now' || forceLiveRaw === '1');
-          if (!time && !activity) continue;
+          const details = detailsCol >= 0 ? String(r[detailsCol] || '').trim() : '';
+          const rawFlag = forcedCol >= 0 ? String(r[forcedCol] || '').trim().toLowerCase() : '';
+          const forceLive = ['true', 'live', 'yes', 'now', '1'].includes(rawFlag);
           items.push({ id: i, day: dayNum, time, activity, details, forceLive });
         }
-        if (items.length > 0) {
-          retreatData.schedule = items;
-          renderSchedule();
-          updateLiveNowTicker();
-          return true;
-        }
-      } catch (e) {}
-      return false;
+        if (invalid.length) throw new Error('Unusable Schedule rows ' + invalid.slice(0, 8).join(', ') + '. Please check Day / Time / Activity.');
+        if (!items.length) throw new Error('No Schedule events found.');
+        // The schedule tab preserves its source rows; the dashboard sorts a separate timeline.
+        retreatData.schedule = items;
+        scheduleLoadState = 'synced';
+        scheduleLoadError = '';
+        renderSchedule();
+        updateLiveNowTicker();
+        return true;
+      } catch (err) {
+        if (requestNumber === scheduleRequestNumber) reportScheduleFailure(err.message || 'Unable to load Schedule CSV.');
+        return false;
+      }
     }
 
     // 2. Fetch Team Maturity Scores from Master Sheet
@@ -2221,6 +2242,9 @@
     fetchParticipantsFromSheet()
   ]);
 
+  // Show a schedule fetch problem rather than a misleading green Live badge.
+  if (results[0]) updateSyncStatus(true, `Schedule: ${retreatData.schedule.length} events`);
+  else updateSyncStatus(false, 'Schedule error');
   if (!silent) {
     const names = ['Schedule', 'Scores', 'Notices', 'Groups'];
     const failed = names.filter((_, i) => !results[i]);
@@ -2318,37 +2342,73 @@
     // =========================================================================
     // REAL-TIME IST CLOCK & DYNAMIC SCHEDULE SESSION MATCHER
     // =========================================================================
-    function parseSingleTimeMin(str, fallbackMeridiem) {
-      const m = String(str || '').trim().match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)?/i);
+    function parseSingleTimeMin(str, fallbackMeridiem = '') {
+      const cleaned = String(str || '').trim().toLowerCase().replace(/a\.m\./g, 'am').replace(/p\.m\./g, 'pm');
+      const m = cleaned.match(/(\d{1,2})(?:[:.](\d{2}))?\s*(am|pm)?\b/i);
       if (!m) return null;
-      let hr = parseInt(m[1], 10);
-      const mn = parseInt(m[2] || '0', 10);
-      const mer = (m[3] || fallbackMeridiem || '').toLowerCase();
-      if (mer === 'pm' && hr < 12) hr += 12;
-      if (mer === 'am' && hr === 12) hr = 0;
-      return hr * 60 + mn;
+      let hr = Number(m[1]);
+      const minute = Number(m[2] || 0);
+      if (hr > 23 || minute > 59) return null;
+      const meridiem = (m[3] || fallbackMeridiem || '').toLowerCase();
+      if (meridiem && hr > 12) return null;
+      if (meridiem === 'pm' && hr < 12) hr += 12;
+      if (meridiem === 'am' && hr === 12) hr = 0;
+      return hr * 60 + minute;
     }
 
     function parseScheduleTimeRange(timeStr) {
       const raw = String(timeStr || '').trim();
-      const lower = raw.toLowerCase();
-      if (lower.startsWith('before')) {
-        const endMin = parseSingleTimeMin(lower.replace('before', ''), lower.includes('pm') ? 'pm' : 'am');
-        return endMin !== null ? { start: 0, end: endMin } : null;
+      if (!raw) return null;
+      if (/^before\b/i.test(raw)) {
+        const end = parseSingleTimeMin(raw.replace(/^before\s*/i, ''));
+        return end === null ? null : { start: 0, end };
       }
-      const parts = raw.split(/[–—-]/);
+      const parts = raw.split(/\s*(?:–|—|-|\bto\b)\s*/i).filter(Boolean);
       if (parts.length === 2) {
-        const endMerMatch = parts[1].match(/(am|pm)/i);
-        const endMer = endMerMatch ? endMerMatch[1].toLowerCase() : 'pm';
-        const startMerMatch = parts[0].match(/(am|pm)/i);
-        const startMer = startMerMatch ? startMerMatch[1].toLowerCase() : endMer;
-        const start = parseSingleTimeMin(parts[0], startMer);
-        const end = parseSingleTimeMin(parts[1], endMer);
-        if (start !== null && end !== null) return { start, end };
+        const startToken = parts[0], endToken = parts[1];
+        const explicitStart = /\b(am|pm)\b/i.exec(startToken);
+        const explicitEnd = /\b(am|pm)\b/i.exec(endToken);
+        const end = parseSingleTimeMin(endToken, explicitStart?.[1] || '');
+        if (end === null) return null;
+        // If a range is '11:00–1:00 pm', 11:00 is AM, not 11:00 PM.
+        let candidates = explicitStart
+          ? [parseSingleTimeMin(startToken)]
+          : [parseSingleTimeMin(startToken, 'am'), parseSingleTimeMin(startToken, 'pm')];
+        candidates = [...new Set(candidates.filter(n => n !== null))];
+        if (!explicitStart && !explicitEnd && endToken.match(/\b(?:1[3-9]|2[0-3]):/)) {
+          candidates.unshift(parseSingleTimeMin(startToken));
+        }
+        const plausible = candidates.filter(start => start < end && end - start <= 8 * 60);
+        const start = plausible.length
+          ? plausible.sort((a, b) => (end - a) - (end - b))[0]
+          : candidates.find(start => start < end);
+        if (start === undefined) return null;
+        return { start, end };
       }
-      const single = parseSingleTimeMin(raw, lower.includes('pm') ? 'pm' : 'am');
-      if (single !== null) return { start: single, end: single + 90 };
-      return null;
+      const single = parseSingleTimeMin(raw);
+      return single === null ? null : { start: single, end: single + 90 };
+    }
+
+    function scheduleEventStartIST(item) {
+      const range = parseScheduleTimeRange(item.time);
+      const day = Number(item.day);
+      if (!range || ![1, 2, 3].includes(day)) return null;
+      return Date.UTC(2026, 9, 22 + day, 0, range.start) - 330 * 60000;
+    }
+
+    function getScheduleTimeline() {
+      const entries = retreatData.schedule.map(item => {
+        const range = parseScheduleTimeRange(item.time);
+        if (!range) return null;
+        const startsAt = scheduleEventStartIST(item);
+        if (startsAt === null) return null;
+        return { item, startsAt, endsAt: startsAt + (range.end - range.start) * 60000 };
+      }).filter(Boolean).sort((a, b) => a.startsAt - b.startsAt);
+      // A single-time entry must not appear LIVE after the next event starts.
+      for (let i = 0; i + 1 < entries.length; i++) {
+        entries[i].endsAt = Math.min(entries[i].endsAt, entries[i + 1].startsAt);
+      }
+      return entries;
     }
 
     function getDayLabel(dayNum) {
@@ -2359,105 +2419,49 @@
     }
 
     function getAutoSessionIST() {
-      // Honour ForceLive only for the current retreat day. Clear old ForceLive flags in Sheets.
-      const istParts = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Asia/Kolkata', year: 'numeric', month: 'numeric', day: 'numeric',
-        hour: 'numeric', minute: 'numeric', hourCycle: 'h23'
+      if (!retreatData.schedule.length) {
+        return {
+          tag: 'SCHEDULE',
+          title: scheduleLoadState === 'loading' ? 'Loading live schedule…' : 'Schedule could not be loaded',
+          detail: 'Google Sheet • Schedule',
+          subtext: scheduleLoadError || 'Waiting for the latest timetable from Google Sheets.',
+          liveItemId: null
+        };
+      }
+      const parts = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Kolkata', year: 'numeric', month: 'numeric', day: 'numeric'
       }).formatToParts(new Date());
-      const part = type => Number(istParts.find(p => p.type === type)?.value);
-      const year = part('year');
-      const month = part('month');
-      const day = part('day');
-      const totalMins = part('hour') * 60 + part('minute');
-      const todayRetreatDay = year === 2026 && month === 10 ? day - 22 : null;
-      const forcedIdx = retreatData.schedule.findIndex(s => s.forceLive && s.day === todayRetreatDay);
-      if (forcedIdx !== -1) {
-        const forced = retreatData.schedule[forcedIdx];
-        const nextItem = retreatData.schedule[forcedIdx + 1];
+      const date = type => Number(parts.find(p => p.type === type)?.value);
+      const todayDay = date('year') === 2026 && date('month') === 10 ? date('day') - 22 : null;
+      const now = Date.now();
+      const timeline = getScheduleTimeline();
+      const next = timeline.find(event => event.startsAt > now);
+      const forced = retreatData.schedule.find(s => s.forceLive && s.day === todayDay);
+      const active = forced
+        ? timeline.find(event => event.item.id === forced.id)
+        : [...timeline].reverse().find(event => event.startsAt <= now && now < event.endsAt);
+      if (active || forced) {
+        const item = active ? active.item : forced;
         return {
-          tag: 'LIVE NOW',
-          title: forced.activity,
-          detail: `${getDayLabel(forced.day)} • ${forced.time}`,
-          subtext: forced.details || 'Live retreat session in progress at YRC Campus.',
-          liveItemId: forced.id,
-          nextText: nextItem ? `${getDayLabel(nextItem.day)} • ${nextItem.time} — ${nextItem.activity}` : 'Final scheduled session of the retreat'
+          tag: forced ? 'FORCED LIVE' : 'LIVE NOW', title: item.activity,
+          detail: `${getDayLabel(item.day)} • ${item.time}`,
+          subtext: forced ? 'Manually set to LIVE in the Schedule sheet (ForceLive). Clear that cell to use the timetable.' : (item.details || 'Happening at YRC Campus, Kolar.'),
+          liveItemId: item.id
         };
       }
-
-      // Before Retreat (Prior to Oct 23, 2026)
-      if (year < 2026 || (year === 2026 && (month < 10 || (month === 10 && day < 23)))) {
-        const firstSession = retreatData.schedule[0];
+      if (next) {
         return {
-          tag: 'COUNTDOWN',
-          title: 'Retreat Starts Friday, Oct 23 at 7:00 pm',
-          detail: 'YRC Campus • Kolar',
-          subtext: 'Get ready for Voyager 2026! Check your group assignment and team standings below.',
-          liveItemId: null,
-          nextText: firstSession
-            ? `Fri, Oct 23 • ${firstSession.time} — ${firstSession.activity}`
-            : 'Fri, Oct 23 • Before 7:00 pm — Arrival and room allotments'
+          tag: 'UPCOMING', title: todayDay === next.item.day ? 'Between scheduled events' : 'Preparing for the next event',
+          detail: `${getDayLabel(next.item.day)} • ${next.item.time}`,
+          subtext: `Up next: ${next.item.activity}`,
+          liveItemId: null
         };
       }
-
-      // During Retreat Days (Oct 23 = Day 1, Oct 24 = Day 2, Oct 25 = Day 3)
-      if (year === 2026 && month === 10 && (day >= 23 && day <= 25)) {
-        const retreatDay = day - 22; // 23->1, 24->2, 25->3
-        const dayItems = retreatData.schedule.filter(s => s.day === retreatDay);
-
-        for (let i = 0; i < dayItems.length; i++) {
-          const item = dayItems[i];
-          const range = parseScheduleTimeRange(item.time);
-          if (range && totalMins >= range.start && totalMins < range.end) {
-            const globalIdx = retreatData.schedule.findIndex(s => s.id === item.id);
-            const nextItem = retreatData.schedule[globalIdx + 1];
-            return {
-              tag: 'LIVE NOW',
-              title: item.activity,
-              detail: `${getDayLabel(retreatDay)} • ${item.time}`,
-              subtext: item.details || 'Happening right now at YRC Campus, Kolar.',
-              liveItemId: item.id,
-              nextText: nextItem ? `${getDayLabel(nextItem.day)} • ${nextItem.time} — ${nextItem.activity}` : 'End of retreat schedule'
-            };
-          }
-        }
-
-        // Between sessions on a retreat day: find the next upcoming session
-        for (let i = 0; i < dayItems.length; i++) {
-          const item = dayItems[i];
-          const range = parseScheduleTimeRange(item.time);
-          if (range && totalMins < range.start) {
-            const prevItem = i > 0 ? dayItems[i - 1] : null;
-            return {
-              tag: 'NOW',
-              title: prevItem ? `${prevItem.activity} / Transition` : 'Morning Rise & Preparation',
-              detail: `${getDayLabel(retreatDay)} • Break / Transition`,
-              subtext: `Preparing for ${item.activity} at ${item.time}.`,
-              liveItemId: prevItem ? prevItem.id : null,
-              nextText: `${getDayLabel(retreatDay)} • ${item.time} — ${item.activity}`
-            };
-          }
-        }
-
-        // Late night after last session of the day
-        const lastItem = dayItems[dayItems.length - 1];
-        const nextDayFirst = retreatData.schedule.find(s => s.day === retreatDay + 1);
-        return {
-          tag: 'TONIGHT',
-          title: lastItem ? lastItem.activity : 'Return to rooms & rest',
-          detail: `${getDayLabel(retreatDay)} • Night`,
-          subtext: 'Rest well for tomorrow’s sessions and team challenges!',
-          liveItemId: lastItem ? lastItem.id : null,
-          nextText: nextDayFirst ? `${getDayLabel(nextDayFirst.day)} • ${nextDayFirst.time} — ${nextDayFirst.activity}` : 'Retreat Concluded'
-        };
-      }
-
       return {
-        tag: 'COMPLETED',
-        title: 'Voyager 2026 Retreat Concluded',
-        detail: 'Until Next Year!',
-        subtext: 'Thank you for being part of Voyager 2026!',
-        liveItemId: null,
-        nextText: 'Keep growing in Ephesians 4:13!'
+        tag: 'COMPLETE', title: 'No current scheduled event',
+        detail: 'Retreat schedule',
+        subtext: 'There are no further future events in the synced schedule.',
+        liveItemId: null
       };
     }
 
@@ -2577,9 +2581,23 @@
       if (!scheduleContainer) return;
       scheduleContainer.innerHTML = '';
       const filtered = retreatData.schedule.filter(item => item.day === currentDayFilter);
+      if (!retreatData.schedule.length) {
+        const warning = document.createElement('div');
+        warning.className = 'bg-amber-50 border border-amber-300 rounded-xl p-4 text-sm font-semibold text-amber-900';
+        warning.textContent = scheduleLoadState === 'loading' ? 'Loading the Schedule from Google Sheets…' :
+          ('Schedule not available: ' + (scheduleLoadError || 'Click Sync and check your Schedule tab.'));
+        scheduleContainer.appendChild(warning);
+        return;
+      }
+      if (!filtered.length) {
+        const note = document.createElement('div');
+        note.className = 'rounded-xl p-4 text-sm text-slate-600';
+        note.textContent = 'No events for this day in the synced Google Sheet.';
+        scheduleContainer.appendChild(note);
+      }
 
       filtered.forEach(item => {
-        const isLive = (item.id === currentLiveSessionId) || Boolean(item.forceLive);
+        const isLive = item.id === currentLiveSessionId;
         const card = document.createElement('div');
         card.className = isLive
           ? 'bg-emerald-50/90 border-2 border-emerald-500 rounded-2xl p-4 shadow-sm space-y-1.5 transition ring-2 ring-emerald-200'
@@ -6052,34 +6070,19 @@
     countdown.textContent = 'Loading countdown...';
     nextLabel.insertAdjacentElement('afterend', countdown);
 
-    function eventStartIST(item) {
-      const day = Number(item.day);
-      if (![1, 2, 3].includes(day)) return null;
-
-      const timeText = String(item.time || '');
-      const startText = timeText.split(/[–—-]/)[0];
-      const meridiems = timeText.match(/\b(am|pm)\b/gi) || [];
-      const fallbackMeridiem = meridiems[meridiems.length - 1] || '';
-      const minutes = parseSingleTimeMin(startText, fallbackMeridiem);
-      if (minutes === null) return null;
-
-      // Arrival marked "Before 7:00 pm" has a 7:00 pm deadline.
-      return Date.UTC(2026, 9, 22 + day, 0, minutes) - 330 * 60000;
-    }
-
     function updateNextEventCountdown() {
       const now = Date.now();
-      const upcoming = retreatData.schedule
-        .map(item => ({ item, startsAt: eventStartIST(item) }))
-        .filter(event => event.startsAt !== null && event.startsAt > now)
-        .sort((a, b) => a.startsAt - b.startsAt);
-
+      if (!retreatData.schedule.length) {
+        nextLabel.textContent = scheduleLoadState === 'loading' ? 'Loading schedule…' : 'Schedule unavailable';
+        countdown.textContent = scheduleLoadState === 'loading' ? 'Checking Google Sheets…' : 'Please check Sync';
+        return;
+      }
+      const upcoming = getScheduleTimeline().filter(event => event.startsAt > now);
       if (upcoming.length === 0) {
         nextLabel.textContent = 'No more scheduled events';
         countdown.textContent = 'Schedule complete';
         return;
       }
-
       const { item, startsAt } = upcoming[0];
       nextLabel.textContent = `${getDayLabel(Number(item.day))} • ${item.time} — ${item.activity}`;
 
