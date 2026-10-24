@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#020b22">
+  <meta name="description" content="Voyager 2026 activity word generator for Temptations and Acting Up.">
+  <title>Activity Word Generator | Voyager 2026</title>
+  <style>
+    :root { color-scheme: dark; --bg:#020b22; --panel:#091d42; --panel2:#0e2b57; --stroke:#2d528c; --white:#f8fafc; --soft:#bfceed; --cyan:#67e8f9; --gold:#fcd34d; }
+    *,*::before,*::after { box-sizing:border-box; }
+    html { min-height:100%; -webkit-text-size-adjust:100%; }
+    body { margin:0; min-height:100vh; min-height:100dvh; padding:16px 13px 30px; padding-top:max(16px, env(safe-area-inset-top)); padding-bottom:max(30px, env(safe-area-inset-bottom)); background:radial-gradient(ellipse 125% 48% at 50% -6%,#194a8a 0%,#071b3e 50%,#020b22 100%); font-family:system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--white); }
+    .page { max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:18px; }
+    .topbar { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand { font-size:11px; font-weight:850; letter-spacing:.11em; color:#bcd9ff; border:1px solid var(--stroke); padding:8px 10px; border-radius:999px; background:#071937; }
+    .home { color:#07283f; background:var(--cyan); font-size:14px; font-weight:900; padding:11px 15px; border-radius:12px; text-decoration:none; white-space:nowrap; }
+    h1 { margin:2px 0 -6px; text-align:center; font-size:clamp(1.6rem,7vw,2.35rem); letter-spacing:-.035em; }
+    .subtitle { margin:0; color:var(--soft); text-align:center; font-size:14px; line-height:1.5; }
+    .activity { background:linear-gradient(155deg,rgba(18,47,99,.95),rgba(5,20,50,.98)); border:1px solid var(--stroke); padding:17px 14px 16px; border-radius:23px; box-shadow:0 12px 30px #0004; }
+    .section-header { display:flex; align-items:baseline; justify-content:space-between; flex-wrap:wrap; gap:6px; margin-bottom:13px; }
+    .section-header h2 { margin:0; font-size:clamp(1rem,5vw,1.35rem); letter-spacing:.08em; font-weight:950; }
+    .section-header .helper { color:var(--soft); font-size:12px; }
+    button { font:inherit; touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
+    button:focus-visible,a:focus-visible { outline:3px solid var(--cyan); outline-offset:3px; }
+    .draw { width:100%; min-height:63px; border:1px solid #5e96dc; border-radius:15px; background:linear-gradient(145deg,#3166ae,#173c7e); color:white; font-size:clamp(1rem,4.9vw,1.3rem); font-weight:950; letter-spacing:.045em; cursor:pointer; }
+    .draw:active { transform:scale(.985); }
+    .draw:disabled { opacity:.48; cursor:not-allowed; }
+    .draw-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .result { margin-top:12px; width:100%; min-height:132px; display:flex; flex-direction:column; justify-content:center; align-items:center; border-radius:17px; border:1px solid #254b85; background:rgba(0,10,29,.53); padding:15px 12px; text-align:center; }
+    .result.large { min-height:182px; }
+    .label { font-size:.7rem; color:var(--gold); text-transform:uppercase; letter-spacing:.14em; font-weight:950; margin-bottom:7px; }
+    .word { width:100%; font-weight:950; line-height:1.12; letter-spacing:-.035em; font-size:clamp(2.5rem,11vw,5.4rem); overflow-wrap:anywhere; text-wrap:balance; }
+    .word.medium { font-size:clamp(2rem,8.5vw,4.1rem); }
+    .word.long { font-size:clamp(1.55rem,6vw,3.05rem); line-height:1.2; }
+    .word.blank { font-size:clamp(1.15rem,4.7vw,1.6rem); font-weight:650; color:#8da7d4; letter-spacing:0; }
+    .word-action { padding:0; background:none; border:0; color:inherit; width:100%; cursor:pointer; }
+    .word-action:disabled { cursor:default; }
+    .controls { margin-top:11px; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .control { min-height:46px; border-radius:12px; border:1px solid #5b7aa8; background:#183662; color:var(--white); font-weight:850; font-size:15px; cursor:pointer; }
+    .control.reset { background:transparent; border-color:#52688c; }
+    .status { margin:10px 0 0; min-height:19px; font-size:13px; line-height:1.4; color:var(--soft); text-align:center; }
+    .acting-results { margin-top:0; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .acting-results .result { min-width:0; min-height:165px; }
+    .acting-results .word { font-size:clamp(1.65rem,6.5vw,3.2rem); }
+    .acting-results .word.medium { font-size:clamp(1.4rem,5.4vw,2.55rem); }
+    .acting-results .word.long { font-size:clamp(1.15rem,4.25vw,2.1rem); line-height:1.18; }
+    .acting-results .word.blank { font-size:clamp(1rem,3.7vw,1.35rem); }
+    .counters { display:flex; justify-content:space-between; gap:10px; color:#bfceed; font-size:12px; font-weight:700; margin:10px 2px 0; }
+    .acting-reset { width:100%; margin-top:12px; }
+    .smallnote { margin:10px 0 0; color:var(--soft); font-size:12px; line-height:1.45; text-align:center; }
+    footer { color:#aebfdb; text-align:center; font-size:12px; line-height:1.45; padding-bottom:8px; }
+    @media (max-width:370px) { .activity { padding:15px 10px; } .acting-results { gap:7px; } .draw-row { gap:7px; } .draw { min-height:59px; } .acting-results .result { padding:12px 7px; } }
+    @media (prefers-reduced-motion:reduce) { .draw:active { transform:none; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <div class="topbar">
+      <div class="brand">VOYAGER 2026 · GAME TOOLS</div>
+      <a class="home" href="./index.html" id="homeLink">⌂ Home</a>
+    </div>
+    <h1>Activity Word Generator</h1>
+    <p class="subtitle">Random words for your group activities. No scores are recorded.</p>
+
+    <section class="activity" aria-labelledby="temptationsTitle">
+      <div class="section-header">
+        <h2 id="temptationsTitle">TEMPTATIONS</h2>
+        <span class="helper">Draw one desire</span>
+      </div>
+      <button class="draw" type="button" id="desireDraw">DESIRES</button>
+      <div class="result large" aria-label="Selected desire">
+        <div class="label">DESIRE</div>
+        <button class="word-action" type="button" id="desireWordAction" aria-label="Selected desire. Unlock before drawing again." disabled>
+          <span class="word blank" id="desireWord" aria-live="polite">Tap DESIRES to begin</span>
+        </button>
+      </div>
+      <div class="controls">
+        <button class="control" type="button" id="desireLock" aria-pressed="false">🔓 Unlocked</button>
+        <button class="control reset" type="button" id="desireReset">↺ Reset</button>
+      </div>
+      <p class="status" id="desireStatus" role="status">A result locks automatically. Unlock to draw another.</p>
+      <p class="smallnote">All four desires appear once in each random cycle. No consecutive repeats.</p>
+    </section>
+
+    <section class="activity" aria-labelledby="actingTitle">
+      <div class="section-header">
+        <h2 id="actingTitle">ACTING UP</h2>
+        <span class="helper">First emotion, then activity</span>
+      </div>
+      <div class="draw-row">
+        <button class="draw" type="button" id="emotionDraw">EMOTIONS</button>
+        <button class="draw" type="button" id="activityDraw">ACTIVITIES</button>
+      </div>
+      <div class="acting-results">
+        <div class="result" aria-label="Selected emotion">
+          <div class="label">EMOTION</div>
+          <div class="word blank" id="emotionWord" aria-live="polite">Tap EMOTIONS</div>
+        </div>
+        <div class="result" aria-label="Selected activity">
+          <div class="label">ACTIVITY</div>
+          <div class="word blank" id="activityWord" aria-live="polite">Then tap ACTIVITIES</div>
+        </div>
+      </div>
+      <div class="counters">
+        <span id="emotionCount">Emotions used: 0 / 5</span>
+        <span id="activityCount">Activities used: 0 / 5</span>
+      </div>
+      <button class="control reset acting-reset" id="actingReset" type="button">↺ Reset display</button>
+      <p class="smallnote">All five emotions appear once per cycle. Five different activities are drawn from your seven options. After five selections, the next cycle starts in a new random order.</p>
+    </section>
+    <footer>Each phone generates its own words. Home clears all visible results.</footer>
+  </main>
+  <script>
+    'use strict';
+    const OPTIONS = Object.freeze({
+      desires: Object.freeze(['Money', 'Power', 'Fame', 'Selfish relationships']),
+      emotions: Object.freeze(['Anger', 'Fear', 'Insecurity', 'Grief', 'Guilt']),
+      activities: Object.freeze([
+        'Studying for an exam', 'Riding a bike', 'Talking to your friends',
+        'Singing a song during praise and worship at church',
+        'Eating food', 'Scrolling on insta', 'Watching the news'
+      ])
+    });
+    const byId = id => document.getElementById(id);
+
+    function randomIndex(size) {
+      if (globalThis.crypto && typeof globalThis.crypto.getRandomValues === 'function') {
+        const value = new Uint32Array(1);
+        const range = 0x100000000;
+        const bound = range - range % size;
+        do { globalThis.crypto.getRandomValues(value); } while (value[0] >= bound);
+        return value[0] % size;
+      }
+      return Math.floor(Math.random() * size);
+    }
+    function shuffle(items) {
+      const result = [...items];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = randomIndex(i + 1);
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+    function makeDeck(items, length, previous) {
+      const deck = shuffle(items).slice(0, length);
+      // The first word of a new cycle must differ from the previous cycle's last word.
+      if (deck.length > 1 && deck[0] === previous) {
+        const swap = 1 + randomIndex(deck.length - 1);
+        [deck[0], deck[swap]] = [deck[swap], deck[0]];
+      }
+      return deck;
+    }
+    function nextFrom(state) {
+      if (state.position === state.deck.length) {
+        state.deck = makeDeck(state.options, state.size, state.previous);
+        state.position = 0;
+      }
+      const selection = state.deck[state.position++];
+      state.previous = selection;
+      return selection;
+    }
+    const emotionState = { options: OPTIONS.emotions, size: 5, deck: [], position: 0, previous: null };
+    const activityState = { options: OPTIONS.activities, size: 5, deck: [], position: 0, previous: null };
+    const desireState = { options: OPTIONS.desires, size: OPTIONS.desires.length, deck: [], position: 0, previous: null };
+    let desireLocked = false;
+    let desireShown = false;
+    let currentEmotionShown = false;
+
+    function showWord(id, value) {
+      const node = byId(id);
+      node.textContent = value;
+      node.className = 'word' + (value.length > 31 ? ' long' : value.length > 17 ? ' medium' : '');
+    }
+    function blankWord(id, hint) {
+      const node = byId(id);
+      node.textContent = hint;
+      node.className = 'word blank';
+    }
+    function showLockState() {
+      byId('desireLock').textContent = desireLocked ? '🔒 Unlock' : '🔓 Unlocked';
+      byId('desireLock').setAttribute('aria-pressed', String(desireLocked));
+      byId('desireWordAction').disabled = desireLocked || !desireShown;
+      byId('desireStatus').textContent = desireLocked
+        ? 'Locked. Tap Unlock, then DESIRES for a new word.'
+        : desireShown ? 'Unlocked. Tap DESIRES or the word to draw a different desire.'
+          : 'A result locks automatically. Unlock to draw another.';
+    }
+    function clearDesire() {
+      desireShown = false;
+      desireLocked = false;
+      blankWord('desireWord', 'Tap DESIRES to begin');
+      showLockState();
+      // Keep the shuffled deck progress to preserve fairness and no repeats after Reset.
+    }
+    function drawDesire() {
+      if (desireLocked) return;
+      // Every four draws use each desire exactly once, in a shuffled order.
+      // nextFrom prevents the last word of a cycle repeating first in the next.
+      const value = nextFrom(desireState);
+      desireShown = true;
+      desireLocked = true;
+      showWord('desireWord', value);
+      showLockState();
+    }
+    function clearActing() {
+      blankWord('emotionWord', 'Tap EMOTIONS');
+      blankWord('activityWord', 'Then tap ACTIVITIES');
+      currentEmotionShown = false;
+      // Reset only clears what is visible. The remaining non-repeating words stay in the decks.
+    }
+    function drawEmotion() {
+      clearDesire();
+      const value = nextFrom(emotionState);
+      showWord('emotionWord', value);
+      blankWord('activityWord', 'Then tap ACTIVITIES');
+      currentEmotionShown = true;
+      byId('emotionCount').textContent = 'Emotions used: ' + emotionState.position + ' / 5';
+    }
+    function drawActivity() {
+      clearDesire();
+      if (!currentEmotionShown) {
+        // Guide the planned activity order without using a browser alert.
+        blankWord('emotionWord', 'Choose EMOTIONS first');
+        return;
+      }
+      const value = nextFrom(activityState);
+      showWord('activityWord', value);
+      byId('activityCount').textContent = 'Activities used: ' + activityState.position + ' / 5';
+    }
+    function clearAll() {
+      clearDesire();
+      clearActing();
+    }
+    byId('desireDraw').addEventListener('click', drawDesire);
+    byId('desireWordAction').addEventListener('click', drawDesire);
+    byId('desireLock').addEventListener('click', () => {
+      desireLocked = !desireLocked;
+      showLockState();
+    });
+    byId('desireReset').addEventListener('click', clearDesire);
+    byId('emotionDraw').addEventListener('click', drawEmotion);
+    byId('activityDraw').addEventListener('click', drawActivity);
+    byId('actingReset').addEventListener('click', clearActing);
+    byId('homeLink').addEventListener('click', clearAll);
+    // Mobile browsers may restore this page from back/forward cache.
+    window.addEventListener('pageshow', event => { if (event.persisted) clearAll(); });
+    showLockState();
+  </script>
+</body>
+</html>
