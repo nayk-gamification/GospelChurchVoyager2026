@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06122e">
+  <meta name="description" content="Voyager 2026 Retreat Declaration: a responsive reading about growing towards spiritual maturity in Christ.">
+  <title>Voyager Retreat Declaration | Voyager 2026</title>
+  <style>
+    :root { color-scheme: light; --font-scale:1; --ink:#192b4d; --muted:#536382; --navy:#071734; --royal:#183d78; --gold:#f5c96d; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); background:#edf2f9; -webkit-text-size-adjust:100%; }
+    a { color:inherit; }
+    .topbar { position:sticky; top:0; z-index:20; background:rgba(7,23,52,.97); color:#fff; border-bottom:1px solid rgba(255,255,255,.14); }
+    .topbar-inner { max-width:930px; margin:auto; padding:12px 20px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .brand { font-size:12px; font-weight:850; letter-spacing:.13em; text-transform:uppercase; color:#dceaff; }
+    .controls { display:flex; align-items:center; gap:7px; flex-shrink:0; }
+    .home-link,.type-button { min-height:42px; display:inline-flex; align-items:center; justify-content:center; gap:7px; border:1px solid #5476aa; border-radius:12px; background:#142e58; color:#fff; font:800 13px system-ui,-apple-system,sans-serif; text-decoration:none; padding:0 12px; cursor:pointer; }
+    .home-link:focus-visible,.type-button:focus-visible { outline:3px solid var(--gold); outline-offset:3px; }
+    .type-button { width:42px; font-size:15px; padding:0; }
+    .hero { background:radial-gradient(circle at 85% 15%,rgba(96,165,250,.2),transparent 30%),radial-gradient(circle at 10% 80%,rgba(245,201,109,.12),transparent 35%),linear-gradient(145deg,#06122e 0%,#0c2753 100%); color:#fff; padding:52px 20px 43px; text-align:center; position:relative; overflow:hidden; }
+    .hero::before { content:'✦'; position:absolute; top:13px; left:10%; font-size:24px; color:rgba(251,211,129,.6); }
+    .hero::after { content:'✦'; position:absolute; right:10%; bottom:10px; font-size:16px; color:rgba(166,210,255,.75); }
+    .hero-inner { position:relative; max-width:790px; margin:auto; }
+    .eyebrow { color:#f5d78f; letter-spacing:.24em; font-size:12px; font-weight:850; text-transform:uppercase; }
+    h1 { margin:15px auto 12px; font-size:clamp(32px,6vw,55px); line-height:1.06; font-weight:900; letter-spacing:-.045em; text-wrap:balance; }
+    .subtitle { margin:0; font-size:clamp(16px,3vw,21px); line-height:1.48; color:#d6e6fc; font-weight:600; }
+    .hero-rule { width:64px; height:3px; border-radius:99px; background:var(--gold); margin:25px auto 18px; }
+    .instructions { margin:0 auto; color:#bdd1ee; font-size:13px; line-height:1.55; max-width:480px; }
+    .main { max-width:855px; margin:0 auto; padding:35px 18px 70px; }
+    .reading-section { margin-bottom:43px; scroll-margin-top:92px; }
+    .section-heading { text-align:center; margin:0 auto 20px; }
+    .section-count { display:block; color:#4c6390; font-weight:850; letter-spacing:.2em; font-size:11px; margin-bottom:8px; }
+    .section-heading h2 { margin:0; font-size:clamp(21px,4vw,28px); line-height:1.2; letter-spacing:-.028em; font-weight:900; color:#0d2953; text-wrap:balance; }
+    .reading-card { position:relative; background:#fff; border:1px solid #d9e2f1; border-radius:18px; margin:0 0 14px; box-shadow:0 3px 15px rgba(19,51,103,.055); overflow:hidden; }
+    .lesson-heading { display:flex; align-items:center; gap:10px; padding:17px 22px 0; }
+    .lesson-number { display:inline-flex; align-items:center; justify-content:center; width:31px; height:31px; background:#edf3fc; border:1px solid #d0def2; color:#2a4f82; border-radius:9px; font-size:12px; font-weight:900; font-variant-numeric:tabular-nums; }
+    .speaker-label { color:#32588f; letter-spacing:.12em; font-weight:900; font-size:11px; }
+    .leader-text { font-size:calc(18px * var(--font-scale)); line-height:1.7; letter-spacing:-.012em; margin:12px 22px 21px; font-weight:460; }
+    .leader-text strong { font-weight:900; color:#174886; }
+    .all-response { display:flex; align-items:center; gap:16px; background:#e5eefb; border-top:1px solid #cee0f6; border-left:4px solid #3d78bb; padding:15px 20px; }
+    .response-label { color:#235188; font-size:11px; font-weight:900; letter-spacing:.12em; flex-shrink:0; width:27px; }
+    .all-response p { margin:0; font-weight:900; font-size:calc(22px * var(--font-scale)); line-height:1.35; letter-spacing:-.016em; color:#0c2f64; }
+    .final-card { border-color:#e4c27d; }
+    .final-response { background:#fff0c7; border-top-color:#ebd59f; border-left-color:#d58e21; }
+    .final-response p { color:#75430d; font-size:calc(24px * var(--font-scale)); }
+    .final-response .response-label { color:#8e5813; }
+    .footer { text-align:center; margin:28px auto 5px; padding:34px 18px 0; border-top:1px solid #cbd6e7; }
+    .footer .end-label { font-size:11px; font-weight:850; text-transform:uppercase; letter-spacing:.17em; color:#506b91; }
+    .footer p { margin:7px auto 22px; color:#385172; font-size:14px; }
+    .footer a { display:inline-flex; min-height:48px; align-items:center; border-radius:13px; background:var(--navy); color:#fff; text-decoration:none; padding:0 20px; font-size:14px; font-weight:800; }
+    @media(max-width:550px) {
+      .topbar-inner { padding:10px 12px; }
+      .brand { font-size:10px; letter-spacing:.07em; }
+      .controls { gap:5px; }
+      .home-link { padding:0 9px; font-size:12px; }
+      .type-button { width:38px; min-height:40px; }
+      .hero { padding:40px 17px 34px; }
+      .main { padding:28px 12px 48px; }
+      .reading-section { margin-bottom:31px; }
+      .reading-card { border-radius:14px; margin-bottom:12px; }
+      .lesson-heading { padding:15px 17px 0; }
+      .leader-text { margin:12px 17px 18px; font-size:calc(17px * var(--font-scale)); line-height:1.66; }
+      .all-response { padding:14px 15px; gap:13px; }
+      .all-response p { font-size:calc(20px * var(--font-scale)); }
+      .final-response p { font-size:calc(22px * var(--font-scale)); }
+    }
+    @media print {
+      @page { margin:13mm; }
+      body { background:white; }
+      .topbar,.footer,.hero::before,.hero::after { display:none !important; }
+      .hero { background:white; color:black; padding:0 0 18px; border-bottom:2px solid #999; }
+      .eyebrow { color:#555; }
+      .hero h1 { color:#111; font-size:25px; }
+      .subtitle { color:#333; }
+      .hero-rule,.instructions { display:none; }
+      .main { padding:15px 0; max-width:none; }
+      .reading-section { margin:0 0 19px; }
+      .section-heading { margin-bottom:10px; }
+      .section-heading h2 { font-size:19px; }
+      .reading-card { box-shadow:none; border:1px solid #ddd; break-inside:avoid; margin-bottom:8px; border-radius:6px; }
+      .lesson-heading { padding:10px 12px 0; }
+      .leader-text { margin:5px 12px 11px; font-size:12px; line-height:1.43; }
+      .all-response { background:#f3f3f3; padding:8px 11px; }
+      .all-response p { font-size:13px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topbar" aria-label="Page controls">
+    <div class="topbar-inner">
+      <div class="brand">✦ VOYAGER 2026</div>
+      <div class="controls">
+        <button type="button" class="type-button" id="smallerText" aria-label="Make text smaller">A−</button>
+        <button type="button" class="type-button" id="largerText" aria-label="Make text larger">A+</button>
+        <a class="home-link" href="./index.html" aria-label="Back to Voyager dashboard">← Home</a>
+      </div>
+    </div>
+  </nav>
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="eyebrow">Gospel Church Youth Retreat</span>
+      <h1>VOYAGER RETREAT<br>DECLARATION</h1>
+      <p class="subtitle">Our Journey Towards Spiritual Maturity</p>
+      <div class="hero-rule"></div>
+      <p class="instructions">The leader reads each numbered passage. Everyone responds together.</p>
+    </div>
+  </header>
+  <main class="main" id="declaration" aria-label="Voyager Retreat Declaration">
+
+    <section class="reading-section" aria-labelledby="section-1" id="section-1">
+      <div class="section-heading">
+        <span class="section-count">SECTION 01</span>
+        <h2 id="section-1">Our Journey Towards Spiritual Maturity</h2>
+      </div>
+
+      <article class="reading-card" aria-labelledby="lesson-1-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 1">01</span><span class="speaker-label" id="lesson-1-speaker">LEADER</span></div>
+        <p class="leader-text">We came to this retreat to learn about spiritual maturity. We have learned that God wants us to grow and become more like Jesus. We are still growing, and we have much to learn.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-2-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 2">02</span><span class="speaker-label" id="lesson-2-speaker">LEADER</span></div>
+        <p class="leader-text">We learned that God has placed us in this world to live, study, work, enjoy life and build relationships. These are good things. Yet without God, and without the life that Jesus gives, even our achievements can become meaningless. We want to understand ourselves and this world through the eyes of Jesus and his eternal life.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-3-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 3">03</span><span class="speaker-label" id="lesson-3-speaker">LEADER</span></div>
+        <p class="leader-text">We learned about Jacob, who struggled with God and with himself. His faith was not always mature. Yet God continued to work in his life and change him. We too are still growing.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-4-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 4">04</span><span class="speaker-label" id="lesson-4-speaker">LEADER</span></div>
+        <p class="leader-text">We learned that life will bring trials, disappointments and pain. Sometimes we will be afraid, and sometimes we will not understand what God is doing. Yet even through difficult experiences, God can help us grow.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-5-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 5">05</span><span class="speaker-label" id="lesson-5-speaker">LEADER</span></div>
+        <p class="leader-text">We learned that we all face temptations. We struggle with desires for money, power, fame and relationships that serve only ourselves. We want to recognise these temptations and intentionally fight against them. We ask God to help us overcome the desires that lead us away from him.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-6-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 6">06</span><span class="speaker-label" id="lesson-6-speaker">LEADER</span></div>
+        <p class="leader-text">We learned from Esther that God may seem hidden. There will be times when we do not know what will happen next. We want to learn to wait patiently, trust God and make wise decisions, even when we cannot see what he is doing.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="reading-section" aria-labelledby="section-2" id="section-2">
+      <div class="section-heading">
+        <span class="section-count">SECTION 02</span>
+        <h2 id="section-2">Learning from One Another</h2>
+      </div>
+
+      <article class="reading-card" aria-labelledby="lesson-7-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 7">07</span><span class="speaker-label" id="lesson-7-speaker">LEADER</span></div>
+        <p class="leader-text">Around the campfire, we heard stories from people in our own church. They shared their struggles, their mistakes and how Jesus has worked in their lives. We discovered that others have faced struggles and temptations like ours.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-8-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 8">08</span><span class="speaker-label" id="lesson-8-speaker">LEADER</span></div>
+        <p class="leader-text">We have learned that our mentors, senior youth, parents and friends are also growing. They too have faced fear, anger, failure and disappointment. God has helped them, and through them, God can help us.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="reading-section" aria-labelledby="section-3" id="section-3">
+      <div class="section-heading">
+        <span class="section-count">SECTION 03</span>
+        <h2 id="section-3">Growing in Head, Heart and Hands</h2>
+      </div>
+
+      <article class="reading-card" aria-labelledby="lesson-9-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 9">09</span><span class="speaker-label" id="lesson-9-speaker">LEADER</span></div>
+        <p class="leader-text">Today we learned that spiritual maturity involves our <strong>HEAD</strong>. We want to grow in knowledge and wisdom. We want to understand God, ourselves and the world better, so that we can recognise what is true and make wise judgments.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-10-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 10">10</span><span class="speaker-label" id="lesson-10-speaker">LEADER</span></div>
+        <p class="leader-text">We learned that spiritual maturity involves our <strong>HEART</strong>. We all experience anger, fear, insecurity, jealousy and disappointment. We want to become more patient and less angry. We want to learn to handle our emotions without allowing them to control our actions.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-11-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 11">11</span><span class="speaker-label" id="lesson-11-speaker">LEADER</span></div>
+        <p class="leader-text">We learned that spiritual maturity involves our <strong>HANDS</strong>. Our faith must shape our decisions, our habits, our relationships and our responsibilities. We want to make good choices, do our work well and become people who do good in this world.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="reading-section" aria-labelledby="section-4" id="section-4">
+      <div class="section-heading">
+        <span class="section-count">SECTION 04</span>
+        <h2 id="section-4">Our Commitment</h2>
+      </div>
+
+      <article class="reading-card" aria-labelledby="lesson-12-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 12">12</span><span class="speaker-label" id="lesson-12-speaker">LEADER</span></div>
+        <p class="leader-text">Today we have written down areas where we want to grow. Some of us know what steps to take. Others are still unsure. But we have made a beginning, and we want to keep growing towards spiritual maturity.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-13-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 13">13</span><span class="speaker-label" id="lesson-13-speaker">LEADER</span></div>
+        <p class="leader-text">We want to grow together with the friends we have made here. We want to strengthen our friendships, encourage one another and reach out to our mentors and senior youth. We want to help one another become more like Jesus.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-14-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 14">14</span><span class="speaker-label" id="lesson-14-speaker">LEADER</span></div>
+        <p class="leader-text">We know that we will sometimes fail. There will be days when we struggle with old habits, lose our patience or make wrong decisions. But we can admit our mistakes, seek forgiveness, receive help and continue growing.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-15-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 15">15</span><span class="speaker-label" id="lesson-15-speaker">LEADER</span></div>
+        <p class="leader-text">We remember Paul&#x27;s words that we are growing together towards maturity in Christ. We are part of his body, the church. God has given us one another, and we will continue this journey together.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="reading-section" aria-labelledby="section-5" id="section-5">
+      <div class="section-heading">
+        <span class="section-count">SECTION 05</span>
+        <h2 id="section-5">Our Hope</h2>
+      </div>
+
+      <article class="reading-card" aria-labelledby="lesson-16-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 16">16</span><span class="speaker-label" id="lesson-16-speaker">LEADER</span></div>
+        <p class="leader-text">Lord Jesus, we have learned much during this retreat. We have also discovered how much we still need to grow. We ask you to continue shaping our thinking, our hearts and our actions.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-17-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 17">17</span><span class="speaker-label" id="lesson-17-speaker">LEADER</span></div>
+        <p class="leader-text">We have learned that whether life is easy or difficult, whether our prayers are answered as we hope or whether we must wait, we can continue trusting you.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card" aria-labelledby="lesson-18-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 18">18</span><span class="speaker-label" id="lesson-18-speaker">LEADER</span></div>
+        <p class="leader-text">And above all, Lord, I have learned that whether I see you clearly or cannot see what you are doing, you are still there. You are with me, working in my life, helping me grow and leading me onwards.</p>
+        <div class="all-response">
+          <span class="response-label">ALL</span>
+          <p>I am not alone.</p>
+        </div>
+      </article>
+
+      <article class="reading-card final-card" aria-labelledby="lesson-19-speaker">
+        <div class="lesson-heading"><span class="lesson-number" aria-label="Reading 19">19</span><span class="speaker-label" id="lesson-19-speaker">LEADER</span></div>
+        <p class="leader-text">For you have promised, &quot;Never will I leave you; never will I forsake you.&quot; (Hebrews 13:5)</p>
+        <div class="all-response final-response">
+          <span class="response-label">ALL</span>
+          <p>I AM NOT ALONE. AMEN</p>
+        </div>
+      </article>
+    </section>
+    <footer class="footer">
+      <div class="end-label">Voyager 2026 · Gospel Church Youth Retreat</div>
+      <p>Our journey towards spiritual maturity continues together.</p>
+      <a href="./index.html">← Return to Dashboard</a>
+    </footer>
+  </main>
+  <script>
+    (function () {
+      let size = 1;
+      function changeSize(delta) {
+        size = Math.max(0.85, Math.min(1.55, Math.round((size + delta) * 100) / 100));
+        document.documentElement.style.setProperty('--font-scale', String(size));
+      }
+      document.getElementById('smallerText').addEventListener('click', () => changeSize(-0.1));
+      document.getElementById('largerText').addEventListener('click', () => changeSize(0.1));
+    }());
+  </script>
+</body>
+</html>
