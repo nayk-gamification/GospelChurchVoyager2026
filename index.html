@@ -76,6 +76,11 @@
     .active\:scale-98:active {
       transform: scale(0.98);
     }
+    /* Archived retreat: schedules and live score panels are intentionally unavailable. */
+  [data-target="tabSchedule"], #tabSchedule, #headerNowBar,
+  #gamesTabTeamScoresContainer, #dashboardTeamScoresContainer,
+  #dashboardRefreshScoresBtn, #refreshNoticesBtn, #refreshScheduleBtn,
+  #cloudLeaderboardTag { display:none !important; }
   </style>
 </head>
 <body class="bg-slate-950 text-slate-800 antialiased min-h-screen flex flex-col items-center p-0 sm:p-4">
@@ -113,14 +118,14 @@
           <span class="text-slate-600 font-bold">|</span>
           <div id="cloudSyncBadge" class="flex items-center space-x-1 bg-emerald-950/90 text-emerald-300 text-[10px] sm:text-xs px-2 py-0.5 rounded-full border border-emerald-700/70 font-bold" title="Master Sheet & Cloud Status">
             <span id="cloudSyncDot" class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="cloudSyncLabel">Live</span>
+            <span id="cloudSyncLabel">Closed</span>
           </div>
         </div>
 
         <div class="flex items-center space-x-1.5 shrink-0">
           <button id="syncMasterSheetHeaderBtn" type="button" class="bg-indigo-950/90 hover:bg-indigo-900 active:scale-95 text-cyan-300 text-[11px] font-bold px-2.5 py-1 rounded-xl border border-indigo-700/80 transition cursor-pointer select-none flex items-center space-x-1" title="Sync latest data from Master Google Sheet">
             <span>↻</span>
-            <span>Sync</span>
+            <span>Roster</span>
           </button>
           <button id="openInfoModalBtn" type="button" class="bg-indigo-950/90 hover:bg-indigo-900 active:scale-95 text-indigo-300 p-1.5 rounded-xl border border-indigo-800/80 transition cursor-pointer select-none" title="About Retreat">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -191,42 +196,14 @@
       <!-- ================= TAB 0: DASHBOARD (DEFAULT HOME VIEW) ================= -->
       <section id="tabDashboard" class="tab-page space-y-4">
 
-        <!-- 1. WHAT EVENT IS GOING ON NOW (LIVE EVENT & IST CLOCK CARD) -->
-        <div class="bg-gradient-to-br from-[#010b21] via-[#061a44] to-[#0f2557] text-white rounded-3xl p-4 shadow-lg border border-indigo-700/80 space-y-3">
-          <div class="flex items-center justify-between border-b border-indigo-800/70 pb-2.5">
-            <div class="flex items-center space-x-2">
-              <span class="relative flex h-3 w-3">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-85"></span>
-                <span class="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-              </span>
-              <span id="dashboardLiveBadgeText" class="font-orbitron font-black text-emerald-400 uppercase tracking-widest text-xs">HAPPENING NOW</span>
-            </div>
-          </div>
-
-          <div class="space-y-1">
-            <div id="dashboardNowTimeSlot" class="text-xs font-mono font-bold text-amber-300 uppercase tracking-wide">
-              Retreat Schedule • YRC Campus
-            </div>
-            <h2 id="dashboardNowTitle" class="text-lg sm:text-xl font-black text-white leading-snug">
-              Loading current event...
-            </h2>
-            <p id="dashboardNowSubtext" class="text-xs text-indigo-200 leading-relaxed">
-              Synced with the Voyager 2026 retreat schedule.
-            </p>
-          </div>
-
-          <!-- Up Next Box -->
-          <div class="bg-slate-950/60 border border-indigo-800/70 rounded-2xl p-2.5 flex items-center justify-between gap-2">
-            <div class="min-w-0">
-              <div class="text-[10px] font-bold uppercase tracking-wider text-indigo-300">Up Next on Schedule</div>
-              <div id="dashboardCountdownNextEvent" class="text-xs font-bold text-white truncate">Checking live schedule…</div>
-            </div>
-            <button type="button" class="quick-nav-link shrink-0 bg-indigo-600 hover:bg-indigo-500 active:scale-95 text-white font-bold text-xs px-3 py-1.5 rounded-xl transition cursor-pointer" data-target="tabSchedule">
-              Schedule →
-            </button>
-          </div>
+        <!-- POST RETREAT: Summary and closing statement -->
+        <div class="rounded-3xl bg-gradient-to-br from-[#081632] via-indigo-950 to-slate-900 text-white p-5 shadow-lg border border-amber-400/40 space-y-3">
+          <div class="text-xs font-black uppercase tracking-widest text-amber-300">Retreat completed · 23–25 October 2026</div>
+          <h2 class="text-2xl font-black leading-tight">Voyager 2026</h2>
+          <p class="text-base font-bold text-indigo-100">Our Journey Towards Spiritual Maturity</p>
+          <p class="text-sm text-slate-200 leading-relaxed">The retreat has ended, but our journey towards becoming more like Jesus continues. We are not alone.</p>
+          <a href="./voyager-summary.html" class="block text-center bg-amber-400 hover:bg-amber-300 text-indigo-950 rounded-2xl px-4 py-3.5 text-base font-black">Read the Retreat Summary →</a>
         </div>
-
 
         <!-- VOYAGER RETREAT DECLARATION: standalone responsive reading -->
         <a href="./voyager-declaration.html" class="block bg-gradient-to-r from-indigo-950 via-[#102856] to-slate-900 border border-amber-400/40 rounded-3xl p-4 text-white shadow-lg hover:border-amber-300 transition" aria-label="Open Voyager Retreat Declaration">
@@ -241,49 +218,14 @@
           </div>
         </a>
 
-        <!-- 2. TEAM MATURITY SCORES (GRAND PRIZE STANDINGS) -->
-        <div class="bg-white border border-slate-200 rounded-3xl p-4 shadow-xs space-y-3">
-          <div class="flex items-start justify-between gap-2">
-            <div class="space-y-0.5">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-lg">🏆</span>
-                <h2 class="font-extrabold text-slate-900 text-base">Team Maturity Scores</h2>
-                <span class="text-[10px] font-extrabold uppercase tracking-wider bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full">Grand Prize Race</span>
-              </div>
-              <p class="text-xs text-slate-500">
-                Team games &amp; challenges add towards the Final Maturity Score!
-              </p>
-            </div>
-            <button id="dashboardRefreshScoresBtn" type="button" class="shrink-0 bg-slate-100 hover:bg-indigo-50 text-indigo-700 font-bold text-xs px-2.5 py-1 rounded-xl border border-slate-200 transition cursor-pointer" title="Refresh scores from Master Sheet">
-              ↻ Sync
-            </button>
-          </div>
-
-          <!-- Team Standings Container -->
-          <div id="dashboardTeamScoresContainer" class="space-y-2.5">
-            <!-- Populated by JS -->
-          </div>
-
-          <div class="pt-1 flex items-center justify-between gap-2 border-t border-slate-100 text-xs">
-            <button type="button" class="quick-nav-link text-indigo-700 hover:text-indigo-900 font-bold flex items-center space-x-1 cursor-pointer" data-target="tabMentors">
-              <span>👥 View Group Names &amp; Members</span>
-              <span>→</span>
-            </button>
-            <button type="button" class="quick-nav-link text-amber-700 hover:text-amber-900 font-bold flex items-center space-x-1 cursor-pointer" data-target="tabGames">
-              <span>🎮 Games &amp; Leaders</span>
-              <span>→</span>
-            </button>
-          </div>
-        </div>
-
         <!-- 3. IMPORTANT ANNOUNCEMENTS & SESSION REFLECTION QUESTIONS -->
         <div class="bg-white border border-slate-200 rounded-3xl p-4 shadow-xs space-y-3">
           <div class="flex items-center justify-between">
             <div class="flex items-center space-x-1.5">
               <span class="text-lg">📢</span>
               <div>
-                <h2 class="font-extrabold text-slate-900 text-base leading-tight">Announcements &amp; Reflections</h2>
-                <p class="text-[11px] text-slate-500">Important updates &amp; session reflection questions</p>
+                <h2 class="font-extrabold text-slate-900 text-base leading-tight">Retreat Closing Notice</h2>
+                <p class="text-[11px] text-slate-500">Voyager 2026 has concluded</p>
               </div>
             </div>
             <button type="button" class="quick-nav-link shrink-0 bg-blue-50 hover:bg-blue-100 text-blue-800 font-bold text-xs px-3 py-1.5 rounded-xl border border-blue-200 transition cursor-pointer" data-target="tabNotices">
@@ -302,16 +244,7 @@
             Retreat Pages &amp; Directory
           </h3>
           <div class="grid grid-cols-2 gap-2.5">
-            <button type="button" class="quick-nav-link bg-white hover:bg-indigo-50/60 active:scale-98 border border-slate-200 hover:border-indigo-300 rounded-2xl p-3.5 text-left shadow-xs transition cursor-pointer flex flex-col justify-between space-y-2" data-target="tabSchedule">
-              <div class="flex items-center justify-between">
-                <span class="text-2xl">📅</span>
-                <span class="text-xs font-bold text-indigo-600">Open →</span>
-              </div>
-              <div>
-                <div class="font-extrabold text-slate-900 text-sm">Retreat Schedule</div>
-                <div class="text-[11px] text-slate-500 leading-snug">Live events &amp; 3-day timetable</div>
-              </div>
-            </button>
+            
 
             <button type="button" class="quick-nav-link bg-white hover:bg-blue-50/60 active:scale-98 border border-slate-200 hover:border-blue-300 rounded-2xl p-3.5 text-left shadow-xs transition cursor-pointer flex flex-col justify-between space-y-2" data-target="tabNotices">
               <div class="flex items-center justify-between">
@@ -319,8 +252,8 @@
                 <span class="text-xs font-bold text-blue-600">Open →</span>
               </div>
               <div>
-                <div class="font-extrabold text-slate-900 text-sm">Notices &amp; Questions</div>
-                <div class="text-[11px] text-slate-500 leading-snug">Updates &amp; session reflections</div>
+                <div class="font-extrabold text-slate-900 text-sm">Retreat Closing Notice</div>
+                <div class="text-[11px] text-slate-500 leading-snug">A word to every participant</div>
               </div>
             </button>
 
@@ -331,7 +264,7 @@
               </div>
               <div>
                 <div class="font-extrabold text-slate-900 text-sm">Games &amp; Leaders</div>
-                <div class="text-[11px] text-slate-500 leading-snug">Team scores &amp; 3 mini-games</div>
+                <div class="text-[11px] text-slate-500 leading-snug">Personal games and activity tools</div>
               </div>
             </button>
 
@@ -395,7 +328,7 @@
       </section>
 
       <!-- ================= TAB 2: SCHEDULE ================= -->
-      <section id="tabSchedule" class="tab-page hidden space-y-3.5">
+      <section id="tabSchedule" class="tab-page hidden post-retreat-hidden space-y-3.5">
         <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-4 flex items-center justify-between gap-2">
           <div class="flex items-center space-x-3">
             <span class="text-2xl">📅</span>
@@ -428,20 +361,11 @@
           <div class="flex items-start space-x-3">
             <div class="text-3xl shrink-0">📢</div>
             <div class="space-y-1">
-              <h2 class="font-bold text-blue-950 text-base sm:text-lg">Notices &amp; Reflection Questions</h2>
-              <p class="text-blue-900 text-xs leading-relaxed">Live announcements and session reflection prompts from the Master Sheet.</p>
+              <h2 class="font-bold text-blue-950 text-base sm:text-lg">Retreat Closing Notice</h2>
+              <p class="text-blue-900 text-xs leading-relaxed">Voyager 2026 has concluded. This is the final notice.</p>
             </div>
           </div>
-          <button id="refreshSheetNoticesBtn" type="button" class="shrink-0 bg-white hover:bg-blue-100 active:scale-95 text-blue-800 font-bold text-xs px-3 py-1.5 rounded-xl border border-blue-200 shadow-xs transition cursor-pointer">
-            ↻ Refresh
-          </button>
-        </div>
-
-        <!-- Filter Pills for Notices vs Reflection Questions -->
-        <div class="flex rounded-xl bg-slate-200/90 p-1 text-xs font-bold">
-          <button type="button" class="notice-filter-btn flex-1 py-1.5 rounded-lg bg-indigo-700 text-white shadow-xs transition cursor-pointer" data-filter="ALL">All Updates</button>
-          <button type="button" class="notice-filter-btn flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer" data-filter="REFLECTION">💭 Reflections</button>
-          <button type="button" class="notice-filter-btn flex-1 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition cursor-pointer" data-filter="ANNOUNCEMENT">📌 Notices</button>
+          
         </div>
 
         <!-- Notices Feed Cards Container -->
@@ -456,31 +380,17 @@
           <div class="flex items-start space-x-3">
             <div class="text-2xl shrink-0">🏆</div>
             <div class="space-y-1">
-              <h2 class="font-bold text-indigo-950 text-base sm:text-lg">Team Games &amp; Leaderboards</h2>
-              <p class="text-indigo-900 text-xs leading-relaxed">Choose Just For Fun to practise without saving a score. Select your team before starting a competitive game. Only team results count towards the rankings.</p>
+              <h2 class="font-bold text-indigo-950 text-base sm:text-lg">Games: Play by Name</h2>
+              <p class="text-indigo-900 text-xs leading-relaxed">Choose Just For Fun, or enter your name to save a personal best on this device. The retreat competition is closed and no team points are awarded.</p>
             </div>
           </div>
           <div class="flex flex-col gap-1.5 shrink-0">
             <button id="gamesTabOpenLeaderboardsBtn" type="button" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-3 py-1.5 rounded-xl shadow-xs cursor-pointer">
-              🏅 Team Ranks
+              🏅 Personal Bests
             </button>
-            <button id="gamesTabExportCsvBtn" type="button" class="bg-white hover:bg-indigo-100 text-indigo-800 font-bold text-[11px] px-2.5 py-1 rounded-xl border border-indigo-200 shadow-xs cursor-pointer" title="Download 1st, 2nd, 3rd Team Standings for all 3 games as CSV">
+            <button id="gamesTabExportCsvBtn" type="button" class="bg-white hover:bg-indigo-100 text-indigo-800 font-bold text-[11px] px-2.5 py-1 rounded-xl border border-indigo-200 shadow-xs cursor-pointer" title="Download 1st, 2nd, 3rd Personal Standings for all 3 games as CSV">
               📥 Export CSV
             </button>
-          </div>
-        </div>
-
-        <!-- Overall Team Maturity Standings Summary inside Games Tab -->
-        <div class="bg-white border border-amber-200 rounded-2xl p-4 shadow-xs space-y-3">
-          <div class="flex items-center justify-between">
-            <div class="flex items-center space-x-1.5">
-              <span>🏆</span>
-              <h3 class="text-sm sm:text-base font-extrabold text-slate-900">Overall Team Maturity Scoreboard</h3>
-            </div>
-            <span class="text-[11px] font-bold text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200">Master Sheet Live</span>
-          </div>
-          <div id="gamesTabTeamScoresContainer" class="space-y-2">
-            <!-- Populated by JS -->
           </div>
         </div>
 
@@ -492,15 +402,15 @@
           </div>
 
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Select your team and steer upward through space. Dodge falling challenges while collecting spiritual maturity markers and Bible verses.
+            Play just for fun, or enter your name and steer upward through space. Dodge falling challenges while collecting spiritual maturity markers and Bible verses.
           </p>
 
           <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <span>Best Team Result: <strong id="tabGamesPlayerBestScoreDisplay" class="text-slate-800">0</strong></span>
-            <span>Leading Team Score: <strong id="tabGamesTopRecordDisplay" class="text-indigo-700">--</strong></span>
+            <span>Top Personal Result: <strong id="tabGamesPlayerBestScoreDisplay" class="text-slate-800">0</strong></span>
+            <span>Top Recorded Score: <strong id="tabGamesTopRecordDisplay" class="text-indigo-700">--</strong></span>
           </div>
 
-          <!-- Live 1st, 2nd, 3rd Team Standings for Game 1 -->
+          <!-- Live 1st, 2nd, 3rd Personal Standings for Game 1 -->
           <div id="spaceGameTeamPodium" class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 space-y-1">
             <!-- Populated by JS -->
           </div>
@@ -510,7 +420,7 @@
               Play the game
             </button>
             <button id="tabGamesViewRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
-              Team Ranks
+              Personal Bests
             </button>
           </div>
         </div>
@@ -523,15 +433,15 @@
           </div>
 
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Select your team and tap the words of Hebrews 5:14 (NIV) in order as lines stream across the screen. Fastest team time wins!
+            Play just for fun, or enter your name and tap the words of Hebrews 5:14 (NIV) in order as lines stream across the screen. Try to improve your personal best time!
           </p>
 
           <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <span>Best Team Result: <strong id="tabGamesWordBestTimeDisplay" class="text-slate-800">--</strong></span>
-            <span>Leading Team Time: <strong id="tabGamesWordTopRecordDisplay" class="text-emerald-700">--</strong></span>
+            <span>Top Personal Result: <strong id="tabGamesWordBestTimeDisplay" class="text-slate-800">--</strong></span>
+            <span>Top Recorded Time: <strong id="tabGamesWordTopRecordDisplay" class="text-emerald-700">--</strong></span>
           </div>
 
-          <!-- Live 1st, 2nd, 3rd Team Standings for Game 2 -->
+          <!-- Live 1st, 2nd, 3rd Personal Standings for Game 2 -->
           <div id="wordGameTeamPodium" class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 space-y-1">
             <!-- Populated by JS -->
           </div>
@@ -541,7 +451,7 @@
               Play the game
             </button>
             <button id="tabGamesViewWordRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
-              Team Ranks
+              Personal Bests
             </button>
           </div>
         </div>
@@ -554,15 +464,15 @@
           </div>
 
           <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
-            Select your team and slide the 15 scrambled vine-and-branch tiles on a 4&times;4 grid to assemble John 15:5 (NIV) in order. Ranked by fastest team completion time!
+            Play just for fun, or enter your name and slide the 15 scrambled vine-and-branch tiles on a 4&times;4 grid to assemble John 15:5 (NIV) in order. Try to improve your personal best time!
           </p>
 
           <div class="flex items-center justify-between text-xs text-slate-500 bg-slate-50 px-3 py-2 rounded-xl border border-slate-100">
-            <span>Best Team Result: <strong id="tabGamesVineBestTimeDisplay" class="text-slate-800">--</strong></span>
-            <span>Leading Team Time: <strong id="tabGamesVineTopRecordDisplay" class="text-emerald-700">--</strong></span>
+            <span>Top Personal Result: <strong id="tabGamesVineBestTimeDisplay" class="text-slate-800">--</strong></span>
+            <span>Top Recorded Time: <strong id="tabGamesVineTopRecordDisplay" class="text-emerald-700">--</strong></span>
           </div>
 
-          <!-- Live 1st, 2nd, 3rd Team Standings for Game 3 -->
+          <!-- Live 1st, 2nd, 3rd Personal Standings for Game 3 -->
           <div id="vineGameTeamPodium" class="bg-slate-50 border border-slate-200/80 rounded-xl p-2.5 space-y-1">
             <!-- Populated by JS -->
           </div>
@@ -572,7 +482,7 @@
               Play the game
             </button>
             <button id="tabGamesViewVineRanksBtn" type="button" class="bg-slate-100 hover:bg-slate-200 active:scale-98 text-slate-700 font-semibold text-xs sm:text-sm py-2.5 px-3.5 rounded-xl border border-slate-300 transition cursor-pointer">
-              Team Ranks
+              Personal Bests
             </button>
           </div>
         </div>
@@ -604,7 +514,7 @@
                 <span id="participantCountBadge" class="text-xs font-bold text-indigo-800 bg-indigo-100 px-2 py-0.5 rounded-full border border-indigo-200">43 Members</span>
               </div>
               <p class="text-indigo-900 text-xs leading-relaxed">
-                Group names, mentors, seniors, and participants synced from the Master Sheet.
+                A reminder of our groups, mentors, senior youth and participants. No team scoring is active.
               </p>
             </div>
           </div>
@@ -701,7 +611,7 @@
 
         <!-- Center: Pilot Call Sign -->
         <div class="hidden sm:flex items-center space-x-2 bg-slate-950/80 border border-indigo-900/60 rounded-full px-3 py-1">
-          <span class="text-[10px] text-slate-400 font-bold uppercase font-orbitron">Team:</span>
+          <span class="text-[10px] text-slate-400 font-bold uppercase font-orbitron">Player:</span>
           <span id="headerPilotName" class="text-xs font-bold text-cyan-300 truncate max-w-[130px] font-mono">Commander</span>
           <button id="headerEditPilotBtn" type="button" class="text-[11px] text-indigo-400 hover:text-indigo-200 transition cursor-pointer" title="Change Pilot Name">✏️</button>
         </div>
@@ -832,7 +742,7 @@
           <!-- Team Selection Dropdown for Leaderboard -->
           <div class="bg-slate-900/90 border border-indigo-900/80 rounded-2xl p-3.5 space-y-2 text-left shadow-md">
             <label for="pilotNameInput" class="block text-xs font-bold font-orbitron text-cyan-300 uppercase tracking-wider">
-              Select Your Team (Group):
+              Choose How to Play (Group):
             </label>
             <select id="pilotNameInput" class="team-dropdown-select w-full bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 font-sans cursor-pointer">
                 <option value="Just For Fun" selected>Just For Fun</option>
@@ -914,24 +824,17 @@
             <p id="spacePracticeResultNotice" class="hidden text-[11px] font-semibold text-amber-300">Just For Fun: Your result is for practice only. No score is saved or recorded.</p>
               <div id="spaceResultSaveControls">
               <label for="gameOverPilotNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
-              Team represented in this game:
+              Player for this game:
             </label>
             <div class="flex items-center space-x-2">
-              <select id="gameOverPilotNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-indigo-600/80 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-cyan-400 font-sans cursor-pointer" disabled>
-                <option value="Just For Fun" selected>Just For Fun</option>
-                <option value="Roots">Roots</option>
-                <option value="Transformers">Transformers</option>
-                <option value="Thrive">Thrive</option>
-                <option value="Endurance">Endurance</option>
-                <option value="Legacy">Legacy</option>
-              </select>
+              <input id="gameOverPilotNameInput" type="text" readonly class="flex-1 min-w-0 bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2 text-sm font-bold text-white" value="Just For Fun" />
               <button id="updateNameLeaderboardBtn" type="button" class="bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer">
-                Save Team Score
+                Save Personal Score
               </button>
             </div>
               </div>
             <div class="text-[11px] text-slate-400 flex items-center justify-between">
-              <span id="spaceRankLabel">Team Standing:</span>
+              <span id="spaceRankLabel">Personal Standing:</span>
               <span id="rankPositionNotice" class="font-bold text-amber-300">Calculating...</span>
             </div>
           </div>
@@ -946,7 +849,7 @@
               🏆 View Rankings
             </button>
           </div>
-            <button id="spaceChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Choose a Team / Change Mode</button>
+            <button id="spaceChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Change Player / Mode</button>
 
         </div>
       </div>
@@ -1121,7 +1024,7 @@
             <!-- Team Selection Dropdown -->
             <div class="bg-slate-900/90 border border-indigo-900/80 rounded-2xl p-3.5 space-y-2 text-left">
               <label for="wordPilotNameInput" class="block text-xs font-bold font-orbitron text-cyan-300 uppercase tracking-wider">
-                Select Your Team (Group):
+                Choose How to Play (Group):
               </label>
               <select id="wordPilotNameInput" class="team-dropdown-select w-full bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400 font-sans cursor-pointer">
                 <option value="Just For Fun" selected>Just For Fun</option>
@@ -1182,29 +1085,22 @@
               </div>
             </div>
 
-            <!-- Save Team for Fastest Time Leaderboard -->
+            <!-- Save Personal for Fastest Time Leaderboard -->
             <div class="bg-slate-900/90 border border-indigo-800/80 rounded-2xl p-3.5 space-y-2 text-left">
               <p id="wordPracticeResultNotice" class="hidden text-[11px] font-semibold text-amber-300">Just For Fun: Your result is for practice only. No score is saved or recorded.</p>
               <div id="wordResultSaveControls">
               <label for="wordVictoryNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
-                Team represented in this game:
+                Player for this game:
               </label>
               <div class="flex items-center space-x-2">
-                <select id="wordVictoryNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-amber-500/70 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-amber-400 font-sans cursor-pointer" disabled>
-                <option value="Just For Fun" selected>Just For Fun</option>
-                <option value="Roots">Roots</option>
-                <option value="Transformers">Transformers</option>
-                <option value="Thrive">Thrive</option>
-                <option value="Endurance">Endurance</option>
-                <option value="Legacy">Legacy</option>
-              </select>
+                <input id="wordVictoryNameInput" type="text" readonly class="flex-1 min-w-0 bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2 text-sm font-bold text-white" value="Just For Fun" />
                 <button id="wordUpdateNameBtn" type="button" class="bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer">
-                  Save Team Time
+                  Save Personal Time
                 </button>
               </div>
               </div>
               <div class="text-[11px] text-slate-400 flex items-center justify-between">
-                <span id="wordRankLabel">Team Standing:</span>
+                <span id="wordRankLabel">Personal Standing:</span>
                 <span id="wordRankPositionNotice" class="font-bold text-amber-300">Rank #1</span>
               </div>
             </div>
@@ -1219,7 +1115,7 @@
                 ⏱️ Fastest Times
               </button>
             </div>
-            <button id="wordChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Choose a Team / Change Mode</button>
+            <button id="wordChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Change Player / Mode</button>
           </div>
         </div>
 
@@ -1346,7 +1242,7 @@
             <!-- Team Selection Dropdown -->
             <div class="bg-slate-900/90 border border-emerald-900/80 rounded-2xl p-3.5 space-y-2 text-left">
               <label for="vinePilotNameInput" class="block text-xs font-bold font-orbitron text-emerald-300 uppercase tracking-wider">
-                Select Your Team (Group):
+                Choose How to Play (Group):
               </label>
               <select id="vinePilotNameInput" class="team-dropdown-select w-full bg-slate-950 border border-emerald-600/70 rounded-xl px-3 py-2.5 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 font-sans cursor-pointer">
                 <option value="Just For Fun" selected>Just For Fun</option>
@@ -1407,29 +1303,22 @@
               </div>
             </div>
 
-            <!-- Save Team for Fastest Time Leaderboard -->
+            <!-- Save Personal for Fastest Time Leaderboard -->
             <div class="bg-slate-900/90 border border-emerald-800/80 rounded-2xl p-3.5 space-y-2 text-left">
               <p id="vinePracticeResultNotice" class="hidden text-[11px] font-semibold text-amber-300">Just For Fun: Your result is for practice only. No score is saved or recorded.</p>
               <div id="vineResultSaveControls">
               <label for="vineVictoryNameInput" class="block text-xs font-bold font-orbitron text-slate-200">
-                Team represented in this game:
+                Player for this game:
               </label>
               <div class="flex items-center space-x-2">
-                <select id="vineVictoryNameInput" class="team-dropdown-select flex-1 bg-slate-950 border border-emerald-500/70 rounded-xl px-3 py-2 text-xs sm:text-sm font-bold text-white focus:outline-none focus:ring-2 focus:ring-emerald-400 font-sans cursor-pointer" disabled>
-                <option value="Just For Fun" selected>Just For Fun</option>
-                <option value="Roots">Roots</option>
-                <option value="Transformers">Transformers</option>
-                <option value="Thrive">Thrive</option>
-                <option value="Endurance">Endurance</option>
-                <option value="Legacy">Legacy</option>
-              </select>
+                <input id="vineVictoryNameInput" type="text" readonly class="flex-1 min-w-0 bg-slate-950 border border-indigo-600/70 rounded-xl px-3 py-2 text-sm font-bold text-white" value="Just For Fun" />
                 <button id="vineUpdateNameBtn" type="button" class="bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer">
-                  Save Team Time
+                  Save Personal Time
                 </button>
               </div>
               </div>
               <div class="text-[11px] text-slate-400 flex items-center justify-between">
-                <span id="vineRankLabel">Team Standing:</span>
+                <span id="vineRankLabel">Personal Standing:</span>
                 <span id="vineRankPositionNotice" class="font-bold text-emerald-300">Rank #1</span>
               </div>
             </div>
@@ -1444,7 +1333,7 @@
                 ⏱️ Fastest Times
               </button>
             </div>
-            <button id="vineChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Choose a Team / Change Mode</button>
+            <button id="vineChangeModeBtn" type="button" class="w-full text-xs font-semibold text-cyan-300 hover:text-white underline underline-offset-2 cursor-pointer py-1">Change Player / Mode</button>
           </div>
         </div>
 
@@ -1488,12 +1377,12 @@
         <!-- Filter Tab Bar & Cloud Sync Notice -->
         <div class="flex items-center justify-between pt-2.5 pb-2 text-xs shrink-0 font-sans">
           <div class="flex rounded-xl bg-slate-950 p-1 font-semibold text-[11px] sm:text-xs">
-            <button id="tabRankingsAllBtn" type="button" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer">🏆 Team Standings</button>
-            <button id="tabRankingsRecentBtn" type="button" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition cursor-pointer">📋 All Team Runs</button>
+            <button id="tabRankingsAllBtn" type="button" class="px-2.5 py-1 rounded-lg bg-indigo-600 text-white font-bold transition cursor-pointer">🏆 Personal Standings</button>
+            <button id="tabRankingsRecentBtn" type="button" class="px-2.5 py-1 rounded-lg text-slate-400 hover:text-white transition cursor-pointer">📋 Personal Runs</button>
           </div>
           <div id="cloudLeaderboardTag" class="flex items-center space-x-1 text-[10px] text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded-full border border-emerald-800">
             <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span id="cloudLeaderboardText">Live Cloud</span>
+            <span id="cloudLeaderboardText">On This Device</span>
           </div>
         </div>
 
@@ -1613,7 +1502,7 @@
           </div>
           <div class="bg-amber-50 p-3 rounded-xl border border-amber-100">
             <h4 class="font-bold text-amber-950 mb-1">Master Sheet Live Dashboard</h4>
-            <p>The Dashboard shows the current live session (by IST clock), Team Maturity Scores for the Grand Prize, and important announcements &amp; session reflection questions.</p>
+            <p>The Dashboard shows the current live session (by IST clock), Retreat Memoriess for the Grand Prize, and important announcements &amp; session reflection questions.</p>
           </div>
           <div class="bg-slate-100 p-3 rounded-xl border border-slate-200">
             <h4 class="font-bold text-slate-900 mb-1">App Pages</h4>
@@ -1656,6 +1545,7 @@
     };
 
     // Practice is intentionally not a team, and has no recorded results.
+    const POST_RETREAT_MODE = true;
     const PRACTICE_TEAM = 'Just For Fun';
     function isPracticeTeam(name) {
       return String(name || '').trim().toLowerCase() === PRACTICE_TEAM.toLowerCase();
@@ -1692,7 +1582,7 @@
 
     // --- THEME VERSE BANNER CONSTANTS ---
     const DEFAULT_ANNOUNCEMENT_ID = 'ann_ephesians_4_13';
-    const DEFAULT_ANNOUNCEMENT_TEXT = '“...until we all reach unity in the faith and in the knowledge of the Son of God and become mature, attaining to the whole measure of the fullness of Christ” — Ephesians 4:13 (NIV)';
+    const DEFAULT_ANNOUNCEMENT_TEXT = 'Voyager 2026 has concluded. The journey towards spiritual maturity continues. We are not alone.';
 
     // --- RETREAT DATA STORE (PRE-LOADED WITH YOUR MASTER SHEET & LIVE-SYNCED) ---
     const retreatData = {
@@ -1721,12 +1611,12 @@
         },
         {
           id: 'n_team_prize',
-          title: 'Team Maturity Score & Grand Prize',
+          title: 'Retreat Memories & Grand Prize',
           author: 'Mission Control',
           category: 'Announcement',
           date: 'Live Now',
           pinned: true,
-          body: "Every session activity and participation in the app games adds towards your group's Final Maturity Score! The biggest addition is the Space Exploration game on Saturday. Check the Dashboard live to see your team's standing."
+          body: "Every session activity and participation in the app games adds towards your group's Final Maturity Score! The biggest addition is the Space Exploration game on Saturday. Check the Dashboard live to see your name's standing."
         },
         {
           id: 'n_reflection_1',
@@ -1762,7 +1652,7 @@
           category: 'Announcement',
           date: 'Live Now',
           pinned: false,
-          body: 'You will notice that everyone is in one group. That group will be your team through the whole retreat. Mentoring will take place within these groups. There will also be group activities, discussions, and games, that will be played as a group. You earn points as a group, and there is a final winner.'
+          body: 'You will notice that everyone is in one group. That group will be your name through the whole retreat. Mentoring will take place within these groups. There will also be group activities, discussions, and games, that will be played as a group. You earn points as a group, and there is a final winner.'
         },
         {
           id: 'n_app_games',
@@ -1850,50 +1740,80 @@
     }
 
     function populateTeamDropdowns() {
-      const teams = [PRACTICE_TEAM, ...getAvailableTeamNames()];
-      document.querySelectorAll('.team-dropdown-select').forEach(sel => {
-        const previous = sel.value;
-        sel.innerHTML = teams.map(t => `<option value="${escapeHtml(t)}">${escapeHtml(t)}</option>`).join('');
-        sel.value = teams.includes(previous) ? previous : PRACTICE_TEAM;
+      ['pilotNameInput','wordPilotNameInput','vinePilotNameInput'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        const wasNamed = sel.value === 'named';
+        sel.innerHTML = '<option value="fun">Just For Fun</option><option value="named">Enter Your Name</option>';
+        sel.value = wasNamed ? 'named' : 'fun';
+        sel.classList.add('post-retreat-mode');
+        const nameId = id + 'Personal';
+        let inp = document.getElementById(nameId);
+        if (!inp) {
+          inp = document.createElement('input');
+          inp.type = 'text'; inp.id = nameId; inp.maxLength = 40;
+          inp.autocomplete = 'nickname';
+          inp.placeholder = 'Your name (required)';
+          inp.className = 'w-full mt-2 rounded-xl border border-cyan-500/60 bg-slate-900 text-white font-semibold px-3 py-3 text-base focus:outline-none focus:ring-2 focus:ring-cyan-400';
+          sel.insertAdjacentElement('afterend', inp);
+          sel.addEventListener('change', updateGameModeNotices);
+          inp.addEventListener('input', updateGameModeNotices);
+        }
+        inp.classList.toggle('hidden', sel.value !== 'named');
+        inp.hidden = sel.value !== 'named';
       });
       updateGameModeNotices();
     }
 
-    // Each game has its own selection. The choice is locked when that run starts.
     function selectedGameTeam(selectId) {
       const sel = document.getElementById(selectId);
-      return cleanPlayerName(sel ? sel.value : PRACTICE_TEAM);
+      if (!sel || sel.value !== 'named') return PRACTICE_TEAM;
+      const inp = document.getElementById(selectId + 'Personal');
+      return inp ? String(inp.value || '').trim().replace(/\s+/g, ' ').slice(0, 40) : '';
+    }
+
+    function validatePersonalName(selectId) {
+      const sel = document.getElementById(selectId);
+      if (sel && sel.value === 'named' && (!selectedGameTeam(selectId) || isPracticeTeam(selectedGameTeam(selectId)) || !/^[\p{L}\p{N}]/u.test(selectedGameTeam(selectId)))) {
+        showToast('Enter your name before starting the game.', '⚠️');
+        document.getElementById(selectId + 'Personal')?.focus();
+        return false;
+      }
+      return true;
     }
 
     function updateGameModeNotices() {
       [
-        ['pilotNameInput', 'spaceModeNotice', 'score'],
-        ['wordPilotNameInput', 'wordModeNotice', 'time'],
-        ['vinePilotNameInput', 'vineModeNotice', 'time']
+        ['pilotNameInput','spaceModeNotice','score'],
+        ['wordPilotNameInput','wordModeNotice','time'],
+        ['vinePilotNameInput','vineModeNotice','time']
       ].forEach(([selectorId, noticeId, measure]) => {
+        const sel = document.getElementById(selectorId);
+        const inp = document.getElementById(selectorId + 'Personal');
+        if (inp && sel) inp.classList.toggle('hidden', sel.value !== 'named');
+        inp.hidden = sel.value !== 'named';
         const notice = document.getElementById(noticeId);
         if (!notice) return;
-        const team = selectedGameTeam(selectorId);
-        if (isPracticeTeam(team)) {
-          notice.textContent = `Just For Fun: Your ${measure} will not be saved, recorded or added to any team.`;
+        if (!sel || sel.value !== 'named') {
+          notice.textContent = `Just For Fun: Your ${measure} is not saved.`;
           notice.className = 'text-[11px] font-semibold text-amber-300';
         } else {
-          notice.textContent = `Playing for ${team}. Your ${measure} will be recorded automatically when you finish.`;
+          notice.textContent = 'Enter your name. Your result will be saved in Google Sheets for everyone to see. No team points are awarded.';
           notice.className = 'text-[11px] font-semibold text-emerald-300';
         }
       });
     }
 
-    function displayRunResultMode(game, team, resultSelectorId) {
-      const practice = isPracticeTeam(team);
+    function displayRunResultMode(game, player, resultSelectorId) {
+      const practice = isPracticeTeam(player);
       const controls = document.getElementById(game + 'ResultSaveControls');
       const note = document.getElementById(game + 'PracticeResultNotice');
       const label = document.getElementById(game + 'RankLabel');
-      const selector = document.getElementById(resultSelectorId);
+      const nameField = document.getElementById(resultSelectorId);
       if (controls) controls.classList.toggle('hidden', practice);
       if (note) note.classList.toggle('hidden', !practice);
-      if (label) label.textContent = practice ? 'Recording:' : 'Team Standing:';
-      if (selector) { selector.value = team; selector.disabled = true; }
+      if (label) label.textContent = practice ? 'Recording:' : 'Personal Standing:';
+      if (nameField) { nameField.value = player; nameField.disabled = true; }
     }
 
     // =========================================================================
@@ -2058,7 +1978,7 @@
       }
     }
 
-    // 2. Fetch Team Maturity Scores from Master Sheet
+    // 2. Fetch Retreat Memoriess from Master Sheet
     async function fetchScoresFromSheet() {
       const csvUrl = buildMasterTabCsvUrl('scores');
       if (!csvUrl) return false;
@@ -2262,27 +2182,12 @@
     }
 
     async function syncAllFromMasterSheet(silent = true) {
-  const results = await Promise.all([
-    fetchScheduleFromSheet(),
-    fetchScoresFromSheet(),
-    fetchNoticesFromSheet(true),
-    fetchParticipantsFromSheet()
-  ]);
-
-  // Show a schedule fetch problem rather than a misleading green Live badge.
-  if (results[0]) updateSyncStatus(true, `Schedule: ${retreatData.schedule.length} events`);
-  else updateSyncStatus(false, 'Schedule error');
-  if (!silent) {
-    const names = ['Schedule', 'Scores', 'Notices', 'Groups'];
-    const failed = names.filter((_, i) => !results[i]);
-
-    if (failed.length === 0) {
-      showToast('All four sheets synced!', '✅');
-    } else {
-      showToast('Failed to sync: ' + failed.join(', '), '⚠️');
+      const ok = await fetchParticipantsFromSheet();
+      // Only the historic group roster remains connected to the Sheet.
+      updateSyncStatus(ok, ok ? 'Retreat closed' : 'Retreat closed');
+      if (!silent) showToast(ok ? 'Group roster updated.' : 'Retreat closed. Stored roster still available.', ok ? '✅' : 'ℹ️');
+      return ok;
     }
-  }
-}
 
     // --- DOM Elements ---
     const scheduleContainer = document.getElementById('scheduleContainer');
@@ -2326,6 +2231,7 @@
 
     // --- BANNER RENDER & DISMISSAL LOGIC ---
     function renderAnnouncementBanner() {
+      retreatData.currentAnnouncementText = DEFAULT_ANNOUNCEMENT_TEXT;
       let dismissedId = null;
       try {
         dismissedId = localStorage.getItem('voyager_dismissed_announcement_id');
@@ -2521,6 +2427,7 @@
     }
 
     function updateLiveNowTicker() {
+      if (POST_RETREAT_MODE) return;
       updateIstClockDisplay();
       const active = getAutoSessionIST();
       currentLiveSessionId = active.liveItemId;
@@ -2605,6 +2512,7 @@
 
     // --- RENDER SCHEDULE ---
     function renderSchedule() {
+      if (POST_RETREAT_MODE) return;
       if (!scheduleContainer) return;
       scheduleContainer.innerHTML = '';
       const filtered = retreatData.schedule.filter(item => item.day === currentDayFilter);
@@ -2651,6 +2559,10 @@
 
     // --- RENDER DASHBOARD NOTICES & REFLECTION QUESTIONS ---
     function renderDashboardNotices() {
+      const closingNoticeText = 'The retreat has ended. Group Roots were the winners of the games. But we hope that everyone has learnt something significant and will make an effort to grow in spiritual maturity.';
+      const parent = document.getElementById("dashboardNoticesContainer");
+      if (parent) parent.innerHTML = `<div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 space-y-2"><div class="text-xs font-bold uppercase tracking-widest text-indigo-700">Retreat concluded</div><h3 class="text-lg font-extrabold text-indigo-950">Voyager 2026 · Closing Notice</h3><p class="text-sm text-slate-800 leading-relaxed">${closingNoticeText}</p></div>`;
+      return;
       const container = document.getElementById('dashboardNoticesContainer');
       if (!container) return;
       container.innerHTML = '';
@@ -2686,6 +2598,10 @@
 
     // --- RENDER FULL NOTICES PAGE ---
     function renderNotices() {
+      const closingNoticeText = 'The retreat has ended. Group Roots were the winners of the games. But we hope that everyone has learnt something significant and will make an effort to grow in spiritual maturity.';
+      const parent = document.getElementById("noticesContainer");
+      if (parent) parent.innerHTML = `<div class="bg-indigo-50 border border-indigo-200 rounded-2xl p-4 space-y-2"><div class="text-xs font-bold uppercase tracking-widest text-indigo-700">Retreat concluded</div><h3 class="text-lg font-extrabold text-indigo-950">Voyager 2026 · Closing Notice</h3><p class="text-sm text-slate-800 leading-relaxed">${closingNoticeText}</p></div>`;
+      return;
       if (!noticesContainer) return;
       noticesContainer.innerHTML = '';
 
@@ -3155,6 +3071,76 @@
 
     const sound = new SoundManager();
 
+    // The post-retreat individual leaderboard is shared across phones through Google Sheets.
+    // The five team standings and all team point-award sheets remain frozen.
+    async function refreshPersonalScoreDisplay() {
+      try {
+        const url = `${SHEET_CONFIG.leaderboardSheetScriptUrl}?action=individual-all&_t=${Date.now()}`;
+        const response = await fetch(url, { cache: 'no-store' });
+        if (!response.ok) throw new Error('Individual scores are unavailable');
+        const data = await response.json();
+        if (!data || data.ok !== true || !['space', 'word', 'vine'].every(k => Array.isArray(data[k]))) {
+          throw new Error('Deploy the new individual-scoring Apps Script version first');
+        }
+        leaderboard.records = data.space;
+        wordLeaderboard.records = data.word;
+        vineLeaderboard.records = data.vine;
+        highScore = leaderboard.records.reduce((n, r) => Math.max(n, Number(r.score) || 0), 0);
+        bestWordTime = wordLeaderboard.records.length ? Math.min(...wordLeaderboard.records.map(r => Number(r.time) || Infinity)) : null;
+        bestVineTime = vineLeaderboard.records.length ? Math.min(...vineLeaderboard.records.map(r => Number(r.time) || Infinity)) : null;
+        scoreServiceReady = true;
+        updateMainAppGameStats();
+        if (document.getElementById('leaderboardListContainer')) renderLeaderboardTable();
+        return true;
+      } catch (error) {
+        scoreServiceReady = false;
+        console.warn('Personal Google Sheets score refresh:', error);
+        return false;
+      }
+    }
+
+    async function savePersonalGameScore(entry) {
+      if (!entry || !entry.name || isPracticeTeam(entry.name)) return false;
+      const id = entry.runId;
+      const existing = pendingGameSubmissions.get(id);
+      if (existing && (existing.status === 'saved' || existing.status === 'saving')) return existing.status === 'saved';
+      pendingGameSubmissions.set(id, { status: 'saving', entry });
+      gameSubmissionUi(entry.game, id, 'saving', 'Saving your personal result to Google Sheets...');
+      try {
+        // Apps Script POST is opaque in a browser, so verify with its GET endpoint.
+        await fetch(SHEET_CONFIG.leaderboardSheetScriptUrl, {
+          method: 'POST', mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ ...entry, submissionType: 'individual' })
+        });
+        let confirmed = false;
+        for (let i = 0; i < 9; i++) {
+          await new Promise(resolve => setTimeout(resolve, i < 3 ? 1200 : 2300));
+          try {
+            const url = `${SHEET_CONFIG.leaderboardSheetScriptUrl}?action=individual-status&game=${encodeURIComponent(entry.game)}&runId=${encodeURIComponent(id)}&_t=${Date.now()}`;
+            const response = await fetch(url, { cache: 'no-store' });
+            if (!response.ok) continue;
+            const result = await response.json();
+            if (result.ok === true && result.saved === true && result.runId === id && result.individual === true) {
+              confirmed = true; break;
+            }
+          } catch (error) { console.warn('Individual score verification retry:', error); }
+        }
+        if (!confirmed) throw new Error('Could not verify personal score in Google Sheets');
+        pendingGameSubmissions.set(id, { status: 'saved', entry });
+        gameSubmissionUi(entry.game, id, 'saved', 'Saved in Google Sheets. Retreat team points are unchanged.');
+        await refreshAllGameScores();
+        showToast('Personal score confirmed in Google Sheets', '✅');
+        return true;
+      } catch (error) {
+        pendingGameSubmissions.set(id, { status: 'retry', entry });
+        gameSubmissionUi(entry.game, id, 'retry', 'Not confirmed in Google Sheets. Check your connection and press Retry Save.');
+        showToast('Personal score not confirmed. Please retry.', '⚠️');
+        console.warn('Personal score write failed:', error);
+        return false;
+      }
+    }
+
     // --- CENTRAL MINI-GAME SCORE SERVICE ---
     // Google Sheet is authoritative. Nothing here writes game scores to localStorage or Firebase.
     let scoreServiceReady = false;
@@ -3163,6 +3149,11 @@
     const SCORE_REFRESH_MS = 45000;
 
     async function refreshAllGameScores() {
+      if (POST_RETREAT_MODE) {
+        if (scoreSyncInFlight) return scoreSyncInFlight;
+        scoreSyncInFlight = refreshPersonalScoreDisplay().finally(() => { scoreSyncInFlight = null; });
+        return scoreSyncInFlight;
+      }
       if (scoreSyncInFlight) return scoreSyncInFlight;
       scoreSyncInFlight = (async () => {
         try {
@@ -3229,7 +3220,7 @@
       if (note) note.textContent = message;
       if (btn) {
         btn.disabled = state === 'saving' || state === 'saved';
-        btn.textContent = state === 'saving' ? 'Recording...' : state === 'saved' ? 'Saved in Sheet ✓' : 'Retry Save';
+        btn.textContent = state === 'saving' ? 'Recording...' : state === 'saved' ? 'Saved in Google Sheets ✓' : 'Retry Save';
       }
       if (state === 'saved') {
         if (game === 'space') hasSavedCurrentSpaceScore = true;
@@ -3239,12 +3230,13 @@
     }
 
     async function submitGameToSheet(entry) {
+      if (POST_RETREAT_MODE) return savePersonalGameScore(entry);
       if (!entry || !matchCanonicalTeam(entry.name) || isPracticeTeam(entry.name)) return false;
       const id = entry.runId;
       const existing = pendingGameSubmissions.get(id);
       if (existing && (existing.status === 'saved' || existing.status === 'saving')) return existing.status === 'saved';
       pendingGameSubmissions.set(id, { status: 'saving', entry });
-      gameSubmissionUi(entry.game, id, 'saving', 'Recording your attempt in Google Sheets...');
+      gameSubmissionUi(entry.game, id, 'saving', 'Saving your result on this device...');
       try {
         // Apps Script accepts text/plain without a CORS preflight. The POST result
         // is opaque: verify with a separate GET instead of claiming it is saved.
@@ -3579,85 +3571,32 @@
     // --- CANVAS RESIZE ---
     // Group all game runs by Team Name to rank Teams 1st, 2nd, 3rd, 4th in each game
     function getTeamStandingsForGame(gameType) {
-      const teamMap = new Map();
-
-      if (gameType === 'space') {
-        const list = (typeof leaderboard !== 'undefined' && leaderboard.records) ? leaderboard.records : [];
-        list.forEach(r => {
-          if (!matchCanonicalTeam(r.name)) return;
-          const tName = toGameTeamName(r.name);
-          const sc = Number(r.score || 0);
-          const dist = Number(r.distance || 0);
-          const coins = Number(r.coins || 0);
-          if (!teamMap.has(tName)) {
-            teamMap.set(tName, { team: tName, bestScore: sc, bestDistance: dist, bestCoins: coins, runs: 1, totalScore: sc, date: r.date || 'Recent' });
-          } else {
-            const cur = teamMap.get(tName);
-            cur.runs += 1;
-            cur.totalScore += sc;
-            if (sc > cur.bestScore) {
-              cur.bestScore = sc;
-              cur.bestDistance = dist;
-              cur.bestCoins = coins;
-              cur.date = r.date || cur.date;
-            }
-          }
-        });
-        return [...teamMap.values()].sort((a, b) => b.bestScore - a.bestScore);
-      }
-
-      if (gameType === 'word') {
-        const list = (typeof wordLeaderboard !== 'undefined' && wordLeaderboard.records) ? wordLeaderboard.records : [];
-        list.forEach(r => {
-          if (!matchCanonicalTeam(r.name)) return;
-          const tName = toGameTeamName(r.name);
-          const tm = Number(r.time || 999);
-          if (!teamMap.has(tName)) {
-            teamMap.set(tName, { team: tName, fastestTime: tm, runs: 1, date: r.date || 'Recent' });
-          } else {
-            const cur = teamMap.get(tName);
-            cur.runs += 1;
-            if (tm < cur.fastestTime) {
-              cur.fastestTime = tm;
-              cur.date = r.date || cur.date;
-            }
-          }
-        });
-        return [...teamMap.values()].sort((a, b) => a.fastestTime - b.fastestTime);
-      }
-
-      if (gameType === 'vine') {
-        const list = (typeof vineLeaderboard !== 'undefined' && vineLeaderboard.records) ? vineLeaderboard.records : [];
-        list.forEach(r => {
-          if (!matchCanonicalTeam(r.name)) return;
-          const tName = toGameTeamName(r.name);
-          const tm = Number(r.time || 9999);
-          const mv = Number(r.moves || 0);
-          if (!teamMap.has(tName)) {
-            teamMap.set(tName, { team: tName, fastestTime: tm, bestMoves: mv, runs: 1, date: r.date || 'Recent' });
-          } else {
-            const cur = teamMap.get(tName);
-            cur.runs += 1;
-            if (tm < cur.fastestTime) {
-              cur.fastestTime = tm;
-              cur.bestMoves = mv;
-              cur.date = r.date || cur.date;
-            }
-          }
-        });
-        return [...teamMap.values()].sort((a, b) => a.fastestTime - b.fastestTime);
-      }
-
-      return [];
+      const rows = gameType === 'space' ? leaderboard.records : gameType === 'word' ? wordLeaderboard.records : vineLeaderboard.records;
+      const names = new Map();
+      rows.forEach(r => {
+        const playerName = String(r.name || '').trim();
+        if (!playerName || isPracticeTeam(playerName)) return;
+        const key = playerName.toLowerCase();
+        const value = Number(gameType === 'space' ? r.score : r.time);
+        if (!Number.isFinite(value)) return;
+        const prev = names.get(key);
+        const better = !prev || (gameType === 'space' ? value > prev.bestScore : value < prev.fastestTime);
+        if (!prev) names.set(key, {team: playerName, runs:1, bestScore:value, fastestTime:value, bestDistance:Number(r.distance)||0, bestCoins:Number(r.coins)||0, bestMoves:Number(r.moves)||0});
+        else {
+          prev.runs++;
+          if (better) Object.assign(prev, { bestScore:value, fastestTime:value, bestDistance:Number(r.distance)||0, bestCoins:Number(r.coins)||0, bestMoves:Number(r.moves)||0 });
+        }
+      });
+      return [...names.values()].sort((a,b) => gameType==='space' ? b.bestScore-a.bestScore : a.fastestTime-b.fastestTime);
     }
 
     function renderMiniPodiumHtml(standings, isScoreGame) {
       if (!standings || standings.length === 0) {
-        return `<div class="text-[11px] text-slate-400 italic text-center py-1">No team scores recorded yet — select your team and play!</div>`;
+        return `<div class="text-[11px] text-slate-400 italic text-center py-1">No personal scores yet — enter a name and play!</div>`;
       }
       const medals = ['🥇 1st', '🥈 2nd', '🥉 3rd', '4th', '5th', '6th'];
       return `
-        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Live Team Standings</div>
+        <div class="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Live Personal Standings</div>
         <div class="grid grid-cols-2 gap-1.5">
           ${standings.map((s, idx) => {
             const valStr = isScoreGame ? `${Number(s.bestScore).toLocaleString()} pts` : `${Number(s.fastestTime).toFixed(2)}s`;
@@ -3728,8 +3667,8 @@
       const vineTeams = getTeamStandingsForGame('vine');
 
       const lines = [];
-      lines.push('VOYAGER 2026 - TEAM MINI-GAME STANDINGS (TEAM STANDINGS PER GAME)');
-      lines.push('Game,Place,Team Name,Best Score / Fastest Time,Total Team Runs,Details');
+      lines.push('VOYAGER 2026 - PERSONAL MINI-GAME STANDINGS (GOOGLE SHEETS)');
+      lines.push('Game,Place,Player Name,Best Score / Fastest Time,Total Personal Runs,Details');
 
       const addStandingsRows = (gameLabel, standings, isScore) => {
         if (standings.length === 0) {
@@ -3764,12 +3703,12 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'voyager_2026_team_game_standings.csv';
+      a.download = 'voyager_2026_personal_game_scores.csv';
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast('Downloaded voyager_2026_team_game_standings.csv!', '📥');
+      showToast('Downloaded voyager_2026_personal_game_scores.csv!', '📥');
     }
 
     function resizeCanvas() {
@@ -3804,7 +3743,7 @@
       const nameInp = document.getElementById('gameOverPilotNameInput');
       if (saveBtn) {
         saveBtn.disabled = false;
-        saveBtn.textContent = 'Save Team Score';
+        saveBtn.textContent = 'Save Personal Score';
         saveBtn.className = "bg-cyan-600 hover:bg-cyan-500 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer";
       }
       if (nameInp) nameInp.disabled = false;
@@ -3881,7 +3820,7 @@
       const rank = leaderboard.getRank(score);
       document.getElementById('rankPositionNotice').textContent = isPracticeTeam(currentSpaceTeam)
         ? 'Just For Fun. Not recorded.'
-        : `Projected Rank #${rank} (Automatically recording in Sheet)`;
+        : `Projected Rank #${rank} (Saved locally when you finish)`;
       updateMainAppGameStats();
       if (!isPracticeTeam(currentSpaceTeam)) submitSpaceScore();
 
@@ -4809,12 +4748,13 @@
     let hasSavedCurrentWordScore = false;
 
     function startWordStreamGame() {
+      if (!validatePersonalName('wordPilotNameInput')) return;
       if (!isPracticeTeam(selectedGameTeam('wordPilotNameInput')) && hasUnconfirmedGameRuns()) {
-        showToast('A previous team score needs confirmation. Use Retry Save first.', '⚠️');
+        showToast('A previous personal score needs confirmation. Use Retry Save first.', '⚠️');
         return;
       }
       if (!isPracticeTeam(selectedGameTeam('wordPilotNameInput')) && !scoreServiceReady) {
-        showToast('Google Sheets scores are offline. Retry Sync before playing for your team.', '⚠️');
+        showToast('Google Sheets scores are offline. Retry Sync before playing for your name.', '⚠️');
         refreshAllGameScores();
         return;
       }
@@ -4825,7 +4765,7 @@
       const wNameInp = document.getElementById('wordVictoryNameInput');
       if (wSaveBtn) {
         wSaveBtn.disabled = false;
-        wSaveBtn.textContent = 'Save Team Time';
+        wSaveBtn.textContent = 'Save Personal Time';
         wSaveBtn.className = "bg-amber-500 hover:bg-amber-400 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer";
       }
       if (wNameInp) wNameInp.disabled = false;
@@ -4884,7 +4824,7 @@
       const projectedRank = wordLeaderboard.getRank(wordFinalElapsedSeconds);
       document.getElementById('wordRankPositionNotice').textContent = isPracticeTeam(currentWordTeam)
         ? 'Just For Fun. Not recorded.'
-        : `Projected Rank #${projectedRank} (Automatically recording in Sheet)`;
+        : `Projected Rank #${projectedRank} (Saved locally when you finish)`;
 
       updateMainAppGameStats();
       if (!isPracticeTeam(currentWordTeam)) submitWordScore();
@@ -5213,12 +5153,13 @@
     }
 
     function startVinePuzzleGame() {
+      if (!validatePersonalName('vinePilotNameInput')) return;
       if (!isPracticeTeam(selectedGameTeam('vinePilotNameInput')) && hasUnconfirmedGameRuns()) {
-        showToast('A previous team score needs confirmation. Use Retry Save first.', '⚠️');
+        showToast('A previous personal score needs confirmation. Use Retry Save first.', '⚠️');
         return;
       }
       if (!isPracticeTeam(selectedGameTeam('vinePilotNameInput')) && !scoreServiceReady) {
-        showToast('Google Sheets scores are offline. Retry Sync before playing for your team.', '⚠️');
+        showToast('Google Sheets scores are offline. Retry Sync before playing for your name.', '⚠️');
         refreshAllGameScores();
         return;
       }
@@ -5230,7 +5171,7 @@
       const vNameInp = document.getElementById('vineVictoryNameInput');
       if (vSaveBtn) {
         vSaveBtn.disabled = false;
-        vSaveBtn.textContent = 'Save Team Time';
+        vSaveBtn.textContent = 'Save Personal Time';
         vSaveBtn.className = "bg-emerald-500 hover:bg-emerald-400 active:scale-95 text-slate-950 text-xs font-black font-orbitron px-3 py-2 rounded-xl transition shrink-0 cursor-pointer";
       }
       if (vNameInp) vNameInp.disabled = false;
@@ -5276,7 +5217,7 @@
       const projectedRank = vineLeaderboard.getRank(vineFinalElapsedSeconds);
       document.getElementById('vineRankPositionNotice').textContent = isPracticeTeam(currentVineTeam)
         ? 'Just For Fun. Not recorded.'
-        : `Projected Rank #${projectedRank} (Automatically recording in Sheet)`;
+        : `Projected Rank #${projectedRank} (Saved locally when you finish)`;
 
       updateMainAppGameStats();
       if (!isPracticeTeam(currentVineTeam)) submitVineScore();
@@ -5393,7 +5334,7 @@
       if (leaderboardViewMode === 'all') {
         const standings = getTeamStandingsForGame(activeLeaderboardGame);
         if (standings.length === 0) {
-          container.innerHTML = '<div class="text-slate-500 text-center py-6">No team scores recorded for this game yet. Select your team and play!</div>';
+          container.innerHTML = '<div class="text-slate-500 text-center py-6">No personal scores yet. Enter a name and play!</div>';
           return;
         }
 
@@ -5410,10 +5351,10 @@
                 <div class="min-w-0">
                   <div class="font-bold text-white text-sm truncate flex items-center gap-1.5">
                     <span>${escapeHtml(s.team)}</span>
-                    ${isCurrentTeam ? '<span class="text-[9px] bg-cyan-950 text-cyan-300 px-1.5 py-0.5 rounded border border-cyan-700">YOUR TEAM</span>' : ''}
+                    ${isCurrentTeam ? '<span class="text-[9px] bg-cyan-950 text-cyan-300 px-1.5 py-0.5 rounded border border-cyan-700">YOUR NAME</span>' : ''}
                   </div>
                   <div class="text-[10px] text-slate-400 flex items-center space-x-2">
-                    <span>${Number(s.runs)} Team Run${s.runs === 1 ? '' : 's'}</span>
+                    <span>${Number(s.runs)} Personal Run${s.runs === 1 ? '' : 's'}</span>
                     <span>•</span>
                     <span>Best Ascent: ${Number(s.bestDistance || 0)} km</span>
                   </div>
@@ -5421,7 +5362,7 @@
               </div>
               <div class="text-right shrink-0 pl-2">
                 <div class="font-orbitron font-black text-sm sm:text-base text-cyan-300">${Number(s.bestScore || 0).toLocaleString()}</div>
-                <div class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">BEST TEAM PTS</div>
+                <div class="text-[9px] text-slate-500 uppercase tracking-widest font-mono">PERSONAL BEST</div>
               </div>
             `;
           } else if (activeLeaderboardGame === 'word') {
@@ -5432,10 +5373,10 @@
                 <div class="min-w-0">
                   <div class="font-bold text-white text-sm truncate flex items-center gap-1.5">
                     <span>${escapeHtml(s.team)}</span>
-                    ${isCurrentTeam ? '<span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-700">YOUR TEAM</span>' : ''}
+                    ${isCurrentTeam ? '<span class="text-[9px] bg-amber-950 text-amber-300 px-1.5 py-0.5 rounded border border-amber-700">YOUR NAME</span>' : ''}
                   </div>
                   <div class="text-[10px] text-slate-400 flex items-center space-x-2">
-                    <span>${Number(s.runs)} Team Run${s.runs === 1 ? '' : 's'}</span>
+                    <span>${Number(s.runs)} Personal Run${s.runs === 1 ? '' : 's'}</span>
                     <span>•</span>
                     <span>Hebrews 5:14 (NIV)</span>
                   </div>
@@ -5454,10 +5395,10 @@
                 <div class="min-w-0">
                   <div class="font-bold text-white text-sm truncate flex items-center gap-1.5">
                     <span>${escapeHtml(s.team)}</span>
-                    ${isCurrentTeam ? '<span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-700">YOUR TEAM</span>' : ''}
+                    ${isCurrentTeam ? '<span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-700">YOUR NAME</span>' : ''}
                   </div>
                   <div class="text-[10px] text-slate-400 flex items-center space-x-2">
-                    <span>${Number(s.runs)} Team Run${s.runs === 1 ? '' : 's'}</span>
+                    <span>${Number(s.runs)} Personal Run${s.runs === 1 ? '' : 's'}</span>
                     <span>•</span>
                     <span>Best: ${Number(s.bestMoves || 0)} Moves</span>
                   </div>
@@ -5557,12 +5498,13 @@
     }
 
     function startNewFlight() {
+      if (!validatePersonalName('pilotNameInput')) return;
       if (!isPracticeTeam(selectedGameTeam('pilotNameInput')) && hasUnconfirmedGameRuns()) {
-        showToast('A previous team score needs confirmation. Use Retry Save first.', '⚠️');
+        showToast('A previous personal score needs confirmation. Use Retry Save first.', '⚠️');
         return;
       }
       if (!isPracticeTeam(selectedGameTeam('pilotNameInput')) && !scoreServiceReady) {
-        showToast('Google Sheets scores are offline. Retry Sync before playing for your team.', '⚠️');
+        showToast('Google Sheets scores are offline. Retry Sync before playing for your name.', '⚠️');
         refreshAllGameScores();
         return;
       }
@@ -5800,9 +5742,9 @@
           showToast('Score already saved for this flight! Play again to submit a new score.', 'ℹ️');
           return;
         }
-        // A completed practice run can never be converted into a team score.
+        // A completed practice run can never be converted into a named score.
         if (isPracticeTeam(currentSpaceTeam)) {
-          showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
+          showToast('Just For Fun: This result is not recorded. Enter your name before starting a new game.', 'ℹ️');
           return;
         }
         submitSpaceScore();
@@ -5960,9 +5902,9 @@
           showToast('Time already saved for this round! Play again to submit a new time.', 'ℹ️');
           return;
         }
-        // A completed practice run can never be converted into a team score.
+        // A completed practice run can never be converted into a named score.
         if (isPracticeTeam(currentWordTeam)) {
-          showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
+          showToast('Just For Fun: This result is not recorded. Enter your name before starting a new game.', 'ℹ️');
           return;
         }
         submitWordScore();
@@ -6049,9 +5991,9 @@
           showToast('Time already saved for this puzzle! Play again to submit a new time.', 'ℹ️');
           return;
         }
-        // A completed practice run can never be converted into a team score.
+        // A completed practice run can never be converted into a named score.
         if (isPracticeTeam(currentVineTeam)) {
-          showToast('Just For Fun: This result is not recorded. Choose a team before starting a new game.', 'ℹ️');
+          showToast('Just For Fun: This result is not recorded. Enter your name before starting a new game.', 'ℹ️');
           return;
         }
         submitVineScore();
@@ -6071,63 +6013,11 @@
       });
     }
     window.addEventListener('offline', () => updateSyncStatus(false, 'Offline'));
-    window.addEventListener('online', () => updateSyncStatus(true, 'Live'));
+    window.addEventListener('online', () => updateSyncStatus(true, 'Retreat closed'));
   </script>
     
 <script>
-  // Put announcements above team scores on the Dashboard
-  const announcementsCard =
-    document.getElementById('dashboardNoticesContainer').parentElement;
-
-  const scoresCard =
-    document.getElementById('dashboardTeamScoresContainer').parentElement;
-
-  scoresCard.before(announcementsCard);
-</script>
-    <!-- Voyager 2026: live countdown to next event in the synced Schedule -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-  const nextLabel = document.getElementById('dashboardCountdownNextEvent');
-    if (!nextLabel) return;
-
-    const countdown = document.createElement('div');
-    countdown.id = 'dashboardCountdown';
-    countdown.className = 'mt-1 font-mono font-extrabold text-xl text-amber-300 tracking-wide';
-    countdown.setAttribute('role', 'timer');
-    countdown.textContent = 'Loading countdown...';
-    nextLabel.insertAdjacentElement('afterend', countdown);
-
-    function updateNextEventCountdown() {
-      const now = Date.now();
-      if (!retreatData.schedule.length) {
-        nextLabel.textContent = scheduleLoadState === 'loading' ? 'Loading schedule…' : 'Schedule unavailable';
-        countdown.textContent = scheduleLoadState === 'loading' ? 'Checking Google Sheets…' : 'Please check Sync';
-        return;
-      }
-      const upcoming = getScheduleTimeline().filter(event => event.startsAt > now);
-      if (upcoming.length === 0) {
-        nextLabel.textContent = 'No more scheduled events';
-        countdown.textContent = 'Schedule complete';
-        return;
-      }
-      const { item, startsAt } = upcoming[0];
-      nextLabel.textContent = `${getDayLabel(Number(item.day))} • ${item.time} — ${item.activity}`;
-
-      const remaining = Math.ceil((startsAt - now) / 1000);
-      const days = Math.floor(remaining / 86400);
-      const hours = Math.floor((remaining % 86400) / 3600);
-      const minutes = Math.floor((remaining % 3600) / 60);
-      const seconds = remaining % 60;
-      const pad = value => String(value).padStart(2, '0');
-
-      countdown.textContent = days > 0
-        ? `${days}d ${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`
-        : `${pad(hours)}h ${pad(minutes)}m ${pad(seconds)}s`;
-    }
-
-    updateNextEventCountdown();
-    setInterval(updateNextEventCountdown, 1000);
-  });
+  // Dashboard now follows the post-retreat content order.
 </script>
 </body>
 </html>
